@@ -1,0 +1,3 @@
+2019-07-23T21:57:21.201Z: Received request for analysing video: 456859925
+2019-07-23T21:57:21.202Z: RechatTool is still running for 456859925!
+2019-07-23T21:57:21.213Z: While running highlightFinder(): Error: spawn C:\Windows\system32\cmd.exe ENOENT

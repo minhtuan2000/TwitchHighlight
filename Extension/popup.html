@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="popup.css">
+    <script src="popup.js"></script>
+    <script src="connection.js"></script>
+    <script src="config.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <h3 id="header-text">Twitch Highlights</h3>
+      <img id="setting-icon" src="images/setting.png" style="width: 20px; height: 20px; padding: 0px; margin: 0px; vertical-align: middle;">
+    </div>
+    <div id="main">
+      <div id="setting">
+        <div style="padding: 2px">
+          Number of highlights: 
+          <input type="number" style="width: 60px;" name="n" min="5" max="50" value="15">
+        </div>
+        <div style="padding: 2px">
+          Length of highlights: &nbsp; 
+          <input type="number" style="width: 60px;" name="l" min="1" max="10" value="2"> min  
+        </div>
+        <div style="padding: 2px">
+          Offset : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          <input type="number" style="width: 60px;" name="offset" min="-500" max="500" value="5"> sec
+        </div>
+      </div>
+
+      <div id="message">
+        <span id="message-text">Open a Twitch video to analyze</span>
+      </div>
+      
+      <div id="highlight-container"></div>
+
+    </div>
+    <div id="footer">
+    </div>
+  </body>
+</html>

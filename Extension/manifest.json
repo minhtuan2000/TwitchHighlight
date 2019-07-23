@@ -1,0 +1,21 @@
+{
+  "name": "Twitch Highlights",
+  "version": "0.2.1",
+  "description": "Get highlights from Twitch videos!",
+  "permissions": [
+    "activeTab", 
+    "webRequest",
+    "webRequestBlocking",
+    "http://35.233.106.177/*"
+  ],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "images/512.png"
+    }
+  },
+  "icons": {
+    "128": "images/512.png"
+  },
+  "manifest_version": 2
+}
