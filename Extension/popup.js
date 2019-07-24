@@ -44,6 +44,32 @@ function setButton(id, url, i, time){
   //console.log("Add button to " + time);
 }
 
+function autoPlay(id, url, i, highlights){
+  // Return after playing every highlights
+  if (i >= highlights.length){
+    let autoplayWarning = document.getElementById("autoplay-warning");
+    autoplayWarning.style.display = "none";
+  } else {
+    chrome.tabs.update(id, {url: "https://www.twitch.tv/videos/" + getVideoCode(url) + "?t=" + highlights[i]});
+    setTimeout(() => {autoPlay(id, url, i + 1, highlights)}, l * 60 * 1000);
+  }
+}
+
+function setAutoplayButton(id, url, highlights){
+  //DOM variables
+  let autoplayContainer = document.getElementById("autoplay-container");
+  let autoplayButton = document.getElementById("autoplay-button");
+  
+  autoplayContainer.style.display = "block";
+  autoplayButton.onclick = function(){
+    if (highlights.length > 0){
+      let autoplayWarning = document.getElementById("autoplay-warning");
+      autoplayWarning.style.display = "block";
+      autoPlay(id, url, 0, highlights);
+    } 
+  }
+}
+
 function getVideoCode(url){
   let res = url.substring(29);
   let i = 0;
@@ -73,6 +99,9 @@ function sendRequest(tabId, tabUrl){
       for (let i = 0; i < response.length; i++){
         setButton(tabId, tabUrl, i, response[i]);
       }
+
+      //Rewire autoplay button
+      setAutoplayButton(tabId, tabUrl, response);
       
       //Send a request to get update every 7 seconds
       //alert("I am still running!");

@@ -13,12 +13,14 @@ function checkServer(){
         console.log("Server is online");
         online = true;
         document.getElementById("footer").style.backgroundColor = "forestgreen";
+        document.getElementById("footer").title = "Status: Connected!";
         changeMessage(recentMessage[0], recentMessage[1], recentMessage[2]);
       } else {
         // Server is not available
         console.log("Sever is offline");
         online = false;
         document.getElementById("footer").style.backgroundColor = "red";
+        document.getElementById("footer").title = "Status: Disconnected!";
         changeMessage("Connection lost! Retrying...", "red", "white");
       }
     }

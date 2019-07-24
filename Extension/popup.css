@@ -1,6 +1,6 @@
 body{
     width: 300px;
-    margin:0px;
+    margin: 0px;
 }
 
 .button{
@@ -13,7 +13,7 @@ body{
 }
 
 #header{
-    background-color: rgb(168, 46, 168);
+    background-color: #6441a4;
     padding: 5px;
 }
 
@@ -34,6 +34,7 @@ body{
 }
 
 #message{
+    padding: 2px 0px;
     height: 25px;
     margin: 0px;
     text-align: center;
@@ -46,9 +47,15 @@ body{
 }
 
 #setting{
-    padding-left: 60px;
-    background-color: rgba(128, 0, 128, 0.377);
+    padding: 5px 0px;
+    padding-left: 120px;
+    background-color: #6441a4b9;
     display: none;
+}
+
+#setting-table{
+    border-spacing: 15px 5px;
+    vertical-align: middle;
 }
 
 #setting-icon{
@@ -57,4 +64,21 @@ body{
 
 #highlight-container{
     padding: 5px 30px;
+}
+
+#autoplay-container{
+    text-align: center;
+    display: none;
+}
+
+#autoplay-button{
+    margin: 15px;
+    background-color: blueviolet;
+    color: white;
+    padding: 5px 15px;
+}
+
+#autoplay-warning{
+    color: darkorange;
+    display: none;
 }

@@ -9,32 +9,49 @@
   <body>
     <div id="header">
       <h3 id="header-text">Twitch Highlights</h3>
-      <img id="setting-icon" src="images/setting.png" style="width: 20px; height: 20px; padding: 0px; margin: 0px; vertical-align: middle;">
+      <img id="setting-icon"  title="Setting" src="images/setting.png" style="width: 20px; height: 20px; padding: 0px; margin: 0px; vertical-align: middle;">
     </div>
     <div id="main">
       <div id="setting">
-        <div style="padding: 2px">
-          Number of highlights: 
-          <input type="number" style="width: 60px;" name="n" min="5" max="50" value="15">
+        <table id="setting-table">
+          <tr title="Set the total number of highlights">
+            <td>Count:</td>
+            <td>
+              <input type="number" style="width: 40px;" name="n" min="5" max="50" value="15">
+            </td>
+          </tr>
+          <tr title="Set a fixed length for each highlight">
+            <td>Length:</td>
+            <td>
+              <input type="number" style="width: 40px;" name="l" min="1" max="10" value="2"> min  
+            </td>
+          </tr>
+          <tr title="Set the uncertainty duration">
+            <td>Offset:</td>
+            <td>
+              <input type="number" style="width: 40px;" name="offset" min="-500" max="500" value="5"> sec
+            </td>
+          </tr>
+        </table>          
         </div>
-        <div style="padding: 2px">
-          Length of highlights: &nbsp; 
-          <input type="number" style="width: 60px;" name="l" min="1" max="10" value="2"> min  
-        </div>
-        <div style="padding: 2px">
-          Offset : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          <input type="number" style="width: 60px;" name="offset" min="-500" max="500" value="5"> sec
-        </div>
+        <div id="setting-error" style="color: red; text-align: center;"></div>
       </div>
 
       <div id="message">
         <span id="message-text">Open a Twitch video to analyze</span>
       </div>
       
-      <div id="highlight-container"></div>
+      <div id="highlight-container">
+        <div id="highlight-container-error" style="color: red; text-align: center;"></div>
+      </div>
+
+      <div id="autoplay-container">
+        <button id="autoplay-button">Autoplay</button>
+        <div id="autoplay-warning"> Clicking outside of this extension will stop the autoplay!</div>
+      </div>
 
     </div>
-    <div id="footer">
+    <div id="footer" title="Status: Checking...">
     </div>
   </body>
 </html>
