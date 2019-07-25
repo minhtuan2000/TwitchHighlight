@@ -5,6 +5,7 @@
     <script src="popup.js"></script>
     <script src="connection.js"></script>
     <script src="config.js"></script>
+    <script src="autoplay.js"></script>
   </head>
   <body>
     <div id="header">
@@ -13,30 +14,61 @@
     </div>
     <div id="main">
       <div id="setting">
-        <table id="setting-table">
-          <tr title="Set the total number of highlights">
-            <td>Count:</td>
-            <td>
-              <input type="number" style="width: 40px;" name="n" min="5" max="50" value="15">
-            </td>
-          </tr>
-          <tr title="Set a fixed length for each highlight">
-            <td>Length:</td>
-            <td>
-              <input type="number" style="width: 40px;" name="l" min="1" max="10" value="2"> min  
-            </td>
-          </tr>
-          <tr title="Set the uncertainty duration">
-            <td>Offset:</td>
-            <td>
-              <input type="number" style="width: 40px;" name="offset" min="-500" max="500" value="5"> sec
-            </td>
-          </tr>
-        </table>          
+        <div id="setting-menu">
+          <div id="choice-basic" class="choice" title="Basic algorithm">
+            Basic Algorithm
+          </div>
+          <div id="choice-advance" class="choice" title="Advance algorithm: auto-optimized number and length of highlights">
+            Advance Algorithm
+          </div>
+        </div>
+        <div id="setting-basic">
+          <table id="setting-table-basic" class="setting-table">
+            <tr title="Set the total number of highlights">
+              <td>Count:</td>
+              <td>
+                <input type="number" style="width: 40px;" name="n" min="5" max="50" value="15">
+              </td>
+            </tr>
+            <tr title="Set a fixed length for each highlight">
+              <td>Length:</td>
+              <td>
+                <input type="number" style="width: 40px;" name="l" min="1" max="10" value="2"> min  
+              </td>
+            </tr>
+            <tr title="Set the uncertainty duration">
+              <td>Offset:</td>
+              <td>
+                <input type="number" style="width: 40px;" name="offset" min="-500" max="500" value="5"> sec
+              </td>
+            </tr>
+          </table>   
+        </div>
+        <div id="setting-advance">
+          <table id="setting-table-advance" class="setting-table">
+            <tr>
+              <td></td>
+              <td>
+                RANGE
+              </td>
+            </tr>
+            <tr title="Set the minimum number of highlights you want">
+              <td>From:</td>
+              <td>
+                <input type="number" style="width: 40px;" name="mincount" min="1" max="50" value="1"> highlights
+              </td>
+            </tr>
+            <tr title="Set the maximum number of highlights you want">
+              <td>To:</td>
+              <td>
+                <input type="number" style="width: 40px;" name="maxcount" min="1" max="50" value="50"> highlights
+              </td>
+            </tr>
+          </table>   
         </div>
         <div id="setting-error" style="color: red; text-align: center;"></div>
       </div>
-
+    
       <div id="message">
         <span id="message-text">Open a Twitch video to analyze</span>
       </div>

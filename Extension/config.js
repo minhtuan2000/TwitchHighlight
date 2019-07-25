@@ -3,14 +3,30 @@
 
 chrome.tabs.getSelected(null, function(tab){
     //Initialize DOM elements
-    const settingButton = document.getElementById("setting-icon")
+    const settingButton = document.getElementById("setting-icon");
+    const settingBasicButton = document.getElementById("choice-basic");
+    const settingAdvanceButton = document.getElementById("choice-advance");
     const textboxN = document.getElementsByName("n")[0];
     const textboxL = document.getElementsByName("l")[0];
     const textboxOffset = document.getElementsByName("offset")[0];
 
+    settingBasicButton.addEventListener("click", function(){
+        const settingBasicPage = document.getElementById("setting-basic");
+        const settingAdvancePage = document.getElementById("setting-advance");
+        settingBasicPage.style.display = "inline-block";
+        settingAdvancePage.style.display = "none";
+    });
+
+    settingAdvanceButton.addEventListener("click", function(){
+        const settingBasicPage = document.getElementById("setting-basic");
+        const settingAdvancePage = document.getElementById("setting-advance");
+        settingBasicPage.style.display = "none";
+        settingAdvancePage.style.display = "inline-block";
+    });
+
     //console.log(settingButton);
     settingButton.addEventListener("click", function(){
-        let settingPage = document.getElementById("setting");
+        const settingPage = document.getElementById("setting");
         if (settingPage.style.display == "none"){
             settingPage.style.display = "block";
             textboxN.value = n;
