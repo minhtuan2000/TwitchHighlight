@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const uuidv4 = require('uuid/v4');
 const router = express.Router();
 const getChat = require('./modules').getChat;
 const highlightFinder = require('./modules').highlightFinder;
@@ -14,7 +15,7 @@ function getVideoCode(url){
     return res.substring(0, i);
 }
 
-async function getHighlights(url, n, l, offset){
+async function getHighlights(url, isBasic, n, l, offset, from, to){
     let code = getVideoCode(url);
     //Log
     console.log("Received request for analysing video: " + code);
@@ -38,8 +39,22 @@ async function getHighlights(url, n, l, offset){
                 writeLog("RechatTool is still running for " + code + "!");
             }
 
-            let highlights = await highlightFinder(code, n, l, offset);
-            return highlights;
+            if (isBasic == 1) 
+            {
+                console.log("Running basic algorithm for video " + code);
+                writeLog("Running basic algorithm for video " + code);
+                // Basic algorithm
+                let highlights = await highlightFinder(code, n, l, offset);
+                return highlights;
+            } else {
+                // Advance algorithm
+                console.log("Running advance algorithm for video " + code);
+                writeLog("Running advance algorithm for video " + code);
+                // to be continue
+                
+                let highlights = await highlightFinder(code, from, l, offset);
+                return highlights;
+            }
 
         } else {
             //file doesn't exist
@@ -62,10 +77,33 @@ async function getHighlights(url, n, l, offset){
 }
 
 router.post('/', async (req, res) => {
-    let highlights = await getHighlights(req.body.url, req.body.n, req.body.l, req.body.offset);
-    //console.log(highlights);
-    res.status(200);
-    res.send(JSON.stringify({results: highlights, done: finished}));
+    let clientID = req.body.clientID;
+    if (clientID == null){
+        // Create new clientID
+        clientID = uuidv4();
+    }
+    console.log("Client " + clientID + " made a request");
+    writeLog("Client " + clientID + " made a request");
+    // Check if client is authorized or not
+    let message = "";
+    if (true){
+        let highlights = await getHighlights(req.body.url, 
+                                            req.body.isBasic, 
+                                            req.body.n, 
+                                            req.body.l, 
+                                            req.body.offset, 
+                                            req.body.from, 
+                                            req.body.to);
+        message = "OK";
+        
+        //console.log(highlights);
+        res.status(200);
+        res.send(JSON.stringify({clientID: clientID, results: highlights, done: finished, message: message}));
+    } else {
+        // To be continue
+        res.status(200);
+        res.send(JSON.stringify({clientID: clientID, results: null, done: finished, message: message}));
+    }
 });
 
 router.get('/', (req, res) => {

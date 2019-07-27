@@ -1,7 +1,30 @@
 
 'use strict';
 
-chrome.tabs.getSelected(null, function(tab){
+function settingAdvanceButtonClicked(){
+    const settingBasicPage = document.getElementById("setting-basic");
+    const settingAdvancePage = document.getElementById("setting-advance");
+    settingBasicPage.style.display = "none";
+    settingAdvancePage.style.display = "inline-block";
+    isBasic = 0;
+    window.localStorage.setItem("isBasic", "0");
+}
+
+function settingBasicButtonClicked(){
+    const settingBasicPage = document.getElementById("setting-basic");
+    const settingAdvancePage = document.getElementById("setting-advance");
+    settingBasicPage.style.display = "inline-block";
+    settingAdvancePage.style.display = "none";
+    isBasic = 1;
+    window.localStorage.setItem("isBasic", "1");
+}
+
+function config(tab){
+    if (document.getElementsByName("n").length == 0){
+        console.log("Config: Waiting for page to load");
+        setTimeout(() => config(tab), 100);
+        return;
+    }
     //Initialize DOM elements
     const settingButton = document.getElementById("setting-icon");
     const settingBasicButton = document.getElementById("choice-basic");
@@ -9,20 +32,20 @@ chrome.tabs.getSelected(null, function(tab){
     const textboxN = document.getElementsByName("n")[0];
     const textboxL = document.getElementsByName("l")[0];
     const textboxOffset = document.getElementsByName("offset")[0];
+    const textboxFrom = document.getElementsByName("from")[0];
+    const textboxTo = document.getElementsByName("to")[0];
 
-    settingBasicButton.addEventListener("click", function(){
-        const settingBasicPage = document.getElementById("setting-basic");
-        const settingAdvancePage = document.getElementById("setting-advance");
-        settingBasicPage.style.display = "inline-block";
-        settingAdvancePage.style.display = "none";
-    });
+    //Set value for textboxes
+    textboxN.value = n;
+    textboxL.value = l;
+    textboxOffset.value = offset;
+    textboxFrom.value = from;
+    textboxTo.value = to;
 
-    settingAdvanceButton.addEventListener("click", function(){
-        const settingBasicPage = document.getElementById("setting-basic");
-        const settingAdvancePage = document.getElementById("setting-advance");
-        settingBasicPage.style.display = "none";
-        settingAdvancePage.style.display = "inline-block";
-    });
+    //Setting basic or advance?
+    settingBasicButton.addEventListener("click", settingBasicButtonClicked);
+
+    settingAdvanceButton.addEventListener("click", settingAdvanceButtonClicked);
 
     //console.log(settingButton);
     settingButton.addEventListener("click", function(){
@@ -57,4 +80,27 @@ chrome.tabs.getSelected(null, function(tab){
         console.log(`offset is changed to ${offset}`);
         process(tab);
     });
-})
+
+    textboxFrom.addEventListener("change", function(){
+        from = textboxFrom.value;
+        window.localStorage.setItem("from", from.toString());        
+        console.log(`from is changed to ${from}`);
+        process(tab);
+    });
+
+    textboxTo.addEventListener("change", function(){
+        to = textboxTo.value;
+        window.localStorage.setItem("to", to.toString());        
+        console.log(`to is changed to ${to}`);
+        process(tab);
+    });
+
+    //Check if advance algorithm is being used
+    if (isBasic == 0){
+        settingAdvanceButtonClicked();
+    } else {
+        settingBasicButtonClicked();
+    }
+}
+
+chrome.tabs.getSelected(null, config);

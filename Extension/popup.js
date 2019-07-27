@@ -11,10 +11,27 @@ if (window.localStorage.getItem("n") == null ||
   window.localStorage.setItem("offset", "5");
 }
 
+if (window.localStorage.getItem("from") == null ||
+    window.localStorage.getItem("to") == null){
+  window.localStorage.setItem("from", "1");
+  window.localStorage.setItem("to", "50");
+}
+
+// Default is using basic algorithm
+if (window.localStorage.getItem("isBasic") == null) window.localStorage.setItem("isBasic", "1");
+
 // Initialize variables
 let n = parseInt(window.localStorage.getItem("n"));
 let l = parseInt(window.localStorage.getItem("l"));
 let offset = parseInt(window.localStorage.getItem("offset"));
+
+let from = parseInt(window.localStorage.getItem("from"));
+let to = parseInt(window.localStorage.getItem("to"));
+
+let isBasic = parseInt(window.localStorage.getItem("isBasic"));
+
+//Get client ID
+let clientID = window.localStorage.getItem("watermelon");
 
 let online = false;
 
@@ -71,34 +88,59 @@ function sendRequest(tabId, tabUrl){
   xhr.open("POST", "http://35.233.106.177/api/link", true);
   xhr.setRequestHeader('Content-type', 'application/json');
   //console.log(JSON.stringify({url: tabUrl}));
-  xhr.send(JSON.stringify({url: tabUrl, n: n, l: l, offset: offset}));
+  xhr.send(JSON.stringify({clientID: clientID, 
+                            url: tabUrl, 
+                            isBasic: isBasic, 
+                            n: n, 
+                            l: l, 
+                            offset: offset, 
+                            from: from,
+                            to: to}));
   xhr.onreadystatechange = function() {
     //console.log(xhr.readyState);
     //console.log(xhr.status);
     if (xhr.readyState == 4 && xhr.status == 200) {
-      // Parse response
-      let response = JSON.parse(xhr.responseText)["results"];
-      //console.log(xhr.responseText);
+      //update clientID
+      clientID = JSON.parse(xhr.responseText)["clientID"];
+      window.localStorage.setItem("watermelon", clientID);
+      console.log("Your clientID is " + clientID);
 
-      // Remove old buttons
-      removeOldButtons();
+      // Check response message
+      let responseMessage = JSON.parse(xhr.responseText)["message"];
+      if (responseMessage == "OK"){
+        // Parse response
+        let response = JSON.parse(xhr.responseText)["results"];
+        //console.log(xhr.responseText);
 
-      // Add new buttons
-      for (let i = 0; i < response.length; i++){
-        setButton(tabId, tabUrl, i, response[i]);
-      }
+        // Remove old buttons
+        removeOldButtons();
 
-      //Rewire autoplay button
-      setAutoplayButton(tabId, tabUrl, response);
-      
-      //Send a request to get update every 7 seconds
-      //alert("I am still running!");
-      if (JSON.parse(xhr.responseText)["done"] == false){
-        setTimeout(() => sendRequest(tabId, tabUrl), 7000);
+        // Add new buttons
+        for (let i = 0; i < response.length; i++){
+          setButton(tabId, tabUrl, i, response[i]);
+        }
+
+        //Rewire autoplay button
+        setAutoplayButton(tabId, tabUrl, response);
+        
+        //Send a request to get update every 7 seconds
+        //alert("I am still running!");
+        if (JSON.parse(xhr.responseText)["done"] == false){
+          setTimeout(() => sendRequest(tabId, tabUrl), 7000);
+        } else {
+          recentMessage = ["Done!", "white", "forestgreen"];
+          changeMessage("Done!", "white", "forestgreen");
+        }
       } else {
-        recentMessage = ["Done!", "white", "forestgreen"];
-        changeMessage("Done!", "white", "forestgreen");
+        // This part only check if client is authorized to use advance setting or request multiple times
+        const highlightContainerError = document.getElementById("highlight-container-error");
+        highlightContainerError.textContent = responseMessage;
+
+        if (responseMessage == "You need to subscribe to premium plan to use the advance algorthm"){
+          settingBasicButtonClicked();
+        }
       }
+      
     }
   }
 }
