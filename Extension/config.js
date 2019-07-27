@@ -8,6 +8,8 @@ function settingAdvanceButtonClicked(){
     settingAdvancePage.style.display = "inline-block";
     isBasic = 0;
     window.localStorage.setItem("isBasic", "0");
+    console.log("Changed to advance algorithm");
+    process(tab);
 }
 
 function settingBasicButtonClicked(){
@@ -17,6 +19,8 @@ function settingBasicButtonClicked(){
     settingAdvancePage.style.display = "none";
     isBasic = 1;
     window.localStorage.setItem("isBasic", "1");
+    console.log("Changed to basic algorithm")
+    process(tab);
 }
 
 function config(tab){

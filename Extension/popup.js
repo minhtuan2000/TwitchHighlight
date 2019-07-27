@@ -103,7 +103,7 @@ function sendRequest(tabId, tabUrl){
       //update clientID
       clientID = JSON.parse(xhr.responseText)["clientID"];
       window.localStorage.setItem("watermelon", clientID);
-      console.log("Your clientID is " + clientID);
+      //console.log("Your clientID is " + clientID);
 
       // Check response message
       let responseMessage = JSON.parse(xhr.responseText)["message"];
