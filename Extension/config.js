@@ -9,7 +9,6 @@ function settingAdvanceButtonClicked(){
     isBasic = 0;
     window.localStorage.setItem("isBasic", "0");
     console.log("Changed to advance algorithm");
-    process(tab);
 }
 
 function settingBasicButtonClicked(){
@@ -19,8 +18,7 @@ function settingBasicButtonClicked(){
     settingAdvancePage.style.display = "none";
     isBasic = 1;
     window.localStorage.setItem("isBasic", "1");
-    console.log("Changed to basic algorithm")
-    process(tab);
+    console.log("Changed to basic algorithm");
 }
 
 function config(tab){
@@ -47,9 +45,15 @@ function config(tab){
     textboxTo.value = to;
 
     //Setting basic or advance?
-    settingBasicButton.addEventListener("click", settingBasicButtonClicked);
+    settingBasicButton.addEventListener("click", function(){
+        settingBasicButtonClicked();
+        process(tab);
+    });
 
-    settingAdvanceButton.addEventListener("click", settingAdvanceButtonClicked);
+    settingAdvanceButton.addEventListener("click", function(){
+        settingAdvanceButtonClicked();
+        process(tab);
+    });
 
     //console.log(settingButton);
     settingButton.addEventListener("click", function(){
