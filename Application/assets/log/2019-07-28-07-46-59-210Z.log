@@ -1,0 +1,6 @@
+2019-07-28T07:47:26.352Z: Client 3503a304-3f65-4bc8-8830-3b36c88cd631 made a request
+2019-07-28T07:47:26.353Z: Received request for analysing video: 451344082
+2019-07-28T07:47:26.354Z: RechatTool has stopped for 451344082!
+2019-07-28T07:47:26.355Z: Running basic algorithm for video 451344082
+2019-07-28T07:47:28.376Z: While connecting to the database: ConnectionError: Failed to connect to localhost:1433 - Could not connect (sequence)
+2019-07-28T07:47:28.447Z: While making query to the database: ConnectionError: Connection is closed.

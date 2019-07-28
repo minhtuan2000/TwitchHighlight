@@ -1,5 +1,6 @@
 const exec = require('child_process').exec;
 const fs = require('fs');
+const sql = require('mssql/msnodesqlv8');
 
 const logStream = fs.createWriteStream("assets\\log\\" + new Date().toISOString().replace(/[T:.]/g, '-') + ".log", {flags:'a'});
 
@@ -61,4 +62,27 @@ const writeLog = (message) => {
     }
 }
 
-module.exports = {getChat, highlightFinder, writeLog}
+
+// config for database
+const pool = new sql.ConnectionPool({
+    database: 'TwitchHighlightsDatabase',
+    server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+    driver: 'msnodesqlv8',
+    options: {
+      trustedConnection: true
+    }
+});
+
+// Check premium
+function isPremium(clientID){
+    try{
+        return false;
+    }catch(err){
+        console.log("While checking premium: ");
+        console.error(err);
+        writeLog("While checking premium: " + err.toString());
+        return false;
+    }
+}
+
+module.exports = {getChat, highlightFinder, writeLog, isPremium};

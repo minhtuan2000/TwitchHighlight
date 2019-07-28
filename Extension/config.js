@@ -1,6 +1,30 @@
 
 'use strict';
 
+function resetConfig(){
+    window.localStorage.setItem("n", const_n.toString());
+    window.localStorage.setItem("l", const_l.toString());
+    window.localStorage.setItem("offset", const_offset.toString());
+    window.localStorage.setItem("from", const_from.toString());
+    window.localStorage.setItem("to", const_to.toString());
+    window.localStorage.setItem("isBasic", const_isBasic.toString());
+    
+    n = parseInt(window.localStorage.getItem("n"));
+    l = parseInt(window.localStorage.getItem("l"));
+    offset = parseInt(window.localStorage.getItem("offset"));
+    from = parseInt(window.localStorage.getItem("from"));
+    to = parseInt(window.localStorage.getItem("to"));
+    isBasic = parseInt(window.localStorage.getItem("isBasic"));
+
+    textboxN.value = n;
+    textboxL.value = l;
+    textboxOffset.value = offset;
+    textboxFrom.value = from;
+    textboxTo.value = to;
+
+    settingBasicButtonClicked();
+}
+
 function settingAdvanceButtonClicked(){
     const settingBasicPage = document.getElementById("setting-basic");
     const settingAdvancePage = document.getElementById("setting-advance");

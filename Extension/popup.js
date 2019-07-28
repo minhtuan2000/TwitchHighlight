@@ -6,19 +6,19 @@
 if (window.localStorage.getItem("n") == null || 
     window.localStorage.getItem("l") == null ||
     window.localStorage.getItem("offset") == null){
-  window.localStorage.setItem("n", "15");
-  window.localStorage.setItem("l", "2");
-  window.localStorage.setItem("offset", "5");
+  window.localStorage.setItem("n", const_n.toString());
+  window.localStorage.setItem("l", const_l.toString());
+  window.localStorage.setItem("offset", const_offset.toString());
 }
 
 if (window.localStorage.getItem("from") == null ||
     window.localStorage.getItem("to") == null){
-  window.localStorage.setItem("from", "1");
-  window.localStorage.setItem("to", "50");
+  window.localStorage.setItem("from", const_from.toString());
+  window.localStorage.setItem("to", const_to.toString());
 }
 
 // Default is using basic algorithm
-if (window.localStorage.getItem("isBasic") == null) window.localStorage.setItem("isBasic", "1");
+if (window.localStorage.getItem("isBasic") == null) window.localStorage.setItem("isBasic", const_isBasic.toString());
 
 // Initialize variables
 let n = parseInt(window.localStorage.getItem("n"));
@@ -107,6 +107,7 @@ function sendRequest(tabId, tabUrl){
 
       // Check response message
       let responseMessage = JSON.parse(xhr.responseText)["message"];
+      let responsePremium = JSON.parse(xhr.responseText)["premium"];
       if (responseMessage == "OK"){
         // Parse response
         let response = JSON.parse(xhr.responseText)["results"];
@@ -135,9 +136,9 @@ function sendRequest(tabId, tabUrl){
         // This part only check if client is authorized to use advance setting or request multiple times
         const highlightContainerError = document.getElementById("highlight-container-error");
         highlightContainerError.textContent = responseMessage;
-
-        if (responseMessage == "You need to subscribe to premium plan to use the advance algorthm"){
-          settingBasicButtonClicked();
+        if (!responsePremium){
+          // Reset config
+          resetConfig();
         }
       }
       

@@ -1,0 +1,5 @@
+2019-07-28T08:16:31.225Z: Client 33def4f5-746b-4491-8730-7956e2c55ce9 made a request
+2019-07-28T08:16:31.226Z: Received request for analysing video: 451344082
+2019-07-28T08:16:31.227Z: RechatTool has stopped for 451344082!
+2019-07-28T08:16:31.227Z: Running basic algorithm for video 451344082
+2019-07-28T08:16:32.262Z: While making query to the database: RequestError: Cannot insert the value NULL into column 'ID', table 'TwitchHighlightsDatabase.dbo.Client'; column does not allow nulls. INSERT fails.

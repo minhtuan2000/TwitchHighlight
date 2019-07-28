@@ -1,0 +1,5 @@
+2019-07-28T08:12:34.446Z: Client a2bb93ec-103f-4146-8a59-f7a6f1ffdfd4 made a request
+2019-07-28T08:12:34.447Z: Received request for analysing video: 451344082
+2019-07-28T08:12:34.448Z: RechatTool has stopped for 451344082!
+2019-07-28T08:12:34.448Z: Running basic algorithm for video 451344082
+2019-07-28T08:12:35.453Z: While making query to the database: RequestError: Incorrect syntax near 'f'.
