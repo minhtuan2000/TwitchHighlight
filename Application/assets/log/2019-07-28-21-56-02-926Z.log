@@ -1,0 +1,5 @@
+2019-07-28T21:56:05.995Z: Client aa34b559-81ff-48f5-8a72-036817c88e2f made a request
+2019-07-28T21:56:05.999Z: Received request for analysing video: 451344082
+2019-07-28T21:56:06.000Z: RechatTool has stopped for 451344082!
+2019-07-28T21:56:06.000Z: Running basic algorithm for video 451344082
+2019-07-28T21:56:07.563Z: While making query to the database: RequestError: Incorrect syntax near '21'.

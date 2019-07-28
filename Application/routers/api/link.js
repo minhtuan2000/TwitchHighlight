@@ -7,21 +7,41 @@ const getChat = require('./modules').getChat;
 const highlightFinder = require('./modules').highlightFinder;
 const writeLog = require('./modules').writeLog;
 const isPremium = require('./modules').isPremium;
+const updateRequest = require('./modules').updateRequest;
 
 let finished = false;
 
-// config for database
-const pool = new sql.ConnectionPool({
-    database: 'TwitchHighlightsDatabase',
-    server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
-    driver: 'msnodesqlv8',
-    options: {
-      trustedConnection: true
-    }
-});
-
-function getPendingCount(clientID){
+function getPendingCount(clientID, url){
     try{
+        if (url != null) url = 'https://www.twitch.tv/videos/' + getVideoCode(url);
+
+        // config for database
+        const pool = new sql.ConnectionPool({
+            database: 'TwitchHighlightsDatabase',
+            server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+            driver: 'msnodesqlv8',
+            options: {
+            trustedConnection: true
+            }
+        });
+        
+        pool.connect().then(() => {
+            // create query string
+            let query = "SELECT ClientID FROM RequestLog "+
+                        "WHERE ClientID='" + clientID +
+                        "' AND Status='Processing'" + (url != null ? " AND VideoURL='" + url + "'" : "");
+            
+            // query to the database and get the records
+            pool.request().query(query, function (err, count) {
+                if (err) {
+                    console.log("While making query to the database:");
+                    console.log(err);
+                    writeLog("While making query to the database: " + err.toString());
+                }
+                // Need to fix     
+                console.log(count);  
+            });
+        });
         return 0;
     }catch(err){
         console.log("While getting pending count: ");
@@ -33,6 +53,16 @@ function getPendingCount(clientID){
 
 function appendClient(clientID){
     try{
+        // config for database
+        const pool = new sql.ConnectionPool({
+            database: 'TwitchHighlightsDatabase',
+            server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+            driver: 'msnodesqlv8',
+            options: {
+            trustedConnection: true
+            }
+        });
+        
         pool.connect().then(() => {
             // create query string
             let query = "INSERT INTO CLient (CLientID, CreatedDate, LastRequestDate, IsPremium, RequestCount, ReportCount, IsActivated)"+
@@ -60,21 +90,74 @@ function appendClient(clientID){
 
 function appendRequest(clientID, url, isBasic, n, l, offset, from, to){
     try{
-        
+        url = 'https://www.twitch.tv/videos/' + getVideoCode(url);
+
+        // config for database
+        const pool = new sql.ConnectionPool({
+            database: 'TwitchHighlightsDatabase',
+            server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+            driver: 'msnodesqlv8',
+            options: {
+            trustedConnection: true
+            }
+        });
+
+        // Insert to RequestLog
+        pool.connect().then(() => {
+            // create query string
+            let query = "INSERT INTO RequestLog (CLientID, VideoURL, RequestedDate, Status, Count, Length, Offset, IsBasic, [From], [To])"+
+                        " VALUES ('" + 
+                        clientID + "','" + 
+                        url + "','" +
+                        new Date().toISOString().slice(0, 19).replace('T', ' ') + "','" + 
+                        "Processing'," + 
+                        n.toString() + "," + 
+                        l.toString() + "," + 
+                        offset.toString() + "," +
+                        isBasic.toString() + "," + 
+                        from.toString() + "," + 
+                        to.toString() + ")";
+            
+            // query to the database and get the records
+            pool.request().query(query, function (err, recordset) {
+                if (err) {
+                    console.log("While making query to the database:");
+                    console.log(err);
+                    writeLog("While making query to the database: " + err.toString());
+                }       
+            });
+        });
+
+        // config for database
+        const pool2 = new sql.ConnectionPool({
+            database: 'TwitchHighlightsDatabase',
+            server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+            driver: 'msnodesqlv8',
+            options: {
+            trustedConnection: true
+            }
+        });
+
+        // Update client
+        pool2.connect().then(() => {
+            // create query string
+            let query = "UPDATE Client SET LastRequestDate='" +
+                        new Date().toISOString().slice(0, 19).replace('T', ' ') + "'" + 
+                        "WHERE ClientID='" + clientID + "'";
+            
+            // query to the database and get the records
+            pool2.request().query(query, function (err, recordset) {
+                if (err) {
+                    console.log("While making query to the database:");
+                    console.log(err);
+                    writeLog("While making query to the database: " + err.toString());
+                }       
+            });
+        });
     }catch(err){
         console.log("While appending request: ");
         console.error(err);
         writeLog("While appending request: " + err.toString());
-    }
-}
-
-function updateRequest(clientID, url, isBasic, n, l, offset, from, to){
-    try{
-        
-    }catch(err){
-        console.log("While updating request: ");
-        console.error(err);
-        writeLog("While updating request: " + err.toString());
     }
 }
 
@@ -160,19 +243,21 @@ router.post('/', async (req, res) => {
     
     // Check if client is authorized or not
     let premium = isPremium(clientID);
+
+    let pendingRequests = getPendingCount(clientID, null);
     
     let message = "";
 
-    if ((premium && getPendingCount(clientID) < 5) || (req.body.isBasic == 1 && req.body.n == 12 && getPendingCount(clientID) == 0)){
-        //append request to database
-        appendRequest(clientID, 
-                    req.body.url, 
-                    req.body.isBasic, 
-                    req.body.n, 
-                    req.body.l, 
-                    req.body.offset, 
-                    req.body.from, 
-                    req.body.to);
+    if ((premium && pendingRequests < 5) || (req.body.isBasic == 1 && req.body.n == 12 && pendingRequests == 0)){
+        //append request to database if it does not alrealdy exist
+        if (true) appendRequest(clientID, 
+                                req.body.url, 
+                                req.body.isBasic, 
+                                req.body.n, 
+                                req.body.l, 
+                                req.body.offset, 
+                                req.body.from, 
+                                req.body.to);
         
         let highlights = await getHighlights(req.body.url, 
                                             req.body.isBasic, 
@@ -183,15 +268,7 @@ router.post('/', async (req, res) => {
                                             req.body.to);
         message = "OK";
 
-        //If finished then update database
-        if (finished) updateRequest(clientID, 
-                                    req.body.url, 
-                                    req.body.isBasic, 
-                                    req.body.n, 
-                                    req.body.l, 
-                                    req.body.offset, 
-                                    req.body.from, 
-                                    req.body.to);
+        if (finished) updateRequest(getVideoCode(req.body.url));
         
         //console.log(highlights);
         res.status(200);
@@ -200,7 +277,7 @@ router.post('/', async (req, res) => {
         if (isPremium(clientID) && getPendingCount(clientID) >= 5){
             message = "You can't analyze more than 5 videos at a time";
             console.log("Request Error: Premium, pending > 5");
-            writeLog("Request Error: Premium, pending > 5")
+            writeLog("Request Error: Premium, pending > 5");
         } else {
             message = "You have to subscribe to analyze more than 1 video at a time, use the advance algorithm or choose the number of highlights";
             console.log("Request Error: Not premium");

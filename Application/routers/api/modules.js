@@ -19,6 +19,7 @@ const getChat = (id)=>{
                 writeLog("While running getChat(): " + err.toString());
             } else {
                 fs.writeFileSync(`assets\\data\\${id}.done`,'True');
+                updateRequest(id);
             }
             console.log(stdout);
         }
@@ -85,4 +86,41 @@ function isPremium(clientID){
     }
 }
 
-module.exports = {getChat, highlightFinder, writeLog, isPremium};
+const updateRequest = (id) => {
+    try{
+        let url = 'https://www.twitch.tv/videos/' + id;
+
+        // config for database
+        const pool = new sql.ConnectionPool({
+            database: 'TwitchHighlightsDatabase',
+            server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+            driver: 'msnodesqlv8',
+            options: {
+            trustedConnection: true
+            }
+        });
+
+        pool.connect().then(() => {
+            // create query string
+            let query = "UPDATE RequestLog SET Status='Done'" +
+                        " WHERE VideoURL='" + url + 
+                        "' AND Status='Processing'";
+            
+            // query to the database and get the records
+            pool.request().query(query, function (err, recordset) {
+                if (err) {
+                    console.log("While making query to the database:");
+                    console.log(err);
+                    writeLog("While making query to the database: " + err.toString());
+                }       
+            });
+        });
+    }catch(err){
+        console.log("While updating request: ");
+        console.error(err);
+        writeLog("While updating request: " + err.toString());
+    }
+}
+
+module.exports = {getChat, highlightFinder, writeLog, isPremium, updateRequest};
+
