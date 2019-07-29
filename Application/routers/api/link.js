@@ -98,7 +98,7 @@ router.post('/', async (req, res) => {
     
     let message = "";
 
-    if ((premium && pendingRequests < 5) || (req.body.isBasic == 1 && req.body.n == 12 && pendingRequests < 1)){
+    if ((premium && pendingRequests < 10) || (req.body.isBasic == 1 && req.body.n == 12 && pendingRequests < 2)){
         //append request to database if it does not alrealdy exist
         appendRequest(clientID, 
                     req.body.url, 
