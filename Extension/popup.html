@@ -11,7 +11,19 @@
   <body>
     <div id="header">
       <h3 id="header-text">Twitch Highlights</h3>
-      <img id="setting-icon"  title="Setting" src="images/setting.png" style="width: 20px; height: 20px; padding: 0px; margin: 0px; vertical-align: middle;">
+      <img id="report-icon"  title="Support / Report a bug" src="images/bug.png">
+      <img id="setting-icon"  title="Minimize / Maximize" src="images/mini.png">
+    </div>
+    <div id="report" style="display: none; padding: 10px;">
+      <h3>Please fill in the form below:</h3>
+      <div>Your email address:</div>
+      <div>(Optional, if you want to receive reply)</div>
+      <div><input type="text" name="email" style="margin: 10px 0px; width: 275px;"></div>
+      <div>URL of the Twitch Video (if applicable):</div>
+      <div><input type="text" name="url"  style="margin: 10px 0px; width: 275px;"></div>
+      <div>Please describe the problem:</div>
+      <div><textarea name="message" rows="4" cols="50" style="margin: 10px 0px; width: 275px;"></textarea></div>
+      <button id="send-button">Send</button>
     </div>
     <div id="main">
       <div id="setting">

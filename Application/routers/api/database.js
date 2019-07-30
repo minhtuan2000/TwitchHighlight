@@ -1,4 +1,3 @@
-const fs = require('fs');
 const sql = require('mssql/msnodesqlv8');
 
 const writeLog = require('./miscellaneous').writeLog;
@@ -20,12 +19,12 @@ const isPremium = async (clientID) => {
         await pool.connect();
 
         // create query string
-        let query = "SELECT CLientID, IsPremium FROM Client WHERE ClientID = '" + clientID + "'";
+        let query = "SELECT CLientID, IsPremium, IsActivated FROM Client WHERE ClientID = '" + clientID + "'";
         
         // query to the database and get the records
         result = await pool.request().query(query);
         
-        return result.recordset[0].IsPremium;
+        return [result.recordset[0].IsPremium, result.recordset[0].IsActivated];
 
     }catch(err){
         console.log("While checking premium: ");
@@ -93,7 +92,7 @@ const getPendingCount = async (clientID, url) => {
                     " FROM RequestLog" + 
                     " WHERE RequestedDate >= DATEADD(hour, -1, GETDATE()) AND ClientID = '" + 
                     clientID + "' AND Status = 'Processing'" + 
-                    (url != null ? " AND VideoURL='" + url + "'" : "") + 
+                    (url != null ? " AND VideoURL<>'" + url + "'" : "") + 
                     " GROUP BY VideoURL, ClientID";
         
         // query to the database and get the records

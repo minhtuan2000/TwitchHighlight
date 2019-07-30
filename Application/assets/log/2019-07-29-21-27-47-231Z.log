@@ -1,0 +1,113 @@
+2019-07-29T21:29:41.020Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:29:42.616Z: While checking premium: TypeError: Cannot read property 'IsPremium' of undefined
+2019-07-29T21:29:43.465Z: Received request for analysing video: 459622161
+2019-07-29T21:29:43.466Z: RechatTool has stopped for 459622161!
+2019-07-29T21:29:43.466Z: Running basic algorithm for video 459622161
+2019-07-29T21:29:57.648Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:29:59.334Z: Received request for analysing video: 458871989
+2019-07-29T21:29:59.345Z: File 458871989.done does not exist! Running RechatTool...
+2019-07-29T21:30:06.369Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:30:08.056Z: Received request for analysing video: 458871989
+2019-07-29T21:30:08.056Z: RechatTool has stopped for 458871989!
+2019-07-29T21:30:08.057Z: Running basic algorithm for video 458871989
+2019-07-29T21:30:19.986Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:30:19.990Z: Received request for analysing video: 459190242
+2019-07-29T21:30:20.027Z: File 459190242.done does not exist! Running RechatTool...
+2019-07-29T21:30:27.064Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:30:27.071Z: Received request for analysing video: 459190242
+2019-07-29T21:30:27.072Z: RechatTool is still running for 459190242!
+2019-07-29T21:30:27.072Z: Running basic algorithm for video 459190242
+2019-07-29T21:30:31.842Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:30:31.848Z: Received request for analysing video: 459190242
+2019-07-29T21:30:31.849Z: RechatTool is still running for 459190242!
+2019-07-29T21:30:31.849Z: Running basic algorithm for video 459190242
+2019-07-29T21:30:38.912Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:30:38.916Z: Received request for analysing video: 459190242
+2019-07-29T21:30:38.917Z: RechatTool is still running for 459190242!
+2019-07-29T21:30:38.917Z: Running basic algorithm for video 459190242
+2019-07-29T21:30:45.996Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:30:46.002Z: Received request for analysing video: 459190242
+2019-07-29T21:30:46.003Z: RechatTool is still running for 459190242!
+2019-07-29T21:30:46.003Z: Running basic algorithm for video 459190242
+2019-07-29T21:30:53.082Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:30:53.087Z: Received request for analysing video: 459190242
+2019-07-29T21:30:53.088Z: RechatTool is still running for 459190242!
+2019-07-29T21:30:53.088Z: Running basic algorithm for video 459190242
+2019-07-29T21:31:00.193Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:31:00.199Z: Received request for analysing video: 459190242
+2019-07-29T21:31:00.200Z: RechatTool is still running for 459190242!
+2019-07-29T21:31:00.200Z: Running basic algorithm for video 459190242
+2019-07-29T21:31:04.444Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:31:04.448Z: Received request for analysing video: 459190242
+2019-07-29T21:31:04.449Z: RechatTool is still running for 459190242!
+2019-07-29T21:31:04.449Z: Running basic algorithm for video 459190242
+2019-07-29T21:31:16.637Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:31:16.646Z: Received request for analysing video: 459622161
+2019-07-29T21:31:16.647Z: RechatTool has stopped for 459622161!
+2019-07-29T21:31:16.662Z: Running basic algorithm for video 459622161
+2019-07-29T21:31:27.186Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:31:27.189Z: Received request for analysing video: 459190242
+2019-07-29T21:31:27.190Z: RechatTool has stopped for 459190242!
+2019-07-29T21:31:27.192Z: Running basic algorithm for video 459190242
+2019-07-29T21:31:39.812Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:31:39.815Z: Received request for analysing video: 458773013
+2019-07-29T21:31:39.824Z: File 458773013.done does not exist! Running RechatTool...
+2019-07-29T21:31:50.878Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:31:50.881Z: Received request for analysing video: 458743789
+2019-07-29T21:31:50.890Z: File 458743789.done does not exist! Running RechatTool...
+2019-07-29T21:31:57.913Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:31:57.919Z: Received request for analysing video: 458743789
+2019-07-29T21:31:57.919Z: RechatTool has stopped for 458743789!
+2019-07-29T21:31:57.919Z: Running basic algorithm for video 458743789
+2019-07-29T21:32:29.321Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:32:29.324Z: Received request for analysing video: 457816761
+2019-07-29T21:32:29.334Z: File 457816761.done does not exist! Running RechatTool...
+2019-07-29T21:32:36.359Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:32:36.364Z: Received request for analysing video: 457816761
+2019-07-29T21:32:36.364Z: RechatTool is still running for 457816761!
+2019-07-29T21:32:36.364Z: Running basic algorithm for video 457816761
+2019-07-29T21:32:42.944Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:32:42.947Z: Received request for analysing video: 458871989
+2019-07-29T21:32:42.948Z: RechatTool has stopped for 458871989!
+2019-07-29T21:32:42.948Z: Running basic algorithm for video 458871989
+2019-07-29T21:32:57.073Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:32:57.078Z: Received request for analysing video: 458293026
+2019-07-29T21:32:57.095Z: File 458293026.done does not exist! Running RechatTool...
+2019-07-29T21:33:05.404Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:33:05.408Z: Request Error: Not premium
+2019-07-29T21:33:07.972Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:33:07.975Z: Request Error: Not premium
+2019-07-29T21:33:35.212Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:33:35.216Z: Received request for analysing video: 458293026
+2019-07-29T21:33:35.217Z: RechatTool has stopped for 458293026!
+2019-07-29T21:33:35.217Z: Running basic algorithm for video 458293026
+2019-07-29T21:33:39.749Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:33:39.752Z: Request Error: Not premium
+2019-07-29T21:33:40.987Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:33:40.991Z: Received request for analysing video: 458293026
+2019-07-29T21:33:40.991Z: RechatTool has stopped for 458293026!
+2019-07-29T21:33:40.991Z: Running basic algorithm for video 458293026
+2019-07-29T21:33:42.707Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:33:42.711Z: Request Error: Not premium
+2019-07-29T21:33:48.432Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:33:48.857Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:33:49.287Z: Received request for analysing video: 458293026
+2019-07-29T21:33:49.288Z: RechatTool has stopped for 458293026!
+2019-07-29T21:33:49.288Z: Running basic algorithm for video 458293026
+2019-07-29T21:33:50.548Z: Request Error: Not premium
+2019-07-29T21:33:50.867Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:33:51.764Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:33:52.551Z: Received request for analysing video: 458293026
+2019-07-29T21:33:52.552Z: RechatTool has stopped for 458293026!
+2019-07-29T21:33:52.552Z: Running basic algorithm for video 458293026
+2019-07-29T21:33:52.851Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:33:53.474Z: Received request for analysing video: 458293026
+2019-07-29T21:33:53.475Z: RechatTool has stopped for 458293026!
+2019-07-29T21:33:53.475Z: Running basic algorithm for video 458293026
+2019-07-29T21:33:54.238Z: Received request for analysing video: 458293026
+2019-07-29T21:33:54.238Z: RechatTool has stopped for 458293026!
+2019-07-29T21:33:54.238Z: Running basic algorithm for video 458293026
+2019-07-29T21:33:54.628Z: Client ee82a960-5d12-43a7-a600-bc6984ce06c0 made a request
+2019-07-29T21:33:56.347Z: Received request for analysing video: 458293026
+2019-07-29T21:33:56.348Z: RechatTool has stopped for 458293026!
+2019-07-29T21:33:56.348Z: Running basic algorithm for video 458293026

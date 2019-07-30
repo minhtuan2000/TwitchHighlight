@@ -1,4 +1,3 @@
-
 'use strict';
 
 function resetConfig(){
@@ -15,6 +14,12 @@ function resetConfig(){
     from = parseInt(window.localStorage.getItem("from"));
     to = parseInt(window.localStorage.getItem("to"));
     isBasic = parseInt(window.localStorage.getItem("isBasic"));
+    
+    const textboxN = document.getElementsByName("n")[0];
+    const textboxL = document.getElementsByName("l")[0];
+    const textboxOffset = document.getElementsByName("offset")[0];
+    const textboxFrom = document.getElementsByName("from")[0];
+    const textboxTo = document.getElementsByName("to")[0];
 
     textboxN.value = n;
     textboxL.value = l;
@@ -45,6 +50,18 @@ function settingBasicButtonClicked(){
     console.log("Changed to basic algorithm");
 }
 
+function reportButtonClicked(){
+    const main = document.getElementById("main");
+    const report = document.getElementById("report");
+    if (main.style.display == "none"){
+        main.style.display = "block";
+        report.style.display = "none";
+    } else {
+        main.style.display = "none";
+        report.style.display = "block";
+    }
+}
+
 function config(tab){
     if (document.getElementsByName("n").length == 0){
         console.log("Config: Waiting for page to load");
@@ -52,6 +69,8 @@ function config(tab){
         return;
     }
     //Initialize DOM elements
+    const reportButton = document.getElementById("report-icon");
+    const sendReportButton = document.getElementById("send-button");
     const settingButton = document.getElementById("setting-icon");
     const settingBasicButton = document.getElementById("choice-basic");
     const settingAdvanceButton = document.getElementById("choice-advance");
@@ -68,6 +87,21 @@ function config(tab){
     textboxFrom.value = from;
     textboxTo.value = to;
 
+    //console.log(reportButton);
+    reportButton.addEventListener("click", function(){
+        reportButtonClicked();
+    });
+
+    sendReportButton.addEventListener("click", function(){
+        reportButtonClicked();
+
+        changeMessage("Sent!", "green", "white");
+
+        setTimeout(() => changeMessage(recentMessage[0], recentMessage[1], recentMessage[2]), 2000);
+        
+        // Send a post request here
+    });
+
     //Setting basic or advance?
     settingBasicButton.addEventListener("click", function(){
         settingBasicButtonClicked();
@@ -82,13 +116,28 @@ function config(tab){
     //console.log(settingButton);
     settingButton.addEventListener("click", function(){
         const settingPage = document.getElementById("setting");
+        const footer = document.getElementById("footer");
+        const message = document.getElementById("message");
         if (settingPage.style.display == "none"){
+            // setting page
             settingPage.style.display = "block";
             textboxN.value = n;
             textboxL.value = l;
             textboxOffset.value = offset;
+
+            // footer
+            footer.style.display = "block";
+
+            //message
+            message.style.display = "block";
         } else {
             settingPage.style.display = "none";
+
+            // footer
+            footer.style.display = "none";
+
+            //message
+            message.style.display = "none";
         }
     });
 

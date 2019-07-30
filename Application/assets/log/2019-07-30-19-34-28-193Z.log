@@ -1,0 +1,41 @@
+2019-07-30T19:34:51.773Z: Client fc089c3a-f73e-4488-ae94-5ea2a8ce0da2 made a request
+2019-07-30T19:34:53.996Z: Client account is activated, not premium, has 1 pending requests
+2019-07-30T19:34:53.996Z: Request Error: Too many requests
+2019-07-30T19:35:22.532Z: Client fc089c3a-f73e-4488-ae94-5ea2a8ce0da2 made a request
+2019-07-30T19:35:23.467Z: Client account is activated, not premium, has 1 pending requests
+2019-07-30T19:35:23.467Z: Request Error: Too many requests
+2019-07-30T19:37:28.985Z: Client fc089c3a-f73e-4488-ae94-5ea2a8ce0da2 made a request
+2019-07-30T19:37:33.529Z: Client account is activated, not premium, has 0 pending requests
+2019-07-30T19:37:33.572Z: Received request for analysing video: 451344082
+2019-07-30T19:37:33.585Z: RechatTool has stopped for 451344082!
+2019-07-30T19:37:33.635Z: Running basic algorithm for video 451344082
+2019-07-30T19:37:39.829Z: Client fc089c3a-f73e-4488-ae94-5ea2a8ce0da2 made a request
+2019-07-30T19:37:41.628Z: Client account is activated, not premium, has 0 pending requests
+2019-07-30T19:37:41.654Z: Received request for analysing video: 457345278
+2019-07-30T19:37:41.741Z: File 457345278.done does not exist! Running RechatTool...
+2019-07-30T19:37:48.945Z: Client fc089c3a-f73e-4488-ae94-5ea2a8ce0da2 made a request
+2019-07-30T19:37:50.644Z: Client account is activated, not premium, has 0 pending requests
+2019-07-30T19:37:50.649Z: Received request for analysing video: 457345278
+2019-07-30T19:37:50.650Z: RechatTool is still running for 457345278!
+2019-07-30T19:37:50.650Z: Running basic algorithm for video 457345278
+2019-07-30T19:37:58.103Z: Client fc089c3a-f73e-4488-ae94-5ea2a8ce0da2 made a request
+2019-07-30T19:37:59.879Z: Client account is activated, not premium, has 0 pending requests
+2019-07-30T19:37:59.883Z: Received request for analysing video: 457345278
+2019-07-30T19:37:59.884Z: RechatTool is still running for 457345278!
+2019-07-30T19:37:59.885Z: Running basic algorithm for video 457345278
+2019-07-30T19:38:24.950Z: Client fc089c3a-f73e-4488-ae94-5ea2a8ce0da2 made a request
+2019-07-30T19:38:25.053Z: Client account is activated, not premium, has 1 pending requests
+2019-07-30T19:38:25.054Z: Request Error: Too many requests
+2019-07-30T19:44:05.670Z: Client fc089c3a-f73e-4488-ae94-5ea2a8ce0da2 made a request
+2019-07-30T19:44:07.334Z: Client account is activated, not premium, has 0 pending requests
+2019-07-30T19:44:07.338Z: Received request for analysing video: 451344082
+2019-07-30T19:44:07.339Z: RechatTool has stopped for 451344082!
+2019-07-30T19:44:07.340Z: Running basic algorithm for video 451344082
+2019-07-30T19:44:10.274Z: Client fc089c3a-f73e-4488-ae94-5ea2a8ce0da2 made a request
+2019-07-30T19:44:12.110Z: Client account is activated, not premium, has 0 pending requests
+2019-07-30T19:44:12.113Z: Received request for analysing video: 451344082
+2019-07-30T19:44:12.114Z: RechatTool has stopped for 451344082!
+2019-07-30T19:44:12.114Z: Running basic algorithm for video 451344082
+2019-07-30T19:45:09.489Z: Client fc089c3a-f73e-4488-ae94-5ea2a8ce0da2 made a request
+2019-07-30T19:45:09.493Z: Client account is not activated, not premium, has 0 pending requests
+2019-07-30T19:45:09.494Z: Request Error: Not activated

@@ -92,13 +92,18 @@ router.post('/', async (req, res) => {
     writeLog("Client " + clientID + " made a request");
     
     // Check if client is authorized or not
-    let premium = await isPremium(clientID);
+    let temp = await isPremium(clientID);
+    let premium = temp[0], activated = temp[1];
 
-    let pendingRequests = await getPendingCount(clientID, null);
+    let pendingRequests = await getPendingCount(clientID, req.body.url);
+
+    // Log:
+    console.log("Client account is " + (activated ? "" : "not ") + "activated, "+ (premium ? "" : "not ") + "premium, has " + pendingRequests.toString() + " pending requests");
+    writeLog("Client account is " + (activated ? "" : "not ") + "activated, "+ (premium ? "" : "not ") + "premium, has " + pendingRequests.toString() + " pending requests");
     
     let message = "";
 
-    if ((premium && pendingRequests < 10) || (req.body.isBasic == 1 && req.body.n == 12 && pendingRequests < 2)){
+    if (activated && pendingRequests < 5 && (premium || (req.body.isBasic == 1 && req.body.n == 12))){
         //append request to database if it does not alrealdy exist
         appendRequest(clientID, 
                     req.body.url, 
@@ -122,19 +127,23 @@ router.post('/', async (req, res) => {
         
         //console.log(highlights);
         res.status(200);
-        res.send(JSON.stringify({clientID: clientID, results: highlights, done: finished, message: message, premium: premium}));
+        res.send(JSON.stringify({clientID: clientID, results: highlights, done: finished, message: message, premium: premium, activated: activated}));
     } else {
-        if (premium && pendingRequests){
-            message = "You can't analyze more than 5 videos at a time";
-            console.log("Request Error: Premium, pending > 5");
-            writeLog("Request Error: Premium, pending > 5");
+        if (!activated){
+            message = "Sorry, we don't recognize your request, may be a bug, could you please reinstall the extension?";
+            console.log("Request Error: Not activated");
+            writeLog("Request Error: Not activated");
+        } else  if (pendingRequests >= 1){
+            message = "We are still processing your recent requests, please wait a moment!";
+            console.log("Request Error: Too many requests");
+            writeLog("Request Error: Too many requests");
         } else {
-            message = "You have to subscribe to analyze more than 1 video at a time, use the advance algorithm or choose the number of highlights";
+            message = "For premium users only";
             console.log("Request Error: Not premium");
             writeLog("Request Error: Not premium");
         }
         res.status(200);
-        res.send(JSON.stringify({clientID: clientID, results: null, done: finished, message: message, premium: premium}));
+        res.send(JSON.stringify({clientID: clientID, results: null, done: finished, message: message, premium: premium, activated: activated}));
     }
 });
 

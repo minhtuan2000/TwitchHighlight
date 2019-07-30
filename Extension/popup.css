@@ -20,7 +20,7 @@ body{
 #header-text{
     display: inline-block;
     text-align: center;
-    width: 255px;
+    width: 210px;
     color: white;
     margin: 0px;
     padding: 5px;
@@ -104,10 +104,6 @@ body{
     font-size: 18s;
 }
 
-#setting-icon{
-    cursor: pointer;
-}
-
 #highlight-container{
     padding: 5px 30px;
 }
@@ -127,4 +123,18 @@ body{
 #autoplay-warning{
     color: darkorange;
     display: none;
+}
+
+img{
+    opacity: 80%;
+    width: 20px; 
+    height: 20px; 
+    padding: 0px; 
+    margin: 0px 5px; 
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+img:hover{
+    opacity: 100%;
 }
