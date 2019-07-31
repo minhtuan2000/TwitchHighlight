@@ -3,6 +3,7 @@
   <head>
     <link rel="stylesheet" href="popup.css">
     <script src="constants.js"></script>
+    <script src="request.js"></script>
     <script src="popup.js"></script>
     <script src="connection.js"></script>
     <script src="config.js"></script>
@@ -22,7 +23,7 @@
       <div>URL of the Twitch Video (if applicable):</div>
       <div><input type="text" name="url"  style="margin: 10px 0px; width: 275px;"></div>
       <div>Please describe the problem:</div>
-      <div><textarea name="message" rows="4" cols="50" style="margin: 10px 0px; width: 275px;"></textarea></div>
+      <div><textarea name="message" rows="4" cols="50" maxlength="900" style="margin: 10px 0px; width: 275px;"></textarea></div>
       <button id="send-button">Send</button>
     </div>
     <div id="main">

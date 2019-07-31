@@ -1,7 +1,6 @@
 const express = require('express');
 const fs = require('fs');
 const uuidv4 = require('uuid/v4');
-const sql = require('mssql/msnodesqlv8');
 const router = express.Router();
 
 const getChat = require('./modules').getChat;

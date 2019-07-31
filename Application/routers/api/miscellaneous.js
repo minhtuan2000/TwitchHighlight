@@ -13,10 +13,14 @@ const writeLog = (message) => {
 }
 
 const getVideoCode = (url) => {
-    let res = url.substring(29);
-    let i = 0;
-    while (i < res.length && '0123456789'.indexOf(res[i]) !== -1) i += 1;
-    return res.substring(0, i);
+    try{
+        let res = url.substring(29);
+        let i = 0;
+        while (i < res.length && '0123456789'.indexOf(res[i]) !== -1) i += 1;
+        return res.substring(0, i);
+    } catch (err){
+        return url;
+    }
 }
 
 module.exports = {writeLog, getVideoCode};
