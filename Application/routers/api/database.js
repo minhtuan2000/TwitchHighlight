@@ -151,7 +151,7 @@ const downgradeAccount = (clientID) => {
 
 const checkExpiredAccount = (clientID, expireDate) => {
     // Check if an account has expired:
-    if (expireDate.getTime() < new Date().getTime()){
+    if (expireDate == null || expireDate.getTime() < new Date().getTime()){
         // Expired
         console.log("Client " + clientID + " has expired");
         writeLog("Client " + clientID + " has expired");
@@ -182,7 +182,7 @@ const isPremium = async (clientID) => {
         result = await pool.request().query(query);
 
         let expireDate = result.recordset[0].PremiumExpireDate;
-        checkExpiredAccount(clientID, expireDate);
+        if (result.recordset[0].IsPremium) checkExpiredAccount(clientID, expireDate);
         
         return [result.recordset[0].IsPremium, result.recordset[0].IsActivated];
 

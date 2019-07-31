@@ -1,0 +1,8 @@
+2019-07-31T19:58:26.333Z: Client d2198c70-31d6-463f-afa7-313b87476a17 made a request
+2019-07-31T19:58:27.840Z: While checking premium: TypeError: Cannot read property 'PremiumExpireDate' of undefined
+2019-07-31T19:58:28.726Z: Client account is not activated, not premium, has 0 pending requests
+2019-07-31T19:58:28.727Z: Request Error: Not activated
+2019-07-31T19:58:33.360Z: Client d2198c70-31d6-463f-afa7-313b87476a17 made a request
+2019-07-31T19:58:34.209Z: While checking premium: TypeError: Cannot read property 'getTime' of null
+2019-07-31T19:58:35.051Z: Client account is not activated, not premium, has 0 pending requests
+2019-07-31T19:58:35.051Z: Request Error: Not activated
