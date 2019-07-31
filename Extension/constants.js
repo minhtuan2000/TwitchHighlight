@@ -1,4 +1,4 @@
-const const_n = 12;
+const const_n = 6;
 const const_l = 2;
 const const_offset = 5;
 const const_from = 1;
