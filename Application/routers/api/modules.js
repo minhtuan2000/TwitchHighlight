@@ -54,5 +54,33 @@ const highlightFinder =(id, number, length, offset) =>{
     })
 }
 
-module.exports = {getChat, highlightFinder};
+//Run advanceFinder algorithm
+const advanceFinder =(id, from, to) =>{
+    return new Promise((resolve,reject)=>{
+        try{
+            dir = exec(`python advance_finder.py ${id}.txt ${id}advanceresults.txt ${id}durations.txt ${from} ${to}`, 
+            {
+                cwd: __dirname + '\\..\\..\\assets\\data'
+            },
+            async function(err, stdout, stderr) {
+                if (err) {
+                    console.log("While running advanceFinder(): ");
+                    console.error(err); 
+                    writeLog("While running advanceFinder(): " + err.toString());
+                }
+                let highlights = await fs.readFileSync(`assets\\data\\${id}advanceresults.txt`);
+                highlights = highlights.toString().replace(/(\r)/gm, "").split('\n').slice(0,-1);
+                let durations = await fs.readFileSync(`assets\\data\\${id}durations.txt`);
+                durations = durations.toString().replace(/(\r)/gm, "").split('\n').slice(0,-1);
+                resolve([highlights, durations]);
+            });
+        }catch(err){
+            console.log("While running advanceFinder(): ");
+            console.error(err);
+            writeLog("While running advanceFinder(): " + err.toString());
+        }
+    })
+}
+
+module.exports = {getChat, highlightFinder, advanceFinder};
 

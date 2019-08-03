@@ -181,8 +181,10 @@ const isPremium = async (clientID) => {
         // query to the database and get the records
         result = await pool.request().query(query);
 
-        let expireDate = result.recordset[0].PremiumExpireDate;
-        if (result.recordset[0].IsPremium) checkExpiredAccount(clientID, expireDate);
+        if (result.recordset[0].IsPremium){
+            let expireDate = result.recordset[0].PremiumExpireDate;
+            checkExpiredAccount(clientID, expireDate);
+        }
         
         return [result.recordset[0].IsPremium, result.recordset[0].IsActivated];
 

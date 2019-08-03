@@ -1,6 +1,6 @@
 let autoplayID = 0;
 
-function autoPlay(apID, id, url, i, highlights){
+function autoPlay(apID, id, url, i, highlights, isBasic, durations){
     //Check if autoPlay should continue
     if (apID != autoplayID) return;
     // Return after playing every highlights
@@ -22,6 +22,10 @@ function autoPlay(apID, id, url, i, highlights){
             autoplayID += 1;
             autoPlay(autoplayID, id, url, i + 1, highlights);
         }
-        setTimeout(() => {autoPlay(apID, id, url, i + 1, highlights)}, l * 60 * 1000);
+        if (isBasic){
+            setTimeout(() => {autoPlay(apID, id, url, i + 1, highlights)}, l * 60 * 1000);
+        } else {
+            setTimeout(() => {autoPlay(apID, id, url, i + 1, highlights)}, parseInt(durations[i]) * 1000);
+        }
     }
 }

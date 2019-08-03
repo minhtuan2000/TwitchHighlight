@@ -5,6 +5,7 @@ const router = express.Router();
 
 const getChat = require('./modules').getChat;
 const highlightFinder = require('./modules').highlightFinder;
+const advanceFinder = require('./modules').advanceFinder;
 
 const writeLog = require('./miscellaneous').writeLog;
 const getVideoCode = require('./miscellaneous').getVideoCode;
@@ -54,7 +55,7 @@ async function getHighlights(url, isBasic, n, l, offset, from, to){
                 writeLog("Running advance algorithm for video " + code);
                 // to be continue
                 
-                let highlights = await highlightFinder(code, 15, l, offset);
+                let highlights = await advanceFinder(code, from, to);
                 return highlights;
             }
 
@@ -102,7 +103,7 @@ router.post('/', async (req, res) => {
     
     let message = "";
 
-    if (activated && pendingRequests < 5 && (premium || (req.body.isBasic == 1 && req.body.n == 6))){
+    if (activated && pendingRequests < 5 && (premium || (req.body.isBasic == 1 && pendingRequests < 2))){
         //append request to database if it does not alrealdy exist
         appendRequest(clientID, 
                     req.body.url, 
@@ -126,13 +127,13 @@ router.post('/', async (req, res) => {
         
         //console.log(highlights);
         res.status(200);
-        res.send(JSON.stringify({clientID: clientID, results: highlights, done: finished, message: message, premium: premium, activated: activated}));
+        res.send(JSON.stringify({clientID: clientID, results: highlights, done: finished, message: message, premium: premium, activated: activated, isBasic: req.body.isBasic}));
     } else {
         if (!activated){
             message = "Sorry, we don't recognize your request, may be a bug, could you please reinstall the extension?";
             console.log("Request Error: Not activated");
             writeLog("Request Error: Not activated");
-        } else  if (pendingRequests >= 1){
+        } else  if (!premium && pendingRequests >= 2){
             message = "We are still processing your recent requests, please wait a moment!";
             console.log("Request Error: Too many requests");
             writeLog("Request Error: Too many requests");
@@ -142,7 +143,7 @@ router.post('/', async (req, res) => {
             writeLog("Request Error: Not premium");
         }
         res.status(200);
-        res.send(JSON.stringify({clientID: clientID, results: null, done: finished, message: message, premium: premium, activated: activated}));
+        res.send(JSON.stringify({clientID: clientID, results: null, done: finished, message: message, premium: premium, activated: activated, isBasic: req.body.isBasic}));
     }
 });
 

@@ -1,0 +1,4 @@
+2019-08-03T09:27:08.555Z: Client cf2d9c97-418d-47a8-a2cb-7769d88913e1 made a request
+2019-08-03T09:27:11.087Z: While checking premium: TypeError: Cannot read property 'PremiumExpireDate' of undefined
+2019-08-03T09:27:11.961Z: Client account is not activated, not premium, has 0 pending requests
+2019-08-03T09:27:11.961Z: Request Error: Not activated

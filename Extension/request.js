@@ -24,30 +24,60 @@ function sendRequest(tabId, tabUrl){
         // Check response message
         let responseMessage = JSON.parse(xhr.responseText)["message"];
         let responsePremium = JSON.parse(xhr.responseText)["premium"];
+        let responseIsBasic = JSON.parse(xhr.responseText)["isBasic"];
         if (responseMessage == "OK"){
-          // Parse response
-          let response = JSON.parse(xhr.responseText)["results"];
-          //console.log(xhr.responseText);
-  
-          // Remove old buttons
-          removeOldButtons();
-  
-          // Add new buttons
-          for (let i = 0; i < response.length; i++){
-            setButton(tabId, tabUrl, i, response[i]);
-          }
-  
-          //Rewire autoplay button
-          setAutoplayButton(tabId, tabUrl, response);
-          
-          //Send a request to get update every 7 seconds
-          //alert("I am still running!");
-          if (JSON.parse(xhr.responseText)["done"] == false){
-            setTimeout(() => sendRequest(tabId, tabUrl), 7000);
+          if (responseIsBasic){
+            // Parse response
+            let response = JSON.parse(xhr.responseText)["results"];
+            //console.log(xhr.responseText);
+    
+            // Remove old buttons
+            removeOldButtons();
+    
+            // Add new buttons
+            for (let i = 0; i < response.length; i++){
+              setButton(tabId, tabUrl, i, response[i]);
+            }
+    
+            //Rewire autoplay button
+            setAutoplayButton(tabId, tabUrl, response, responseIsBasic, null);
+            
+            //Send a request to get update every 7 seconds
+            //alert("I am still running!");
+            if (JSON.parse(xhr.responseText)["done"] == false){
+              setTimeout(() => sendRequest(tabId, tabUrl), 7000);
+            } else {
+              recentMessage = ["Done!", "white", "forestgreen"];
+              changeMessage("Done!", "white", "forestgreen");
+            }
           } else {
-            recentMessage = ["Done!", "white", "forestgreen"];
-            changeMessage("Done!", "white", "forestgreen");
+            // Parse highlights
+            let highlights = JSON.parse(xhr.responseText)["results"][0];
+            // Parse durations
+            let durations = JSON.parse(xhr.responseText)["results"][1];
+            //console.log(xhr.responseText);
+    
+            // Remove old buttons
+            removeOldButtons();
+    
+            // Add new buttons
+            for (let i = 0; i < highlights.length; i++){
+              setButton(tabId, tabUrl, i, highlights[i]);
+            }
+    
+            //Rewire autoplay button
+            setAutoplayButton(tabId, tabUrl, highlights, responseIsBasic, durations);
+            
+            //Send a request to get update every 30 seconds
+            //alert("I am still running!");
+            if (JSON.parse(xhr.responseText)["done"] == false){
+              setTimeout(() => sendRequest(tabId, tabUrl), 30000);
+            } else {
+              recentMessage = ["Done!", "white", "forestgreen"];
+              changeMessage("Done!", "white", "forestgreen");
+            }
           }
+          
         } else {
           // This part only check if client is authorized to use advance setting or request multiple times
           const highlightContainerError = document.getElementById("highlight-container-error");
