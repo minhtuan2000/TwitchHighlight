@@ -13,19 +13,19 @@ function autoPlay(apID, id, url, i, highlights, isBasic, durations){
             let autoplayWarning = document.getElementById("autoplay-warning");
             autoplayWarning.style.display = "block";
             autoplayID += 1;
-            autoPlay(autoplayID, id, url, 0, highlights);
+            autoPlay(autoplayID, id, url, 0, highlights, isBasic, durations);
         }
     } else {
         chrome.tabs.update(id, {url: "https://www.twitch.tv/videos/" + getVideoCode(url) + "?t=" + highlights[i]});
         autoplayButton.textContent = "Next";
         autoplayButton.onclick = function(){
             autoplayID += 1;
-            autoPlay(autoplayID, id, url, i + 1, highlights);
+            autoPlay(autoplayID, id, url, i + 1, highlights, isBasic, durations);
         }
         if (isBasic){
-            setTimeout(() => {autoPlay(apID, id, url, i + 1, highlights)}, l * 60 * 1000);
+            setTimeout(() => {autoPlay(apID, id, url, i + 1, highlights, isBasic, durations)}, l * 60 * 1000);
         } else {
-            setTimeout(() => {autoPlay(apID, id, url, i + 1, highlights)}, parseInt(durations[i]) * 1000);
+            setTimeout(() => {autoPlay(apID, id, url, i + 1, highlights, isBasic, durations)}, parseInt(durations[i]) * 1000);
         }
     }
 }

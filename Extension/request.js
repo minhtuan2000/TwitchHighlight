@@ -55,6 +55,7 @@ function sendRequest(tabId, tabUrl){
             let highlights = JSON.parse(xhr.responseText)["results"][0];
             // Parse durations
             let durations = JSON.parse(xhr.responseText)["results"][1];
+            //console.log(durations);
             //console.log(xhr.responseText);
     
             // Remove old buttons
