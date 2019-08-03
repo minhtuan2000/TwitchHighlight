@@ -61,7 +61,7 @@ function setButton(id, url, i, time){
   //console.log("Add button to " + time);
 }
 
-function setAutoplayButton(id, url, highlights){
+function setAutoplayButton(id, url, highlights, isBasic, durations){
   //DOM variables
   let autoplayContainer = document.getElementById("autoplay-container");
   let autoplayButton = document.getElementById("autoplay-button");
@@ -71,7 +71,7 @@ function setAutoplayButton(id, url, highlights){
     let autoplayWarning = document.getElementById("autoplay-warning");
     autoplayWarning.style.display = "block";
     autoplayID += 1;
-    autoPlay(autoplayID, id, url, 0, highlights);
+    autoPlay(autoplayID, id, url, 0, highlights, isBasic, durations);
   }
 }
 
