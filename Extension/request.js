@@ -91,7 +91,7 @@ function sendRequest(tabId, tabUrl){
         
       }
     }
-  }
+}
 
 function sendReport(email, url, message){
     //Send a POST request with the report message
@@ -104,3 +104,26 @@ function sendReport(email, url, message){
                             url: url,
                             message: message}));
 }
+
+function sendPurchaseID(jwt, cartId, orderId){
+  //Send a POST request with the purchaseID
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "http://35.233.106.177/api/purchase", true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  
+  xhr.send(JSON.stringify({clientID: clientID, 
+                          jwt: jwt,
+                          cartId: cartId,
+                          orderId: orderId}));
+}
+
+function sendUpdatedStatus(license){
+  //Send a POST request with the client status
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "http://35.233.106.177/api/status", true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  
+  xhr.send(JSON.stringify({clientID: clientID, 
+                          licence: license}));
+}
+

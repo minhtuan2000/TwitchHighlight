@@ -74,6 +74,7 @@ function config(tab){
     const settingButton = document.getElementById("setting-icon");
     const settingBasicButton = document.getElementById("choice-basic");
     const settingAdvanceButton = document.getElementById("choice-advance");
+    const subscribeButton = document.getElementById("subscribe-button");
     const textboxN = document.getElementsByName("n")[0];
     const textboxL = document.getElementsByName("l")[0];
     const textboxOffset = document.getElementsByName("offset")[0];
@@ -86,6 +87,18 @@ function config(tab){
     textboxOffset.value = offset;
     textboxFrom.value = from;
     textboxTo.value = to;
+
+    //Check subscription
+
+    //subscribe button
+    subscribeButton.addEventListener("click", function(){
+        try{
+            buyProduct("premium");
+        }catch(err){
+            console.log("Can not initial buy flow:");
+            console.log(err);
+        }
+    });
 
     //console.log(reportButton);
     reportButton.addEventListener("click", function(){
@@ -122,6 +135,7 @@ function config(tab){
         const settingPage = document.getElementById("setting");
         const footer = document.getElementById("footer");
         const message = document.getElementById("message");
+        const subscribe = document.getElementById("subscribe-container");
         if (settingPage.style.display == "none"){
             // setting page
             settingPage.style.display = "block";
@@ -134,6 +148,9 @@ function config(tab){
 
             //message
             message.style.display = "block";
+
+            //sub
+            subscribe.style.display = "block";
         } else {
             settingPage.style.display = "none";
 
@@ -142,6 +159,9 @@ function config(tab){
 
             //message
             message.style.display = "none";
+
+            //sub
+            subscribe.style.display = "none";
         }
     });
 

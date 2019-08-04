@@ -2,10 +2,11 @@
 <html>
   <head>
     <link rel="stylesheet" href="popup.css">
+    <script src="buy.js"></script>
     <script src="constants.js"></script>
     <script src="request.js"></script>
-    <script src="popup.js"></script>
     <script src="connection.js"></script>
+    <script src="popup.js"></script>
     <script src="config.js"></script>
     <script src="autoplay.js"></script>
   </head>
@@ -96,7 +97,12 @@
         <div id="autoplay-warning"> Clicking outside of this extension will stop the autoplay!</div>
       </div>
 
+      <div id="subscribe-container">
+        <button id="subscribe-button">Upgrade to Premium</button>
+        <div id="subscribe-warning">Already had premium account? <br> Connect to your google account and try again</div>
+      </div>
     </div>
+
     <div id="footer" title="Status: Checking...">
     </div>
   </body>

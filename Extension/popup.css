@@ -138,3 +138,15 @@ img{
 img:hover{
     opacity: 100%;
 }
+
+#subscribe-container{
+    text-align: center;
+}
+
+#subscribe-button{
+    margin: 5px;
+    background-color: blueviolet;
+    color: yellow;
+    font-size: 14px;
+    padding: 10px 10px;
+}

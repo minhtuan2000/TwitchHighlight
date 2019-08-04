@@ -159,7 +159,6 @@ const checkExpiredAccount = (clientID, expireDate) => {
     }
 }
 
-
 // Check premium
 const isPremium = async (clientID) => {
     try{
@@ -381,7 +380,6 @@ const updateRequest = (id) => {
     }
 }
 
-
 const appendReport = (clientID, videoURL, email, message) => {
     try{
         url = 'https://www.twitch.tv/videos/' + getVideoCode(videoURL);
@@ -451,5 +449,116 @@ const appendReport = (clientID, videoURL, email, message) => {
     }
 }
 
+const updateStatus = (clientID, license) => {
+    try{
+        let tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        // config for database
+        const pool = new sql.ConnectionPool({
+            database: 'TwitchHighlightsDatabase',
+            server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+            driver: 'msnodesqlv8',
+            options: {
+                trustedConnection: true
+            }
+        });
+
+        // Insert to RequestLog
+        pool.connect().then(() => {
+            // create query string
+            let query = "INSERT INTO StatusLog (CLientID, Kind, SKU, ItemID, Type, State, CheckDate)"+
+                        " VALUES ('" + 
+                        clientID + "','" + 
+                        license.kind + "','" +
+                        license.sku + "','" +
+                        license.item_id + "','" + 
+                        license.type + "','" +
+                        license.state + "','" +
+                        new Date().toISOString().slice(0, 19).replace('T', ' ') + "')";
+            
+            // query to the database and get the records
+            pool.request().query(query, function (err, recordset) {
+                if (err) {
+                    console.log("While making query to the database:");
+                    console.log(err);
+                    writeLog("While making query to the database: " + err.toString());
+                }
+            });
+        });
+
+        // config for database
+        const pool2 = new sql.ConnectionPool({
+            database: 'TwitchHighlightsDatabase',
+            server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+            driver: 'msnodesqlv8',
+            options: {
+                trustedConnection: true
+            }
+        });
+
+        // Update client
+        pool2.connect().then(() => {
+            // create query string
+            let query = "UPDATE Client SET PremiumExpireDate='" +
+                        tomorrow.toISOString().slice(0, 19).replace('T', ' ') + "' " +
+                        "WHERE ClientID='" + clientID + "'";
+            
+            // query to the database and get the records
+            pool2.request().query(query, function (err, recordset) {
+                if (err) {
+                    console.log("While making query to the database:");
+                    console.log(err);
+                    writeLog("While making query to the database: " + err.toString());
+                }       
+            });
+        });
+    }catch(err){
+        console.log("While updating status: ");
+        console.error(err);
+        writeLog("While updating status: " + err.toString());
+    }
+}
+
+const appendPurchase = (clientID, jwt, cartID, orderID) => {
+    try{
+        // config for database
+        const pool = new sql.ConnectionPool({
+            database: 'TwitchHighlightsDatabase',
+            server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+            driver: 'msnodesqlv8',
+            options: {
+                trustedConnection: true
+            }
+        });
+
+        // Insert to RequestLog
+        pool.connect().then(() => {
+            // create query string
+            let query = "INSERT INTO PurchaseLog (CLientID, JWT, CartID, OrderID, PurchaseDate)"+
+                        " VALUES ('" + 
+                        clientID + "','" + 
+                        jwt + "','" +
+                        cartID + "','" +
+                        orderID + "','" + 
+                        new Date().toISOString().slice(0, 19).replace('T', ' ') + "')";
+            
+            // query to the database and get the records
+            pool.request().query(query, function (err, recordset) {
+                if (err) {
+                    console.log("While making query to the database:");
+                    console.log(err);
+                    writeLog("While making query to the database: " + err.toString());
+                }
+            });
+        });
+    }catch(err){
+        console.log("While appending purchase: ");
+        console.error(err);
+        writeLog("While appending purchase: " + err.toString());
+    }
+}
+
 module.exports = {activateAccount, deactivateAccount, upgradeAccount, downgradeAccount, checkExpiredAccount,
-                 isPremium, getPendingCount, appendClient, appendRequest, updateRequest, appendReport}
+                 isPremium, getPendingCount, appendClient, appendRequest, updateRequest, appendReport,
+                 updateStatus, appendPurchase}
