@@ -1,0 +1,222 @@
+2019-08-04T23:45:18.815Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:45:20.768Z: While checking premium: TypeError: Cannot read property 'IsPremium' of undefined
+2019-08-04T23:45:21.669Z: Client account is not activated, not premium, has 0 pending requests
+2019-08-04T23:45:21.670Z: Request Error: Not activated
+2019-08-04T23:45:25.248Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:45:26.921Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:45:26.925Z: Received request for analysing video: 461870417
+2019-08-04T23:45:26.939Z: File 461870417.done does not exist! Running RechatTool...
+2019-08-04T23:45:33.961Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:45:35.666Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:45:35.668Z: Received request for analysing video: 461870417
+2019-08-04T23:45:35.669Z: RechatTool is still running for 461870417!
+2019-08-04T23:45:35.669Z: Running basic algorithm for video 461870417
+2019-08-04T23:45:42.990Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:45:44.681Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:45:44.684Z: Received request for analysing video: 461870417
+2019-08-04T23:45:44.685Z: RechatTool is still running for 461870417!
+2019-08-04T23:45:44.685Z: Running basic algorithm for video 461870417
+2019-08-04T23:45:51.758Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:45:51.761Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:45:51.764Z: Received request for analysing video: 461870417
+2019-08-04T23:45:51.765Z: RechatTool is still running for 461870417!
+2019-08-04T23:45:51.765Z: Running basic algorithm for video 461870417
+2019-08-04T23:45:58.414Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:45:58.418Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:45:58.419Z: Received request for analysing video: 461870417
+2019-08-04T23:45:58.419Z: RechatTool is still running for 461870417!
+2019-08-04T23:45:58.419Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:00.040Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:00.888Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:00.891Z: Received request for analysing video: 461870417
+2019-08-04T23:46:00.891Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:00.892Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:03.130Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:04.823Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:04.825Z: Received request for analysing video: 461870417
+2019-08-04T23:46:04.826Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:04.827Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:05.519Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:05.900Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:06.437Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:06.440Z: Received request for analysing video: 461870417
+2019-08-04T23:46:06.440Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:06.441Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:06.745Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:06.746Z: Request Error: Not premium
+2019-08-04T23:46:08.008Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:08.011Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:08.014Z: Received request for analysing video: 461870417
+2019-08-04T23:46:08.015Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:08.015Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:11.930Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:13.549Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:13.654Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:13.656Z: Received request for analysing video: 461870417
+2019-08-04T23:46:13.658Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:13.658Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:14.385Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:14.388Z: Received request for analysing video: 461870417
+2019-08-04T23:46:14.388Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:14.389Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:15.119Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:15.969Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:15.970Z: Received request for analysing video: 461870417
+2019-08-04T23:46:15.970Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:15.970Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:20.786Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:21.509Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:22.354Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:22.356Z: Received request for analysing video: 461870417
+2019-08-04T23:46:22.356Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:22.356Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:22.479Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:22.483Z: Received request for analysing video: 461870417
+2019-08-04T23:46:22.483Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:22.484Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:23.141Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:23.144Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:23.146Z: Received request for analysing video: 461870417
+2019-08-04T23:46:23.147Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:23.147Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:29.497Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:29.500Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:29.501Z: Received request for analysing video: 461870417
+2019-08-04T23:46:29.501Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:29.502Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:29.676Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:30.290Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:30.515Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:30.519Z: Received request for analysing video: 461870417
+2019-08-04T23:46:30.520Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:30.520Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:31.962Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:31.964Z: Received request for analysing video: 461870417
+2019-08-04T23:46:31.965Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:31.965Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:36.666Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:36.669Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:36.670Z: Received request for analysing video: 461870417
+2019-08-04T23:46:36.670Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:36.670Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:37.686Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:37.689Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:37.689Z: Received request for analysing video: 461870417
+2019-08-04T23:46:37.690Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:37.690Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:39.138Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:39.145Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:39.147Z: Received request for analysing video: 461870417
+2019-08-04T23:46:39.148Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:39.174Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:43.886Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:43.889Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:43.891Z: Received request for analysing video: 461870417
+2019-08-04T23:46:43.892Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:43.892Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:44.861Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:44.864Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:44.867Z: Received request for analysing video: 461870417
+2019-08-04T23:46:44.867Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:44.867Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:46.395Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:46.398Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:46.399Z: Received request for analysing video: 461870417
+2019-08-04T23:46:46.400Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:46.401Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:51.190Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:51.194Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:51.195Z: Received request for analysing video: 461870417
+2019-08-04T23:46:51.196Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:51.196Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:52.063Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:52.900Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:52.901Z: Received request for analysing video: 461870417
+2019-08-04T23:46:52.902Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:52.902Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:53.669Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:53.673Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:53.674Z: Received request for analysing video: 461870417
+2019-08-04T23:46:53.674Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:53.674Z: Running basic algorithm for video 461870417
+2019-08-04T23:46:58.437Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:46:58.444Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:46:58.444Z: Received request for analysing video: 461870417
+2019-08-04T23:46:58.445Z: RechatTool is still running for 461870417!
+2019-08-04T23:46:58.445Z: Running basic algorithm for video 461870417
+2019-08-04T23:47:00.107Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:47:00.110Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:47:00.111Z: Received request for analysing video: 461870417
+2019-08-04T23:47:00.112Z: RechatTool is still running for 461870417!
+2019-08-04T23:47:00.112Z: Running basic algorithm for video 461870417
+2019-08-04T23:47:00.883Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:47:00.888Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:47:00.890Z: Received request for analysing video: 461870417
+2019-08-04T23:47:00.891Z: RechatTool is still running for 461870417!
+2019-08-04T23:47:00.891Z: Running basic algorithm for video 461870417
+2019-08-04T23:47:05.699Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:47:05.702Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:47:05.703Z: Received request for analysing video: 461870417
+2019-08-04T23:47:05.703Z: RechatTool is still running for 461870417!
+2019-08-04T23:47:05.703Z: Running basic algorithm for video 461870417
+2019-08-04T23:47:07.511Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:47:07.515Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:47:07.516Z: Received request for analysing video: 461870417
+2019-08-04T23:47:07.516Z: RechatTool is still running for 461870417!
+2019-08-04T23:47:07.516Z: Running basic algorithm for video 461870417
+2019-08-04T23:47:08.140Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:47:08.145Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:47:08.159Z: Received request for analysing video: 461870417
+2019-08-04T23:47:08.160Z: RechatTool is still running for 461870417!
+2019-08-04T23:47:08.160Z: Running basic algorithm for video 461870417
+2019-08-04T23:47:14.054Z: Updating status of 14819fff-ab5f-4b83-bf85-b49f992970e1
+2019-08-04T23:47:14.841Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:47:14.906Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:47:14.906Z: Received request for analysing video: 461870417
+2019-08-04T23:47:14.907Z: RechatTool is still running for 461870417!
+2019-08-04T23:47:14.907Z: Running basic algorithm for video 461870417
+2019-08-04T23:47:22.201Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:47:22.205Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:47:22.206Z: Received request for analysing video: 461870417
+2019-08-04T23:47:22.216Z: RechatTool is still running for 461870417!
+2019-08-04T23:47:22.216Z: Running basic algorithm for video 461870417
+2019-08-04T23:47:29.567Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:47:29.570Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:47:29.571Z: Received request for analysing video: 461870417
+2019-08-04T23:47:29.571Z: RechatTool is still running for 461870417!
+2019-08-04T23:47:29.571Z: Running basic algorithm for video 461870417
+2019-08-04T23:47:36.852Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:47:36.855Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:47:36.856Z: Received request for analysing video: 461870417
+2019-08-04T23:47:36.856Z: RechatTool is still running for 461870417!
+2019-08-04T23:47:36.857Z: Running basic algorithm for video 461870417
+2019-08-04T23:47:44.166Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:47:44.169Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:47:44.169Z: Received request for analysing video: 461870417
+2019-08-04T23:47:44.170Z: RechatTool is still running for 461870417!
+2019-08-04T23:47:44.170Z: Running basic algorithm for video 461870417
+2019-08-04T23:47:51.520Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:47:51.525Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:47:51.526Z: Received request for analysing video: 461870417
+2019-08-04T23:47:51.526Z: RechatTool is still running for 461870417!
+2019-08-04T23:47:51.526Z: Running basic algorithm for video 461870417
+2019-08-04T23:47:59.011Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:47:59.014Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:47:59.015Z: Received request for analysing video: 461870417
+2019-08-04T23:47:59.016Z: RechatTool is still running for 461870417!
+2019-08-04T23:47:59.016Z: Running basic algorithm for video 461870417
+2019-08-04T23:48:06.352Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:48:06.388Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:48:06.389Z: Received request for analysing video: 461870417
+2019-08-04T23:48:06.390Z: RechatTool is still running for 461870417!
+2019-08-04T23:48:06.390Z: Running basic algorithm for video 461870417
+2019-08-04T23:48:13.815Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:48:13.819Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:48:13.820Z: Received request for analysing video: 461870417
+2019-08-04T23:48:13.821Z: RechatTool is still running for 461870417!
+2019-08-04T23:48:13.822Z: Running basic algorithm for video 461870417
+2019-08-04T23:48:21.283Z: Client 14819fff-ab5f-4b83-bf85-b49f992970e1 made a request
+2019-08-04T23:48:21.287Z: Client account is activated, not premium, has 0 pending requests
+2019-08-04T23:48:21.287Z: Received request for analysing video: 461870417
+2019-08-04T23:48:21.288Z: RechatTool has stopped for 461870417!
+2019-08-04T23:48:21.289Z: Running basic algorithm for video 461870417

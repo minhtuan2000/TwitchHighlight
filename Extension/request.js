@@ -124,6 +124,6 @@ function sendUpdatedStatus(license){
   xhr.setRequestHeader('Content-type', 'application/json');
   
   xhr.send(JSON.stringify({clientID: clientID, 
-                          licence: license}));
+                          license: license}));
 }
 

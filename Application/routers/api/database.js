@@ -450,6 +450,7 @@ const appendReport = (clientID, videoURL, email, message) => {
 }
 
 const updateStatus = (clientID, license) => {
+    console.log(license);
     try{
         let tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
@@ -472,7 +473,7 @@ const updateStatus = (clientID, license) => {
                         clientID + "','" + 
                         license.kind + "','" +
                         license.sku + "','" +
-                        license.item_id + "','" + 
+                        license.itemId + "','" + 
                         license.type + "','" +
                         license.state + "','" +
                         new Date().toISOString().slice(0, 19).replace('T', ' ') + "')";
@@ -487,32 +488,7 @@ const updateStatus = (clientID, license) => {
             });
         });
 
-        // config for database
-        const pool2 = new sql.ConnectionPool({
-            database: 'TwitchHighlightsDatabase',
-            server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
-            driver: 'msnodesqlv8',
-            options: {
-                trustedConnection: true
-            }
-        });
-
-        // Update client
-        pool2.connect().then(() => {
-            // create query string
-            let query = "UPDATE Client SET PremiumExpireDate='" +
-                        tomorrow.toISOString().slice(0, 19).replace('T', ' ') + "' " +
-                        "WHERE ClientID='" + clientID + "'";
-            
-            // query to the database and get the records
-            pool2.request().query(query, function (err, recordset) {
-                if (err) {
-                    console.log("While making query to the database:");
-                    console.log(err);
-                    writeLog("While making query to the database: " + err.toString());
-                }       
-            });
-        });
+        upgradeAccount(clientID, tomorrow);
     }catch(err){
         console.log("While updating status: ");
         console.error(err);
