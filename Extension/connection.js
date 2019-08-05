@@ -57,6 +57,8 @@ function onLicenseUpdate(response) {
   }
 }
 
+setTimeout(() => {document.getElementById("subscribe-container").style.display = "none";}, 100);
+
 function onLicenseUpdateFailed(response) {
   console.log("onLicenseUpdateFailed", response);
   console.log("Error retreiving list of purchased products.");
