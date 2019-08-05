@@ -51,7 +51,7 @@ function onLicenseUpdate(response) {
   for (var i = 0; i < count; i++) {
     let license = licenses[i];
     if (license.state == "ACTIVE"){
-      document.getElementById("subscribe-container").style.display = "none";
+      setTimeout(() => {document.getElementById("subscribe-container").style.display = "none";}, 100);
       sendUpdatedStatus(license);
     }
   }

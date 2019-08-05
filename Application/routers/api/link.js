@@ -130,15 +130,15 @@ router.post('/', async (req, res) => {
         res.send(JSON.stringify({clientID: clientID, results: highlights, done: finished, message: message, premium: premium, activated: activated, isBasic: req.body.isBasic}));
     } else {
         if (!activated){
-            message = "Sorry, we don't recognize your request, may be a bug, could you please reinstall the extension?";
+            message = "Sorry, we don't recognize your request, please try again";
             console.log("Request Error: Not activated");
             writeLog("Request Error: Not activated");
-        } else  if (!premium && pendingRequests >= 2){
+        } else  if ((!premium && pendingRequests >= 2) || (pendingRequests >= 5)){
             message = "We are still processing your recent requests, please wait a moment!";
             console.log("Request Error: Too many requests");
             writeLog("Request Error: Too many requests");
         } else {
-            message = "For premium users only";
+            message = "Reserved for premium users only";
             console.log("Request Error: Not premium");
             writeLog("Request Error: Not premium");
         }

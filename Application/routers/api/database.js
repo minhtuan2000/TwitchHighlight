@@ -450,7 +450,7 @@ const appendReport = (clientID, videoURL, email, message) => {
 }
 
 const updateStatus = (clientID, license) => {
-    console.log(license);
+    //console.log(license);
     try{
         let tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
