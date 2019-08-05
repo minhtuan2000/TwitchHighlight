@@ -1,6 +1,6 @@
 {
   "name": "Twitch Highlights",
-  "version": "0.2.6",
+  "version": "0.2.7.1",
   "description": "Get highlights from Twitch videos!",
   "permissions": [
     "activeTab", 
