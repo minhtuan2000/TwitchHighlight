@@ -151,13 +151,24 @@ img:hover{
 }
 
 #subscribe-container{
-    text-align: center;
+    background-color: #6441a4;
 }
 
 #subscribe-button{
+    display: inline-block;
     margin: 5px;
-    background-color: blueviolet;
-    color: yellow;
+    background-color: gold;
+    color: lightyellow;
+    font-weight: bold;
     font-size: 14px;
-    padding: 10px 10px;
+    padding: 7px 15px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+#subscribe-warning{
+    display: inline-block;
+    width: 190px;
+    color: white;
+    vertical-align: middle;
 }
