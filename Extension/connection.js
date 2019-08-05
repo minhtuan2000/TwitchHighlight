@@ -50,7 +50,10 @@ function onLicenseUpdate(response) {
   let count = licenses.length;
   for (var i = 0; i < count; i++) {
     let license = licenses[i];
-    if (license.state == "ACTIVE") sendUpdatedStatus(license);
+    if (license.state == "ACTIVE"){
+      document.getElementById("subscribe-container").style.display = "none";
+      sendUpdatedStatus(license);
+    }
   }
 }
 
