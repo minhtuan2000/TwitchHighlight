@@ -1,9 +1,7 @@
 let autoplayID = 0;
 
 function autoPlay(apID, id, url, i, highlights, isBasic, durations){
-    //Check if autoPlay should continue
     if (apID != autoplayID) return;
-    // Return after playing every highlights
     let autoplayButton = document.getElementById("autoplay-button");
     if (i >= highlights.length){
         let autoplayWarning = document.getElementById("autoplay-warning");
