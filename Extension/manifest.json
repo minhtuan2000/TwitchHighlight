@@ -1,7 +1,7 @@
 {
   "name": "Twitch Highlights",
   "version": "0.2.7.3",
-  "description": "Get highlights from Twitch videos!",
+  "description": "Find highlights in Twitch VODs!",
   "permissions": [
     "activeTab", 
     "webRequest",
