@@ -70,6 +70,7 @@ function onLicenseUpdateFailed(response) {
 function buyProduct(sku) {
   console.log("google.payments.inapp.buy", sku);
   console.log("Kicking off purchase flow for " + sku);
+  ga('send', 'event', "Purchase", "Initiate");
   google.payments.inapp.buy({
     parameters: {'env': "prod"},
     'sku': sku,
@@ -84,6 +85,7 @@ function onPurchase(purchase) {
   let cartId = purchase.request.cardId;
   let orderId = purchase.response.orderId;
   console.log("Purchase completed. Order ID: " + orderId);
+  ga('send', 'event', "Purchase", "Succeed");
   sendPurchaseID(jwt, cartId, orderId);
   getLicences();
 }
@@ -92,6 +94,7 @@ function onPurchaseFailed(purchase) {
   console.log("onPurchaseFailed", purchase);
   let reason = purchase.response.errorType;
   console.log("Purchase failed. " + reason);
+  ga('send', 'event', "Purchase", "Fail", reason);
 }
 
 getLicenses();

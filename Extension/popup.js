@@ -82,13 +82,21 @@ function getVideoCode(url){
   return res.substring(0, i);
 }
 
+function cleanURL(url){
+    if (url.startsWith("https://www.twitch.tv/") && url.indexOf("/video/") != -1){
+        return "https://www.twitch.tv/videos/" + url.substring(url.indexOf("/video/") + 7);
+    } else {
+        return url;
+    }
+}
+
 function process(tab){
   if (online){
     // If online, then analyse the video
     let tabId = tab.id;
-    let tabUrl = tab.url;
+    let tabUrl = cleanURL(tab.url);
 
-    //console.log("Running on URL: " + tabUrl);
+    console.log("Running on URL: " + tabUrl);
 
     // Check if the URL is legit
     if (tabUrl.startsWith("https://www.twitch.tv/videos/")){

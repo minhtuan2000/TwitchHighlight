@@ -1,4 +1,6 @@
 function sendRequest(tabId, tabUrl){
+    //Log to analytics
+    ga('send', 'event', "Request", "Send", isBasic.toString());
     //Send a POST request to the server to analyse the video
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "http://35.233.106.177/api/link", true);
@@ -94,6 +96,7 @@ function sendRequest(tabId, tabUrl){
 }
 
 function sendReport(email, url, message){
+    ga('send', 'event', "Report", "Send");
     //Send a POST request with the report message
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "http://35.233.106.177/api/report", true);
@@ -106,6 +109,7 @@ function sendReport(email, url, message){
 }
 
 function sendPurchaseID(jwt, cartId, orderId){
+  ga('send', 'event', "Purchase", "Send");
   //Send a POST request with the purchaseID
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "http://35.233.106.177/api/purchase", true);
@@ -118,6 +122,7 @@ function sendPurchaseID(jwt, cartId, orderId){
 }
 
 function sendUpdatedStatus(license){
+  ga('send', 'event', "Status", "Send");
   //Send a POST request with the client status
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "http://35.233.106.177/api/status", true);

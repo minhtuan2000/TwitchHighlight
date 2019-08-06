@@ -1,6 +1,6 @@
 {
   "name": "Twitch Highlights",
-  "version": "0.2.7.2",
+  "version": "0.2.7.3",
   "description": "Get highlights from Twitch videos!",
   "permissions": [
     "activeTab", 
@@ -8,6 +8,7 @@
     "webRequestBlocking",
     "http://35.233.106.177/*"
   ],
+  "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
