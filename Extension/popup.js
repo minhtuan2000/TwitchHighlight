@@ -1,8 +1,5 @@
-// 2019 - Minh Tuan Nguyen
-
 'use strict';
 
-// Set localStorage at the beginning
 if (window.localStorage.getItem("n") == null || 
     window.localStorage.getItem("l") == null ||
     window.localStorage.getItem("offset") == null){
@@ -16,11 +13,8 @@ if (window.localStorage.getItem("from") == null ||
   window.localStorage.setItem("from", const_from.toString());
   window.localStorage.setItem("to", const_to.toString());
 }
-
-// Default is using basic algorithm
 if (window.localStorage.getItem("isBasic") == null) window.localStorage.setItem("isBasic", const_isBasic.toString());
 
-// Initialize variables
 let n = parseInt(window.localStorage.getItem("n"));
 let l = parseInt(window.localStorage.getItem("l"));
 let offset = parseInt(window.localStorage.getItem("offset"));
@@ -30,7 +24,6 @@ let to = parseInt(window.localStorage.getItem("to"));
 
 let isBasic = parseInt(window.localStorage.getItem("isBasic"));
 
-//Get client ID
 let clientID = window.localStorage.getItem("watermelon");
 
 let online = false;
@@ -60,7 +53,6 @@ function setButton(id, url, i, time){
   };
   newButton.textContent = (i + 1).toString();
   document.getElementById("highlight-container").appendChild(newButton);
-  //console.log("Add button to " + time);
 }
 
 function getVideoCode(url){
@@ -80,33 +72,23 @@ function cleanURL(url){
 
 function process(tab){
   if (online){
-    // If online, then analyse the video
     let tabId = tab.id;
     let tabUrl = cleanURL(tab.url);
 
-    console.log("Running on URL: " + tabUrl);
-
-    // Check if the URL is legit
     if (tabUrl.startsWith("https://www.twitch.tv/videos/")){
       
-      //Get video code
       let videoCode = getVideoCode(tabUrl);
-      console.log("Trying to analyse video: " + videoCode);
     
-      //Set loading message
       recentMessage = ["Loading, please wait for the best results...", "darkgray", "yellow"];
       changeMessage("Loading, please wait for the best results...", "darkgray", "yellow");
 
       sendRequest(tabId, tabUrl);
 
     } else {
-
-      //Set none message
       recentMessage = ["Open a Twitch video to analyze", "darkgray", "white"];
       changeMessage("Open a Twitch video to analyze", "darkgray", "white");
     }
   } else {
-    // Try again in 1 second
     setTimeout(() => process(tab), 1000);
   }
 }

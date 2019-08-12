@@ -37,7 +37,6 @@ function settingAdvanceButtonClicked(){
     settingAdvancePage.style.display = "inline-block";
     isBasic = 0;
     window.localStorage.setItem("isBasic", "0");
-    console.log("Changed to advance algorithm");
 }
 
 function settingBasicButtonClicked(){
@@ -47,7 +46,6 @@ function settingBasicButtonClicked(){
     settingAdvancePage.style.display = "none";
     isBasic = 1;
     window.localStorage.setItem("isBasic", "1");
-    console.log("Changed to basic algorithm");
 }
 
 function reportButtonClicked(){
@@ -64,11 +62,9 @@ function reportButtonClicked(){
 
 function config(tab){
     if (document.getElementsByName("n").length == 0){
-        console.log("Config: Waiting for page to load");
         setTimeout(() => config(tab), 100);
         return;
     }
-    //Initialize DOM elements
     const reportButton = document.getElementById("report-icon");
     const sendReportButton = document.getElementById("send-button");
     const settingButton = document.getElementById("setting-icon");
@@ -80,27 +76,17 @@ function config(tab){
     const textboxOffset = document.getElementsByName("offset")[0];
     const textboxFrom = document.getElementsByName("from")[0];
     const textboxTo = document.getElementsByName("to")[0];
-
-    //Set value for textboxes
     textboxN.value = n;
     textboxL.value = l;
     textboxOffset.value = offset;
     textboxFrom.value = from;
     textboxTo.value = to;
-
-    //Check subscription
-
-    //subscribe button
     subscribeButton.addEventListener("click", function(){
         try{
             buyProduct("premium");
         }catch(err){
-            console.log("Can not initial buy flow:");
-            console.log(err);
         }
     });
-
-    //console.log(reportButton);
     reportButton.addEventListener("click", function(){
         reportButtonClicked();
     });
@@ -112,14 +98,11 @@ function config(tab){
 
         setTimeout(() => changeMessage(recentMessage[0], recentMessage[1], recentMessage[2]), 2000);
         
-        // Send a post request here
         const email = document.getElementsByName("email")[0].value;
         const url = document.getElementsByName("url")[0].value;
         const message = document.getElementsByName("message")[0].value;
         sendReport(email, url, message);
     });
-
-    //Setting basic or advance?
     settingBasicButton.addEventListener("click", function(){
         settingBasicButtonClicked();
         process(tab);
@@ -129,38 +112,24 @@ function config(tab){
         settingAdvanceButtonClicked();
         process(tab);
     });
-
-    //console.log(settingButton);
     settingButton.addEventListener("click", function(){
         const settingPage = document.getElementById("setting");
         const footer = document.getElementById("footer");
         const message = document.getElementById("message");
         const subscribe = document.getElementById("subscribe-container");
         if (settingPage.style.display == "none"){
-            // setting page
             settingPage.style.display = "block";
             textboxN.value = n;
             textboxL.value = l;
             textboxOffset.value = offset;
 
-            // footer
             footer.style.display = "block";
-
-            //message
             message.style.display = "block";
-
-            //sub
             subscribe.style.display = "block";
         } else {
             settingPage.style.display = "none";
-
-            // footer
             footer.style.display = "none";
-
-            //message
             message.style.display = "none";
-
-            //sub
             subscribe.style.display = "none";
         }
     });
@@ -168,39 +137,33 @@ function config(tab){
     textboxN.addEventListener("change", function(){
         n = textboxN.value;
         window.localStorage.setItem("n", n.toString());
-        console.log(`n is changed to ${n}`);
         process(tab);
     });
 
     textboxL.addEventListener("change", function(){
         l = textboxL.value;
         window.localStorage.setItem("l", l.toString());
-        console.log(`l is changed to ${l}`);
         process(tab);
     });
 
     textboxOffset.addEventListener("change", function(){
         offset = textboxOffset.value;
-        window.localStorage.setItem("offset", offset.toString());        
-        console.log(`offset is changed to ${offset}`);
+        window.localStorage.setItem("offset", offset.toString());    
         process(tab);
     });
 
     textboxFrom.addEventListener("change", function(){
         from = textboxFrom.value;
-        window.localStorage.setItem("from", from.toString());        
-        console.log(`from is changed to ${from}`);
+        window.localStorage.setItem("from", from.toString());  
         process(tab);
     });
 
     textboxTo.addEventListener("change", function(){
         to = textboxTo.value;
-        window.localStorage.setItem("to", to.toString());        
-        console.log(`to is changed to ${to}`);
+        window.localStorage.setItem("to", to.toString());     
         process(tab);
     });
 
-    //Check if advance algorithm is being used
     if (isBasic == 0){
         settingAdvanceButtonClicked();
     } else {

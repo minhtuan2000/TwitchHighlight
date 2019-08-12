@@ -2,7 +2,6 @@ let autoplayID = 0;
 
 
 function setAutoplayButton(id, url, highlights, isBasic, durations){
-    //DOM variables
     let autoplayContainer = document.getElementById("autoplay-container");
     let autoplayButton = document.getElementById("autoplay-button");
     
@@ -12,7 +11,6 @@ function setAutoplayButton(id, url, highlights, isBasic, durations){
         autoplayWarning.style.display = "block";
         autoplayID += 1;
         autoPlay(autoplayID, id, url, 0, highlights, isBasic, durations);
-        //Rewire all highlights buttons
         buttonList = document.getElementsByClassName("button");
         for (let i = 0; i < buttonList.length; i++){
             try{
@@ -21,16 +19,13 @@ function setAutoplayButton(id, url, highlights, isBasic, durations){
                     autoPlay(autoplayID, id, url, i, highlights, isBasic, durations);
                 }
             } catch (err){
-                console.log(err);
             }
         }
     }
 }
 
 function autoPlay(apID, id, url, i, highlights, isBasic, durations){
-    //Check if autoPlay should continue
     if (apID != autoplayID) return;
-    // Return after playing every highlights
     const autoplayButton = document.getElementById("autoplay-button");
     const quitButton = document.getElementById("quit-button");
     if (i >= highlights.length){
@@ -38,7 +33,6 @@ function autoPlay(apID, id, url, i, highlights, isBasic, durations){
         autoplayWarning.style.display = "none";
         autoplayButton.textContent = "Autoplay";
         setAutoplayButton(id, url, highlights, isBasic, durations);
-        //Reset all highlights buttons
         buttonList = document.getElementsByClassName("button");
         for (let i = 0; i < buttonList.length; i++){
             try{
@@ -47,10 +41,8 @@ function autoPlay(apID, id, url, i, highlights, isBasic, durations){
                     chrome.tabs.update(id, {url: "https://www.twitch.tv/videos/" + getVideoCode(url) + "?t=" + highlights[i]});   
                 }
             } catch (err){
-                console.log(err);
             }
         }
-        //Reset quit button
         quitButton.style.display = "none";
     } else {
         chrome.tabs.update(id, {url: "https://www.twitch.tv/videos/" + getVideoCode(url) + "?t=" + highlights[i]});
