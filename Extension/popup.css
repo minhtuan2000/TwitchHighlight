@@ -131,6 +131,14 @@ body{
     padding: 5px 15px;
 }
 
+#quit-button{
+    display: none;
+    margin: 0px;
+    background-color: rgba(255, 0, 0, 0.767);
+    color: white;
+    padding: 5px 7px;
+}
+
 #autoplay-warning{
     color: darkorange;
     display: none;
