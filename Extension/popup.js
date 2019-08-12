@@ -53,26 +53,14 @@ function removeOldButtons(){
 function setButton(id, url, i, time){
   let newButton = document.createElement("button");
   newButton.classList.add("button");
+  newButton.id = (i + 1).toString();
   newButton.onclick = function(){
+    newButton.style.backgroundColor = "darkorange";
     chrome.tabs.update(id, {url: "https://www.twitch.tv/videos/" + getVideoCode(url) + "?t=" + time});
   };
   newButton.textContent = (i + 1).toString();
   document.getElementById("highlight-container").appendChild(newButton);
   //console.log("Add button to " + time);
-}
-
-function setAutoplayButton(id, url, highlights, isBasic, durations){
-  //DOM variables
-  let autoplayContainer = document.getElementById("autoplay-container");
-  let autoplayButton = document.getElementById("autoplay-button");
-  
-  autoplayContainer.style.display = "block";
-  autoplayButton.onclick = function(){
-    let autoplayWarning = document.getElementById("autoplay-warning");
-    autoplayWarning.style.display = "block";
-    autoplayID += 1;
-    autoPlay(autoplayID, id, url, 0, highlights, isBasic, durations);
-  }
 }
 
 function getVideoCode(url){
