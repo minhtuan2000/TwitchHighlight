@@ -65,14 +65,13 @@ function sendRequest(tabId, tabUrl){
     }
 }
 
-function sendReport(email, url, message){
+function sendReport(url, message){
     ga('send', 'event', "Report", "Send");
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "http://35.233.106.177/api/report", true);
     xhr.setRequestHeader('Content-type', 'application/json');
     
     xhr.send(JSON.stringify({clientID: clientID, 
-                            email: email,
                             url: url,
                             message: message}));
 }

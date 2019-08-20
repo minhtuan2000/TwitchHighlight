@@ -98,10 +98,9 @@ function config(tab){
 
         setTimeout(() => changeMessage(recentMessage[0], recentMessage[1], recentMessage[2]), 2000);
         
-        const email = document.getElementsByName("email")[0].value;
         const url = document.getElementsByName("url")[0].value;
         const message = document.getElementsByName("message")[0].value;
-        sendReport(email, url, message);
+        sendReport(url, message);
     });
     settingBasicButton.addEventListener("click", function(){
         settingBasicButtonClicked();
