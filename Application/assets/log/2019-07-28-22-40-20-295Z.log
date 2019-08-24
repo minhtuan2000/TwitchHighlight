@@ -1,3 +1,0 @@
-2019-07-28T22:40:27.525Z: Client aa34b559-81ff-48f5-8a72-036817c88e2f made a request
-2019-07-28T22:40:27.530Z: While getting pending count: TypeError: Cannot read property 'substring' of null
-2019-07-28T22:40:27.531Z: Request Error: Not premium

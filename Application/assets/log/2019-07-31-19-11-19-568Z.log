@@ -1,4 +1,0 @@
-2019-07-31T19:12:14.900Z: Client fc089c3a-f73e-4488-ae94-5ea2a8ce0da2 made a request
-2019-07-31T19:12:15.860Z: While checking premium: TypeError: Cannot read property 'getTime' of undefined
-2019-07-31T19:12:16.762Z: Client account is not activated, not premium, has 0 pending requests
-2019-07-31T19:12:16.763Z: Request Error: Not activated

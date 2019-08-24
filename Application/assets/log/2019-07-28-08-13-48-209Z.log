@@ -1,5 +1,0 @@
-2019-07-28T08:13:53.047Z: Client 68cf502d-b85a-420b-a8ef-2bda4baa8629 made a request
-2019-07-28T08:13:53.053Z: Received request for analysing video: 451344082
-2019-07-28T08:13:53.055Z: RechatTool has stopped for 451344082!
-2019-07-28T08:13:53.056Z: Running basic algorithm for video 451344082
-2019-07-28T08:13:54.041Z: While making query to the database: RequestError: Incorrect syntax near 'cf502d'.

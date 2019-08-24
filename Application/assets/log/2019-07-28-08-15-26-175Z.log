@@ -1,5 +1,0 @@
-2019-07-28T08:15:29.817Z: Client baddf85e-f2d2-479b-9f43-960ca37aa388 made a request
-2019-07-28T08:15:29.818Z: Received request for analysing video: 451344082
-2019-07-28T08:15:29.819Z: RechatTool has stopped for 451344082!
-2019-07-28T08:15:29.819Z: Running basic algorithm for video 451344082
-2019-07-28T08:15:30.754Z: While making query to the database: RequestError: Invalid column name 'IsActivated'.

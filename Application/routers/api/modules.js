@@ -9,7 +9,7 @@ const updateRequest = require('./database').updateRequest;
 const getChat = (id)=>{
     fs.writeFileSync(`assets\\data\\${id}.done`,'False');
     console.log(__dirname);
-    dir = exec(`RechatToolnew.exe -D ${id}`,  
+    dir = exec(`tcd -v ${id} --client-id 137oh7nvyaimf0yntfsjakm6wsvcvx`,  
         {
             cwd: __dirname + '\\..\\..\\assets\\data'
         },
@@ -32,7 +32,7 @@ const getChat = (id)=>{
 const highlightFinder =(id, number, length, offset) =>{
     return new Promise((resolve,reject)=>{
         try{
-            dir = exec(`highlight_finder.exe ${id}.txt ${id}results.txt ${number} ${length} ${offset}`, 
+            dir = exec(`python basic.py ${id}.txt ${id}results.txt ${number} ${length} ${offset}`, 
             {
                 cwd: __dirname + '\\..\\..\\assets\\data'
             },
@@ -58,7 +58,7 @@ const highlightFinder =(id, number, length, offset) =>{
 const advanceFinder =(id, from, to) =>{
     return new Promise((resolve,reject)=>{
         try{
-            dir = exec(`python advance_finder.py ${id}.txt ${id}advanceresults.txt ${id}durations.txt ${from} ${to}`, 
+            dir = exec(`python advance.py ${id}.txt ${id}advanceresults.txt ${id}durations.txt ${from} ${to}`, 
             {
                 cwd: __dirname + '\\..\\..\\assets\\data'
             },

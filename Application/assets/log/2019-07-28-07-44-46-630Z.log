@@ -1,9 +1,0 @@
-2019-07-28T07:45:09.590Z: Client 98418a3c-57d1-47fa-87e3-e6de3464e94a made a request
-2019-07-28T07:45:09.592Z: Received request for analysing video: 451344082
-2019-07-28T07:45:09.593Z: RechatTool has stopped for 451344082!
-2019-07-28T07:45:09.593Z: Running basic algorithm for video 451344082
-2019-07-28T07:45:56.637Z: Client 254d2ac6-917f-4fb2-9549-c317b899ec66 made a request
-2019-07-28T07:45:56.638Z: Received request for analysing video: 451344082
-2019-07-28T07:45:56.638Z: RechatTool has stopped for 451344082!
-2019-07-28T07:45:56.639Z: Running basic algorithm for video 451344082
-2019-07-28T07:45:58.659Z: While connecting to the database: ConnectionError: Failed to connect to localhost:1433 - Could not connect (sequence)
