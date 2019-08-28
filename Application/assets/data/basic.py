@@ -33,9 +33,10 @@ for i in range(1, len(timestamp)):
     
 best = []
 
-cnt = int(sys.argv[3])
-length = int(sys.argv[4]) * 60 // 5
-offset = int(sys.argv[5]) // 5
+automode = (int(sys.argv[5]) <= 0)
+cnt = int(sys.argv[4])
+length = (10 * 60 // 5) if automode else (int(sys.argv[5]) * 60 // 5)
+offset = int(sys.argv[6]) // 5
 for i in range(len(timestamp) - length):
     best.append(((sums[i + length] - sums[i]) / 
                  (sums[min(i + length // 2 + len(timestamp) // cnt // 2, len(timestamp) - 1)] - 
@@ -64,7 +65,55 @@ for i in range(len(best)):
         ls.append(l)
         
 ls.sort()
-for l in ls:
-    highlights.append(str(int((l * 5) // 3600)) + "h" + str(int((l * 5) % 3600 // 60)) + "m" + str(int((l * 5) % 60)) + "s")
-    
+
+if not automode:
+    #Manual mode
+    for l in ls:
+        highlights.append(str(int((l * 5) // 3600)) + "h" + str(int((l * 5) % 3600 // 60)) + "m" + str(int((l * 5) % 60)) + "s")
+        durations.append(length * 5)
+else:
+    #Auto mode
+    true_labels = np.zeros(len(timestamp))
+
+    for i in range(ls):
+        for j in range(ls[i], ls[i] + length):
+            true_labels[j] = i + 1
+        
+    for i in range(1, len(true_labels)):
+        if true_labels[i] == 0:
+            true_labels[i] = true_labels[i - 1]
+
+    for i in range(len(true_labels) - 2, -1, -1):
+        if true_labels[i] == 0:
+            true_labels[i] = true_labels[i + 1]
+            
+    sums = np.zeros(len(true_labels))
+    sums[0] = timestamp[0]
+    for i in range(1, len(true_labels)):
+        sums[i] = sums[i - 1] + timestamp[i]
+        
+    best = np.zeros(cnt + 1)
+    l = np.zeros(cnt + 1)
+    r = np.zeros(cnt + 1)
+
+    for length in range(6, 30):
+        for i in range(len(true_labels) - length):
+            if (sums[i + length] - sums[i]) / (length ** 0.8) > best[int(true_labels[i])] and true_labels[i] == true_labels[i + length]:
+                best[int(true_labels[i])] = (sums[i + length] - sums[i]) / (length ** 0.8)
+                l[int(true_labels[i])] = i
+                r[int(true_labels[i])] = i + length
+                
+    l.sort()
+    r.sort()
+                
+    highlights = []
+    durations = []
+    for i in range(1, cnt + 1):
+        if (l[i] != r[i]):
+            l[i] = max(l[i] - 2, 0) # 2 means offset = 10s
+            durations.append(int(r[i] - l[i]) * 5)
+            highlights.append(str(int((l[i] * 5) // 3600)) + "h" + str(int((l[i] * 5) % 3600 // 60)) + "m" + str(int((l[i] * 5) % 60)) + "s")
+            
+# Write to results to files
 writefile(sys.argv[2], highlights)
+writefile(sys.argv[3], durations)

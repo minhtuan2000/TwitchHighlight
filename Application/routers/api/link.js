@@ -4,8 +4,8 @@ const uuidv4 = require('uuid/v4');
 const router = express.Router();
 
 const getChat = require('./modules').getChat;
-const highlightFinder = require('./modules').highlightFinder;
-const advanceFinder = require('./modules').advanceFinder;
+const basicFinder = require('./modules').basicFinder;
+const advancedFinder = require('./modules').advancedFinder;
 
 const writeLog = require('./miscellaneous').writeLog;
 const getVideoCode = require('./miscellaneous').getVideoCode;
@@ -47,7 +47,7 @@ async function getHighlights(url, isBasic, n, l, offset, from, to){
                 console.log("Running basic algorithm for video " + code);
                 writeLog("Running basic algorithm for video " + code);
                 // Basic algorithm
-                let highlights = await highlightFinder(code, n, l, offset);
+                let highlights = await basicFinder(code, n, l, offset);
                 return highlights;
             } else {
                 // Advance algorithm
@@ -55,7 +55,7 @@ async function getHighlights(url, isBasic, n, l, offset, from, to){
                 writeLog("Running advance algorithm for video " + code);
                 // to be continue
                 
-                let highlights = await advanceFinder(code, from, to);
+                let highlights = await advancedFinder(code, from, to);
                 return highlights;
             }
 

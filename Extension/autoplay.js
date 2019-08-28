@@ -1,7 +1,7 @@
 let autoplayID = 0;
 
 
-function setAutoplayButton(id, url, highlights, isBasic, durations){
+function setAutoplayButton(id, url, highlights, durations){
     //DOM variables
     let autoplayContainer = document.getElementById("autoplay-container");
     let autoplayButton = document.getElementById("autoplay-button");
@@ -11,14 +11,14 @@ function setAutoplayButton(id, url, highlights, isBasic, durations){
         let autoplayWarning = document.getElementById("autoplay-warning");
         autoplayWarning.style.display = "block";
         autoplayID += 1;
-        autoPlay(autoplayID, id, url, 0, highlights, isBasic, durations);
+        autoPlay(autoplayID, id, url, 0, highlights, durations);
         //Rewire all highlights buttons
         buttonList = document.getElementsByClassName("button");
         for (let i = 0; i < buttonList.length; i++){
             try{
                 buttonList[i].onclick = function(){       
                     autoplayID += 1;
-                    autoPlay(autoplayID, id, url, i, highlights, isBasic, durations);
+                    autoPlay(autoplayID, id, url, i, highlights, durations);
                 }
             } catch (err){
                 console.log(err);
@@ -27,7 +27,7 @@ function setAutoplayButton(id, url, highlights, isBasic, durations){
     }
 }
 
-function autoPlay(apID, id, url, i, highlights, isBasic, durations){
+function autoPlay(apID, id, url, i, highlights, durations){
     //Check if autoPlay should continue
     if (apID != autoplayID) return;
     // Return after playing every highlights
@@ -37,7 +37,7 @@ function autoPlay(apID, id, url, i, highlights, isBasic, durations){
         let autoplayWarning = document.getElementById("autoplay-warning");
         autoplayWarning.style.display = "none";
         autoplayButton.textContent = "Autoplay";
-        setAutoplayButton(id, url, highlights, isBasic, durations);
+        setAutoplayButton(id, url, highlights, durations);
         //Reset all highlights buttons
         buttonList = document.getElementsByClassName("button");
         for (let i = 0; i < buttonList.length; i++){
@@ -59,19 +59,15 @@ function autoPlay(apID, id, url, i, highlights, isBasic, durations){
         autoplayButton.textContent = "Next";
         autoplayButton.onclick = function(){
             autoplayID += 1;
-            autoPlay(autoplayID, id, url, i + 1, highlights, isBasic, durations);
+            autoPlay(autoplayID, id, url, i + 1, highlights, durations);
         }
 
         quitButton.style.display = "inline-block";
         quitButton.onclick = function(){
             autoplayID += 1;
-            autoPlay(autoplayID, id, url, highlights.length , highlights, isBasic, durations);
+            autoPlay(autoplayID, id, url, highlights.length, highlights, durations);
         }
 
-        if (isBasic){
-            setTimeout(() => {autoPlay(apID, id, url, i + 1, highlights, isBasic, durations)}, l * 60 * 1000);
-        } else {
-            setTimeout(() => {autoPlay(apID, id, url, i + 1, highlights, isBasic, durations)}, parseInt(durations[i]) * 1000);
-        }
+        setTimeout(() => {autoPlay(apID, id, url, i + 1, highlights, durations)}, parseInt(durations[i]) * 1000);
     }
 }
