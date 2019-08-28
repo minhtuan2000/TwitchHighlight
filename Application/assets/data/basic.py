@@ -32,6 +32,8 @@ for i in range(1, len(timestamp)):
     sums[i] = sums[i - 1] + timestamp[i]
     
 best = []
+highlights = []
+durations = []
 
 automode = (int(sys.argv[5]) <= 0)
 cnt = int(sys.argv[4])
@@ -45,7 +47,6 @@ for i in range(len(timestamp) - length):
     
 best = sorted(best, key=lambda best: -best[0])
 
-highlights = []
 ls = []
 for i in range(len(best)):
     
@@ -75,7 +76,7 @@ else:
     #Auto mode
     true_labels = np.zeros(len(timestamp))
 
-    for i in range(ls):
+    for i in range(len(ls)):
         for j in range(ls[i], ls[i] + length):
             true_labels[j] = i + 1
         
@@ -106,8 +107,6 @@ else:
     l.sort()
     r.sort()
                 
-    highlights = []
-    durations = []
     for i in range(1, cnt + 1):
         if (l[i] != r[i]):
             l[i] = max(l[i] - 2, 0) # 2 means offset = 10s
