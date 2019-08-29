@@ -7,6 +7,7 @@ function resetConfig(){
     window.localStorage.setItem("from", const_from.toString());
     window.localStorage.setItem("to", const_to.toString());
     window.localStorage.setItem("isBasic", const_isBasic.toString());
+    window.localStorage.setItem("automode", const_automode.toString());
     
     n = parseInt(window.localStorage.getItem("n"));
     l = parseInt(window.localStorage.getItem("l"));
@@ -14,16 +15,18 @@ function resetConfig(){
     from = parseInt(window.localStorage.getItem("from"));
     to = parseInt(window.localStorage.getItem("to"));
     isBasic = parseInt(window.localStorage.getItem("isBasic"));
+    automode = parseInt(window.localStorage.getItem("automode"));
     
     const textboxN = document.getElementsByName("n")[0];
     const textboxL = document.getElementsByName("l")[0];
-    const textboxOffset = document.getElementsByName("offset")[0];
+    const tickboxAutomode = document.getElementsByName("automode")[0];
     const textboxFrom = document.getElementsByName("from")[0];
     const textboxTo = document.getElementsByName("to")[0];
 
     textboxN.value = n;
     textboxL.value = l;
-    textboxOffset.value = offset;
+    if (automode == 1) textboxL.disabled = true; else textboxL.disabled = false;
+    tickboxAutomode.checked = (automode == 1);
     textboxFrom.value = from;
     textboxTo.value = to;
 
@@ -77,14 +80,15 @@ function config(tab){
     const subscribeButton = document.getElementById("subscribe-button");
     const textboxN = document.getElementsByName("n")[0];
     const textboxL = document.getElementsByName("l")[0];
-    const textboxOffset = document.getElementsByName("offset")[0];
+    const tickboxAutomode = document.getElementsByName("automode")[0];
     const textboxFrom = document.getElementsByName("from")[0];
     const textboxTo = document.getElementsByName("to")[0];
 
     //Set value for textboxes
     textboxN.value = n;
     textboxL.value = l;
-    textboxOffset.value = offset;
+    if (automode == 1) textboxL.disabled = true; else textboxL.disabled = false;
+    tickboxAutomode.checked = (automode == 1);
     textboxFrom.value = from;
     textboxTo.value = to;
 
@@ -141,7 +145,7 @@ function config(tab){
             settingPage.style.display = "block";
             textboxN.value = n;
             textboxL.value = l;
-            textboxOffset.value = offset;
+            tickboxAutomode.checked = (automode == 1);
 
             // footer
             footer.style.display = "block";
@@ -179,10 +183,11 @@ function config(tab){
         process(tab);
     });
 
-    textboxOffset.addEventListener("change", function(){
-        offset = textboxOffset.value;
-        window.localStorage.setItem("offset", offset.toString());        
-        console.log(`offset is changed to ${offset}`);
+    tickboxAutomode.addEventListener("click", function(){
+        automode = tickboxAutomode.checked ? 1: 0;
+        window.localStorage.setItem("automode", automode.toString());
+        if (automode == 1) textboxL.disabled = true; else textboxL.disabled = false;
+        console.log(`automode is changed to ${automode}`);
         process(tab);
     });
 

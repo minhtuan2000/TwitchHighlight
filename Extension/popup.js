@@ -20,6 +20,10 @@ if (window.localStorage.getItem("from") == null ||
 // Default is using basic algorithm
 if (window.localStorage.getItem("isBasic") == null) window.localStorage.setItem("isBasic", const_isBasic.toString());
 
+// Default is automode
+if (window.localStorage.getItem("automode") == null) window.localStorage.setItem("automode", const_automode.toString());
+
+
 // Initialize variables
 let n = parseInt(window.localStorage.getItem("n"));
 let l = parseInt(window.localStorage.getItem("l"));
@@ -29,6 +33,7 @@ let from = parseInt(window.localStorage.getItem("from"));
 let to = parseInt(window.localStorage.getItem("to"));
 
 let isBasic = parseInt(window.localStorage.getItem("isBasic"));
+let automode = parseInt(window.localStorage.getItem("automode"));
 
 //Get client ID
 let clientID = window.localStorage.getItem("watermelon");

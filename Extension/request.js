@@ -10,7 +10,7 @@ function sendRequest(tabId, tabUrl){
                               url: tabUrl, 
                               isBasic: isBasic, 
                               n: n, 
-                              l: l, 
+                              l: (automode == 0)? l: -1, 
                               offset: offset, 
                               from: from,
                               to: to}));
