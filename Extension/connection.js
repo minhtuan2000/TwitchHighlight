@@ -3,7 +3,7 @@
 function checkServer(){
     //Send a GET request to the server
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://35.233.106.177/api/link", true);
+    xhr.open("GET", "http://35.225.126.232/api/link", true);
     xhr.send(null);
     xhr.onreadystatechange = function() {
       //console.log(xhr.readyState);

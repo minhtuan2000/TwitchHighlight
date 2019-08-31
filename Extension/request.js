@@ -3,7 +3,7 @@ function sendRequest(tabId, tabUrl){
     ga('send', 'event', "Request", "Send", isBasic.toString());
     //Send a POST request to the server to analyse the video
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://35.233.106.177/api/link", true);
+    xhr.open("POST", "http://35.225.126.232/api/link", true);
     xhr.setRequestHeader('Content-type', 'application/json');
     //console.log(JSON.stringify({url: tabUrl}));
     xhr.send(JSON.stringify({clientID: clientID, 
@@ -84,7 +84,7 @@ function sendReport(email, url, message){
     ga('send', 'event', "Report", "Send");
     //Send a POST request with the report message
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://35.233.106.177/api/report", true);
+    xhr.open("POST", "http://35.225.126.232/api/report", true);
     xhr.setRequestHeader('Content-type', 'application/json');
     
     xhr.send(JSON.stringify({clientID: clientID, 
@@ -97,7 +97,7 @@ function sendPurchaseID(jwt, cartId, orderId){
   ga('send', 'event', "Purchase", "Send");
   //Send a POST request with the purchaseID
   let xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://35.233.106.177/api/purchase", true);
+  xhr.open("POST", "http://35.225.126.232/api/purchase", true);
   xhr.setRequestHeader('Content-type', 'application/json');
   
   xhr.send(JSON.stringify({clientID: clientID, 
@@ -110,7 +110,7 @@ function sendUpdatedStatus(license){
   ga('send', 'event', "Status", "Send");
   //Send a POST request with the client status
   let xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://35.233.106.177/api/status", true);
+  xhr.open("POST", "http://35.225.126.232/api/status", true);
   xhr.setRequestHeader('Content-type', 'application/json');
   
   xhr.send(JSON.stringify({clientID: clientID, 
