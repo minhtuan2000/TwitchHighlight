@@ -4,17 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "test": "node index.js"
   },
-  "author": "Minh Tuan Nguyen",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "msnodesqlv8": "^0.8.0",
-    "mssql": "^5.1.0",
+    "expressjs": "^1.0.1",
+    "mongodb": "^3.3.2",
     "nodemon": "^1.19.1",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.3"
   }
 }

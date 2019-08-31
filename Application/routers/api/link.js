@@ -25,10 +25,10 @@ async function getHighlights(url, isBasic, n, l, offset, from, to){
     writeLog("Received request for analysing video: " + code);
     // Check if result already exists or running
     try {
-        if (fs.existsSync("assets\\data\\" + code + ".done")) {
+        if (fs.existsSync("assets/data/" + code + ".done")) {
             //file exists
             //check if file is finshed ("True" in .done file)
-            if (fs.readFileSync("assets\\data\\" + code + ".done") != "False"){
+            if (fs.readFileSync("assets/data/" + code + ".done") != "False"){
                 // file is finished
                 finished = true;
                 //Log

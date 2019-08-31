@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const logStream = fs.createWriteStream("assets\\log\\" + new Date().toISOString().replace(/[T:.]/g, '-') + ".log", {flags:'a'});
+const logStream = fs.createWriteStream("assets/log/" + new Date().toISOString().replace(/[T:.]/g, '-') + ".log", {flags:'a'});
 
 // Write log
 const writeLog = (message) => {

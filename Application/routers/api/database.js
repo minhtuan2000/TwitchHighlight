@@ -1,5 +1,3 @@
-const sql = require('mssql/msnodesqlv8');
-
 const writeLog = require('./miscellaneous').writeLog;
 const getVideoCode = require('./miscellaneous').getVideoCode;
 
@@ -59,7 +57,7 @@ const activateAccount = async (clientID) => {
         // // config for database
         // const pool = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -103,7 +101,7 @@ const deactivateAccount = async (clientID) => {
         // // config for database
         // const pool = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -147,7 +145,7 @@ const upgradeAccount = async (clientID, expireDate) => {
         // // config for database
         // const pool = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -192,7 +190,7 @@ const downgradeAccount = async (clientID) => {
         // // config for database
         // const pool = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -246,7 +244,7 @@ const isPremium = async (clientID) => {
         // // config for database
         // const pool = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -322,7 +320,7 @@ const getPendingCount = async (clientID, url) => {
         // // config for database
         // const pool = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -375,7 +373,7 @@ const appendClient = async (clientID) => {
         // // config for database
         // const pool = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -434,7 +432,7 @@ const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => 
         // // config for database
         // const pool = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -470,7 +468,7 @@ const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => 
         // // config for database
         // const pool2 = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -517,7 +515,7 @@ const updateRequest = async (id) => {
         // // config for database
         // const pool = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -569,7 +567,7 @@ const appendReport = async (clientID, videoURL, email, message) => {
         // // config for database
         // const pool = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -600,7 +598,7 @@ const appendReport = async (clientID, videoURL, email, message) => {
         // // config for database
         // const pool2 = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -654,7 +652,7 @@ const updateStatus = async (clientID, license) => {
         // // config for database
         // const pool = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -707,7 +705,7 @@ const appendPurchase = async (clientID, jwt, cartID, orderID) => {
         // // config for database
         // const pool = new sql.ConnectionPool({
         //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         //     driver: 'msnodesqlv8',
         //     options: {
         //         trustedConnection: true
@@ -745,7 +743,7 @@ const transferClientsMssqlMongoDB = async () => {
     // config for database
     const pool = new sql.ConnectionPool({
         database: 'TwitchHighlightsDatabase',
-        server: 'SERVER-FOR-HIGH\\SQLEXPRESS',
+        server: 'SERVER-FOR-HIGH/SQLEXPRESS',
         driver: 'msnodesqlv8',
         options: {
             trustedConnection: true
