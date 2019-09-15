@@ -138,7 +138,7 @@ router.post('/', async (req, res) => {
             console.log("Request Error: Too many requests");
             writeLog("Request Error: Too many requests");
         } else {
-            message = "Reserved for premium users only";
+            message = "Unavailable at the moment";
             console.log("Request Error: Not premium");
             writeLog("Request Error: Not premium");
         }
