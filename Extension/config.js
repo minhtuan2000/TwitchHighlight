@@ -154,7 +154,7 @@ function config(tab){
             message.style.display = "block";
 
             //sub
-            subscribe.style.display = "block";
+            subscribe.style.display = "none"; //"block";
         } else {
             settingPage.style.display = "none";
 
