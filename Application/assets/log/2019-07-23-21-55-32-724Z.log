@@ -1,3 +1,0 @@
-2019-07-23T21:55:46.126Z: Received request for analysing video: 456859925
-2019-07-23T21:55:46.164Z: File 456859925.done does not exist! Running RechatTool...
-2019-07-23T21:55:47.822Z: While running getChat(): Error: spawn C:\Windows\system32\cmd.exe ENOENT

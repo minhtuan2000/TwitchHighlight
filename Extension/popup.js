@@ -6,15 +6,37 @@
 if (window.localStorage.getItem("n") == null || 
     window.localStorage.getItem("l") == null ||
     window.localStorage.getItem("offset") == null){
-  window.localStorage.setItem("n", "15");
-  window.localStorage.setItem("l", "2");
-  window.localStorage.setItem("offset", "5");
+  window.localStorage.setItem("n", const_n.toString());
+  window.localStorage.setItem("l", const_l.toString());
+  window.localStorage.setItem("offset", const_offset.toString());
 }
+
+if (window.localStorage.getItem("from") == null ||
+    window.localStorage.getItem("to") == null){
+  window.localStorage.setItem("from", const_from.toString());
+  window.localStorage.setItem("to", const_to.toString());
+}
+
+// Default is using basic algorithm
+if (window.localStorage.getItem("isBasic") == null) window.localStorage.setItem("isBasic", const_isBasic.toString());
+
+// Default is automode
+if (window.localStorage.getItem("automode") == null) window.localStorage.setItem("automode", const_automode.toString());
+
 
 // Initialize variables
 let n = parseInt(window.localStorage.getItem("n"));
 let l = parseInt(window.localStorage.getItem("l"));
 let offset = parseInt(window.localStorage.getItem("offset"));
+
+let from = parseInt(window.localStorage.getItem("from"));
+let to = parseInt(window.localStorage.getItem("to"));
+
+let isBasic = parseInt(window.localStorage.getItem("isBasic"));
+let automode = parseInt(window.localStorage.getItem("automode"));
+
+//Get client ID
+let clientID = window.localStorage.getItem("watermelon");
 
 let online = false;
 
@@ -36,7 +58,9 @@ function removeOldButtons(){
 function setButton(id, url, i, time){
   let newButton = document.createElement("button");
   newButton.classList.add("button");
+  newButton.id = (i + 1).toString();
   newButton.onclick = function(){
+    newButton.style.backgroundColor = "darkorange";
     chrome.tabs.update(id, {url: "https://www.twitch.tv/videos/" + getVideoCode(url) + "?t=" + time});
   };
   newButton.textContent = (i + 1).toString();
@@ -51,48 +75,21 @@ function getVideoCode(url){
   return res.substring(0, i);
 }
 
-function sendRequest(tabId, tabUrl){
-  //Send a POST request to the server to analyse the video
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://35.233.106.177/api/link", true);
-  xhr.setRequestHeader('Content-type', 'application/json');
-  //console.log(JSON.stringify({url: tabUrl}));
-  xhr.send(JSON.stringify({url: tabUrl, n: n, l: l, offset: offset}));
-  xhr.onreadystatechange = function() {
-    //console.log(xhr.readyState);
-    //console.log(xhr.status);
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      // Parse response
-      let response = JSON.parse(xhr.responseText)["results"];
-      //console.log(xhr.responseText);
-
-      // Remove old buttons
-      removeOldButtons();
-
-      // Add new buttons
-      for (let i = 0; i < response.length; i++){
-        setButton(tabId, tabUrl, i, response[i]);
-      }
-      
-      //Send a request to get update every 7 seconds
-      //alert("I am still running!");
-      if (JSON.parse(xhr.responseText)["done"] == false){
-        setTimeout(() => sendRequest(tabId, tabUrl), 7000);
-      } else {
-        recentMessage = ["Done!", "white", "forestgreen"];
-        changeMessage("Done!", "white", "forestgreen");
-      }
+function cleanURL(url){
+    if (url.startsWith("https://www.twitch.tv/") && url.indexOf("/video/") != -1){
+        return "https://www.twitch.tv/videos/" + url.substring(url.indexOf("/video/") + 7);
+    } else {
+        return url;
     }
-  }
 }
 
 function process(tab){
   if (online){
     // If online, then analyse the video
     let tabId = tab.id;
-    let tabUrl = tab.url;
+    let tabUrl = cleanURL(tab.url);
 
-    //console.log("Running on URL: " + tabUrl);
+    console.log("Running on URL: " + tabUrl);
 
     // Check if the URL is legit
     if (tabUrl.startsWith("https://www.twitch.tv/videos/")){
@@ -102,8 +99,8 @@ function process(tab){
       console.log("Trying to analyse video: " + videoCode);
     
       //Set loading message
-      recentMessage = ["Loading...", "darkgray", "yellow"];
-      changeMessage("Loading...", "darkgray", "yellow");
+      recentMessage = ["Loading, please wait for the best results...", "darkgray", "yellow"];
+      changeMessage("Loading, please wait for the best results...", "darkgray", "yellow");
 
       sendRequest(tabId, tabUrl);
 

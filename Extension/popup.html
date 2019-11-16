@@ -2,39 +2,109 @@
 <html>
   <head>
     <link rel="stylesheet" href="popup.css">
-    <script src="popup.js"></script>
+    <script src="buy.js"></script>
+    <script src="algebra.js"></script>
+    <script src="constants.js"></script>
+    <script src="request.js"></script>
     <script src="connection.js"></script>
+    <script src="popup.js"></script>
     <script src="config.js"></script>
+    <script src="autoplay.js"></script>
   </head>
   <body>
     <div id="header">
       <h3 id="header-text">Twitch Highlights</h3>
-      <img id="setting-icon" src="images/setting.png" style="width: 20px; height: 20px; padding: 0px; margin: 0px; vertical-align: middle;">
+      <img id="report-icon"  title="Support / Report a bug" src="images/bug.png">
+      <img id="setting-icon"  title="Minimize / Maximize" src="images/mini.png">
+    </div>
+    <div id="report" style="display: none; padding: 10px;">
+      <h3>Please fill in the form below:</h3>
+      <div>Your email address:</div>
+      <div>(Optional, if you want to receive reply)</div>
+      <div><input type="text" name="email" style="margin: 10px 0px; width: 275px;"></div>
+      <div>URL of the Twitch Video (if applicable):</div>
+      <div><input type="text" name="url"  style="margin: 10px 0px; width: 275px;"></div>
+      <div>Please describe the problem:</div>
+      <div><textarea name="message" rows="4" cols="50" maxlength="900" style="margin: 10px 0px; width: 275px;"></textarea></div>
+      <button id="send-button">Send</button>
     </div>
     <div id="main">
       <div id="setting">
-        <div style="padding: 2px">
-          Number of highlights: 
-          <input type="number" style="width: 60px;" name="n" min="5" max="50" value="15">
+        <div id="setting-menu">
+          <div id="choice-basic" class="choice" title="Basic algorithm">
+            Basic Algorithm
+          </div>
+          <div id="choice-advance" class="choice" title="Advance algorithm: auto-optimized number and length of highlights">
+            Advanced Algorithm
+          </div>
         </div>
-        <div style="padding: 2px">
-          Length of highlights: &nbsp; 
-          <input type="number" style="width: 60px;" name="l" min="1" max="10" value="2"> min  
+        <div id="setting-basic">
+          <table id="setting-table-basic" class="setting-table">
+            <tr title="Set the total number of highlights">
+              <td>Count:</td>
+              <td>
+                <input type="number" style="width: 40px;" name="n" min="5" max="50" value="6">
+              </td>
+            </tr>
+            <tr title="Set a fixed length for each highlight">
+              <td>Duration:</td>
+              <td>
+                <input type="number" style="width: 40px;" name="l" min="1" max="10" value="2" disabled> min  
+              </td>
+            </tr>
+            <tr title="Detect durations automatically">
+              <td>Automode:</td>
+              <td>
+                <input type="checkbox" name="automode" checked>
+              </td>
+            </tr>
+          </table>   
         </div>
-        <div style="padding: 2px">
-          Offset : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          <input type="number" style="width: 60px;" name="offset" min="-500" max="500" value="5"> sec
+        <div id="setting-advance">
+          <table id="setting-table-advance" class="setting-table">
+            <tr>
+              <td></td>
+              <td>
+                RANGE
+              </td>
+            </tr>
+            <tr title="Set the minimum number of highlights">
+              <td>From:</td>
+              <td>
+                <input type="number" style="width: 40px;" name="from" min="2" max="50" value="10"> highlights
+              </td>
+            </tr>
+            <tr title="Set the maximum number of highlights">
+              <td>To:</td>
+              <td>
+                <input type="number" style="width: 40px;" name="to" min="1" max="50" value="50"> highlights
+              </td>
+            </tr>
+          </table>   
         </div>
+        <div id="setting-error" style="color: red; text-align: center;"></div>
       </div>
-
+    
       <div id="message">
         <span id="message-text">Open a Twitch video to analyze</span>
       </div>
       
-      <div id="highlight-container"></div>
+      <div id="highlight-container">
+        <div id="highlight-container-error" style="color: red; text-align: center;"></div>
+      </div>
 
+      <div id="autoplay-container">
+        <button id="autoplay-button">Autoplay</button>
+        <button id="quit-button" title="Quit autoplay">X</button>
+        <div id="autoplay-warning"> Clicking outside of this extension will stop the autoplay!</div>
+      </div>
+      <div id="subscribe-container" style="display: none;">
+        <button id="subscribe-button">Upgrade</button>
+        <div id="subscribe-warning">Already had Premium Access? <br> Log in to your google account</div>
+      </div>
     </div>
-    <div id="footer">
+
+    <div id="footer" title="Status: Checking...">
     </div>
   </body>
 </html>
