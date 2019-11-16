@@ -1,6 +1,6 @@
 {
   "name": "Twitch Highlights",
-  "version": "0.2.10.2",
+  "version": "0.2.12",
   "description": "Automatically finds highlights from Twitch VODs!",
   "permissions": [
     "activeTab", 
