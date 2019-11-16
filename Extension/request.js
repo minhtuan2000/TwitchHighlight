@@ -3,10 +3,11 @@ function sendRequest(tabId, tabUrl){
     ga('send', 'event', "Request", "Send", isBasic.toString());
     //Send a POST request to the server to analyse the video
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://35.225.126.232/api/link", true);
+    xhr.open("POST", "https://highlights.now.sh/api", true);
     xhr.setRequestHeader('Content-type', 'application/json');
     //console.log(JSON.stringify({url: tabUrl}));
-    xhr.send(JSON.stringify({clientID: clientID, 
+    xhr.send(JSON.stringify({type: "Request",
+                              clientID: clientID, 
                               url: tabUrl, 
                               isBasic: isBasic, 
                               n: n, 
@@ -18,6 +19,7 @@ function sendRequest(tabId, tabUrl){
       //console.log(xhr.readyState);
       //console.log(xhr.status);
       if (xhr.readyState == 4 && xhr.status == 200) {
+        console.log(xhr.responseText);
         //update clientID
         clientID = JSON.parse(xhr.responseText)["clientID"];
         window.localStorage.setItem("watermelon", clientID);
@@ -84,10 +86,11 @@ function sendReport(email, url, message){
     ga('send', 'event', "Report", "Send");
     //Send a POST request with the report message
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://35.225.126.232/api/report", true);
+    xhr.open("POST", "https://highlights.now.sh/api", true);
     xhr.setRequestHeader('Content-type', 'application/json');
     
-    xhr.send(JSON.stringify({clientID: clientID, 
+    xhr.send(JSON.stringify({type: "Report",
+                            clientID: clientID, 
                             email: email,
                             url: url,
                             message: message}));
@@ -97,10 +100,11 @@ function sendPurchaseID(jwt, cartId, orderId){
   ga('send', 'event', "Purchase", "Send");
   //Send a POST request with the purchaseID
   let xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://35.225.126.232/api/purchase", true);
+  xhr.open("POST", "https://highlights.now.sh/api", true);
   xhr.setRequestHeader('Content-type', 'application/json');
   
-  xhr.send(JSON.stringify({clientID: clientID, 
+  xhr.send(JSON.stringify({type: "PurchaseID",
+                          clientID: clientID, 
                           jwt: jwt,
                           cartId: cartId,
                           orderId: orderId}));
@@ -110,10 +114,11 @@ function sendUpdatedStatus(license){
   ga('send', 'event', "Status", "Send");
   //Send a POST request with the client status
   let xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://35.225.126.232/api/status", true);
+  xhr.open("POST", "https://highlights.now.sh/api", true);
   xhr.setRequestHeader('Content-type', 'application/json');
   
-  xhr.send(JSON.stringify({clientID: clientID, 
+  xhr.send(JSON.stringify({type: "UpdatedStatus",
+                          clientID: clientID, 
                           license: license}));
 }
 

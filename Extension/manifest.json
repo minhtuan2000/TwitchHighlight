@@ -6,7 +6,7 @@
     "activeTab", 
     "webRequest",
     "webRequestBlocking",
-    "http://35.225.126.232/*"
+    "https://highlights.now.sh/api"
   ],
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
   "browser_action": {
