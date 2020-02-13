@@ -83,7 +83,9 @@ function cleanURL(url){
     }
 }
 
-function process(tab){
+function process(tabs){
+  if (tabs.length == 0) return;
+  let tab = tabs[0];
   if (online){
     // If online, then analyse the video
     let tabId = tab.id;
@@ -112,8 +114,8 @@ function process(tab){
     }
   } else {
     // Try again in 1 second
-    setTimeout(() => process(tab), 1000);
+    setTimeout(() => process(tabs), 1000);
   }
 }
 
-chrome.tabs.getSelected(null, process);
+chrome.tabs.query({active: true}, process);

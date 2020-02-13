@@ -65,10 +65,12 @@ function reportButtonClicked(){
     }
 }
 
-function config(tab){
+function config(tabs){
+    if (tabs.length == 0) return;
+    let tab = tabs[0];
     if (document.getElementsByName("n").length == 0){
         console.log("Config: Waiting for page to load");
-        setTimeout(() => config(tab), 100);
+        setTimeout(() => config(tabs), 100);
         return;
     }
     //Initialize DOM elements
@@ -126,12 +128,12 @@ function config(tab){
     //Setting basic or advance?
     settingBasicButton.addEventListener("click", function(){
         settingBasicButtonClicked();
-        process(tab);
+        process(tabs);
     });
 
     settingAdvanceButton.addEventListener("click", function(){
         settingAdvanceButtonClicked();
-        process(tab);
+        process(tabs);
     });
 
     //console.log(settingButton);
@@ -173,14 +175,14 @@ function config(tab){
         n = textboxN.value;
         window.localStorage.setItem("n", n.toString());
         console.log(`n is changed to ${n}`);
-        process(tab);
+        process(tabs);
     });
 
     textboxL.addEventListener("change", function(){
         l = textboxL.value;
         window.localStorage.setItem("l", l.toString());
         console.log(`l is changed to ${l}`);
-        process(tab);
+        process(tabs);
     });
 
     tickboxAutomode.addEventListener("click", function(){
@@ -188,21 +190,21 @@ function config(tab){
         window.localStorage.setItem("automode", automode.toString());
         if (automode == 1) textboxL.disabled = true; else textboxL.disabled = false;
         console.log(`automode is changed to ${automode}`);
-        process(tab);
+        process(tabs);
     });
 
     textboxFrom.addEventListener("change", function(){
         from = textboxFrom.value;
         window.localStorage.setItem("from", from.toString());        
         console.log(`from is changed to ${from}`);
-        process(tab);
+        process(tabs);
     });
 
     textboxTo.addEventListener("change", function(){
         to = textboxTo.value;
         window.localStorage.setItem("to", to.toString());        
         console.log(`to is changed to ${to}`);
-        process(tab);
+        process(tabs);
     });
 
     //Check if advance algorithm is being used
@@ -213,4 +215,4 @@ function config(tab){
     }
 }
 
-chrome.tabs.getSelected(null, config);
+chrome.tabs.query({active: true}, config);
