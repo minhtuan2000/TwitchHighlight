@@ -19,7 +19,7 @@ function sendRequest(tabId, tabUrl){
       //console.log(xhr.readyState);
       //console.log(xhr.status);
       if (xhr.readyState == 4 && xhr.status == 200) {
-        console.log(xhr.responseText);
+        //console.log(xhr.responseText);
         //update clientID
         clientID = JSON.parse(xhr.responseText)["clientID"];
         window.localStorage.setItem("watermelon", clientID);
