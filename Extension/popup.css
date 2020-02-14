@@ -12,6 +12,8 @@ input[type=number] {
 body{
     width: 300px;
     margin: 0px;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    font-size: 75%;
 }
 
 .button{
