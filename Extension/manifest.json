@@ -1,6 +1,6 @@
 {
   "name": "Twitch Highlights",
-  "version": "0.2.12.1",
+  "version": "0.2.12.2",
   "description": "Automatically finds highlights from Twitch VODs!",
   "permissions": [
     "activeTab", 
@@ -12,11 +12,11 @@
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "128": "images/512.png"
+      "512": "images/512.png"
     }
   },
   "icons": {
-    "128": "images/512.png"
+    "512": "images/512.png"
   },
   "manifest_version": 2
 }

@@ -94,18 +94,6 @@ function config(tabs){
     textboxFrom.value = from;
     textboxTo.value = to;
 
-    //Check subscription
-
-    //subscribe button
-    subscribeButton.addEventListener("click", function(){
-        try{
-            buyProduct("premium");
-        }catch(err){
-            console.log("Can not initial buy flow:");
-            console.log(err);
-        }
-    });
-
     //console.log(reportButton);
     reportButton.addEventListener("click", function(){
         reportButtonClicked();

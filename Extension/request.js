@@ -95,30 +95,3 @@ function sendReport(email, url, message){
                             url: url,
                             message: message}));
 }
-
-function sendPurchaseID(jwt, cartId, orderId){
-  ga('send', 'event', "Purchase", "Send");
-  //Send a POST request with the purchaseID
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://highlights.now.sh/api", true);
-  xhr.setRequestHeader('Content-type', 'application/json');
-  
-  xhr.send(JSON.stringify({type: "PurchaseID",
-                          clientID: clientID, 
-                          jwt: jwt,
-                          cartId: cartId,
-                          orderId: orderId}));
-}
-
-function sendUpdatedStatus(license){
-  ga('send', 'event', "Status", "Send");
-  //Send a POST request with the client status
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://highlights.now.sh/api", true);
-  xhr.setRequestHeader('Content-type', 'application/json');
-  
-  xhr.send(JSON.stringify({type: "UpdatedStatus",
-                          clientID: clientID, 
-                          license: license}));
-}
-
