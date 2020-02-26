@@ -3,6 +3,6 @@
 *.json
 *.txt
 *.zip
-*.txt
-*.log
+*.tar.xz
 node_modules
+Python-3.7.3
