@@ -1,6 +1,8 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const port = 3000;
+
+const updateIPAddress = require('./routers/api/database').updateIPAddress;
 
 app.use(express.json());
 app.use('/api/link', require('./routers/api/link'));
@@ -14,4 +16,7 @@ app.get('/*', function (req, res) {
     res.sendStatus(404);
 });
 
-app.listen(port, () => console.log(`App listening on port ${port}!`));
+app.listen(port, () => {
+    updateIPAddress();
+    console.log(`App listening on port ${port}!`);
+});

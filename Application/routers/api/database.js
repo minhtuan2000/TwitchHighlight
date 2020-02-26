@@ -1,6 +1,9 @@
 const writeLog = require('./miscellaneous').writeLog;
 const getVideoCode = require('./miscellaneous').getVideoCode;
 
+// Network interfaces
+const ifaces = require('os').networkInterfaces();
+
 const MongoClient = require('mongodb').MongoClient;
 let _db;
 
@@ -739,6 +742,18 @@ const appendPurchase = async (clientID, jwt, cartID, orderID) => {
     }
 }
 
+const updateIPAddress = async () => {
+    // Iterate over interfaces ...
+    let address;
+    for (let dev in ifaces) {
+        ifaces[dev].filter((details) => details.family === 'IPv4' && details.internal === false ? address = details.address: undefined);
+    }
+
+    // Print the result
+    console.log("Server is currently being hosted on ", address);
+    writeLog("Server is currently being hosted on " + address.toString());
+}
+
 const transferClientsMssqlMongoDB = async () => {
     // config for database
     const pool = new sql.ConnectionPool({
@@ -784,4 +799,4 @@ const transferClientsMssqlMongoDB = async () => {
 
 module.exports = {activateAccount, deactivateAccount, upgradeAccount, downgradeAccount, checkExpiredAccount,
                  isPremium, getPendingCount, appendClient, appendRequest, updateRequest, appendReport,
-                 updateStatus, appendPurchase}
+                 updateStatus, appendPurchase, updateIPAddress}
