@@ -1,8 +1,6 @@
 const writeLog = require('./miscellaneous').writeLog;
 const getVideoCode = require('./miscellaneous').getVideoCode;
-
-// Network interfaces
-const ifaces = require('os').networkInterfaces();
+const http = require('http');
 
 const MongoClient = require('mongodb').MongoClient;
 let _db;
@@ -743,15 +741,39 @@ const appendPurchase = async (clientID, jwt, cartID, orderID) => {
 }
 
 const updateIPAddress = async () => {
-    // Iterate over interfaces ...
-    let address;
-    for (let dev in ifaces) {
-        ifaces[dev].filter((details) => details.family === 'IPv4' && details.internal === false ? address = details.address: undefined);
-    }
+	let options = {
+	  host: 'ipv4bot.whatismyipaddress.com',
+	  port: 80,
+	  path: '/'
+	};
 
-    // Print the result
-    console.log("Server is currently being hosted on ", address);
-    writeLog("Server is currently being hosted on " + address.toString());
+	http.get(options, async (res) => {
+	  //console.log("status: " + res.statusCode);
+
+	  res.on("data", async (chunk) => {
+		console.log("Server is being hosted on: " + chunk);
+		writeLog("Server is being hosted on: " + chunk);
+		
+		try{ 
+			// Writing to MongoDB
+			let db = await getMongoDB();
+			db.collection("IPAddress").updateOne({
+			  key: "Aloha"
+			}, {
+				$set: {ip: chunk.toString()},
+				$currentDate: {lastUpdateDate: true}
+			});
+		}catch(err){
+			console.log("While updating ipaddress: ");
+			console.error(err);
+			writeLog("While updating ipaddress: " + err.toString());
+		}
+	  });
+	}).on('error', async (e) => {
+	  console.log("While getting the ip address, error: " + e.message + ", retrying...");
+	  writeLog("While getting the ip address, error: " + e.message + ", retrying...");
+	  setInterval(updateIPAddress, 1 * 60 * 1000);
+	});
 }
 
 const transferClientsMssqlMongoDB = async () => {
