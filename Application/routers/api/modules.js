@@ -1,9 +1,8 @@
 const exec = require('child_process').exec;
 const fs = require('fs');
 
-const writeLog = require('./miscellaneous').writeLog;
-
-const updateRequest = require('./database').updateRequest;
+const miscellaneous = require('./miscellaneous');
+const database = require('./database');
 
 //Run RechatTool
 const getChat = (id)=>{
@@ -18,11 +17,11 @@ const getChat = (id)=>{
             if (err) {
                 console.log("While running getchat(): ");
                 console.log(err);
-                writeLog("While running getChat(): " + err.toString());
+                miscellaneous.writeLog("While running getChat(): " + err.toString());
             }
             // Even if error, it is still done, because this problem is unsolved.
             fs.writeFileSync(`assets/data/${id}.done`,'True');
-            updateRequest(id);
+            database.updateRequest(id);
             console.log(stdout);
         }
     );
@@ -41,7 +40,7 @@ const basicFinder =(id, number, length, offset) =>{
                 if (err) {
                     console.log("While running basicFinder(): ");
                     console.error(err); 
-                    writeLog("While running basicFinder(): " + err.toString());
+                    miscellaneous.writeLog("While running basicFinder(): " + err.toString());
                 }
                 let highlights = await fs.readFileSync(`assets/data/${id}basicresults.txt`);
                 highlights = highlights.toString().replace(/(\r)/gm, "").split('\n').slice(0,-1);
@@ -52,7 +51,7 @@ const basicFinder =(id, number, length, offset) =>{
         }catch(err){
             console.log("While running basicFinder(): ");
             console.error(err);
-            writeLog("While running basicFinder(): " + err.toString());
+            miscellaneous.writeLog("While running basicFinder(): " + err.toString());
         }
     })
 }
@@ -69,7 +68,7 @@ const advancedFinder =(id, from, to) =>{
                 if (err) {
                     console.log("While running advancedFinder(): ");
                     console.error(err); 
-                    writeLog("While running advancedFinder(): " + err.toString());
+                    miscellaneous.writeLog("While running advancedFinder(): " + err.toString());
                 }
                 let highlights = await fs.readFileSync(`assets/data/${id}advancedresults.txt`);
                 highlights = highlights.toString().replace(/(\r)/gm, "").split('\n').slice(0,-1);
@@ -80,7 +79,7 @@ const advancedFinder =(id, from, to) =>{
         }catch(err){
             console.log("While running advancedFinder(): ");
             console.error(err);
-            writeLog("While running advancedFinder(): " + err.toString());
+            miscellaneous.writeLog("While running advancedFinder(): " + err.toString());
         }
     })
 }

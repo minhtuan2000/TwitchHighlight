@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-const updateIPAddress = require('./routers/api/database').updateIPAddress;
+const database = require('./routers/api/database');
 
 app.use(express.json());
 app.use('/api/link', require('./routers/api/link'));
@@ -17,6 +17,6 @@ app.get('/*', function (req, res) {
 });
 
 app.listen(port, () => {
-    updateIPAddress();
+    database.updateIPAddress();
     console.log(`App listening on port ${port}!`);
 });

@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const writeLog = require('./miscellaneous').writeLog;
-
-const appendReport = require('./database').appendReport;
+const miscellaneous = require('./miscellaneous');
+const database = require('./database');
 
 router.post('/', async (req, res) => {
-    appendReport(req.body.clientID, req.body.url, req.body.email, req.body.message);
+    database.appendReport(req.body.clientID, req.body.url, req.body.email, req.body.message);
     console.log("Received a report from " + req.body.clientID);
-    writeLog("Received a report from " + req.body.clientID);
+    miscellaneous.writeLog("Received a report from " + req.body.clientID);
 
     res.sendStatus(200);
 });

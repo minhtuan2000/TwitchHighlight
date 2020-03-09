@@ -1,5 +1,4 @@
-const writeLog = require('./miscellaneous').writeLog;
-const getVideoCode = require('./miscellaneous').getVideoCode;
+const miscellaneous = require('./miscellaneous');
 const http = require('http');
 
 const MongoClient = require('mongodb').MongoClient;
@@ -8,18 +7,18 @@ let _db;
 const connectMongoDB = async () => {
     if (_db){
         console.log("Warning: Reconnecting to database");
-        writeLog("Warning: Reconnecting to database");
+        miscellaneous.writeLog("Warning: Reconnecting to database");
         try {
             const uri = "mongodb+srv://visualnick:FcWeaD5YXLcXml1A@twitchhighlights-sslwa.gcp.mongodb.net/test?retryWrites=true&w=majority";
             let client = new MongoClient(uri, { useNewUrlParser: true });
             await client.connect();
             _db = client.db("TwitchHighlightsDB");
             console.log("Successfully reconnected to database");
-            writeLog("Successfully reconnected to database");
+            miscellaneous.writeLog("Successfully reconnected to database");
         } catch (err) {
             console.log("While trying to reconnect to database:");
             console.log(err);
-            writeLog("While trying to reconnect to database: " + err.toString());
+            miscellaneous.writeLog("While trying to reconnect to database: " + err.toString());
         }
     } else {
         try {
@@ -28,11 +27,11 @@ const connectMongoDB = async () => {
             await client.connect();
             _db = client.db("TwitchHighlightsDB");
             console.log("Successfully connected to database");
-            writeLog("Successfully connected to database");
+            miscellaneous.writeLog("Successfully connected to database");
         } catch (err) {
             console.log("While trying to connect to database:");
             console.log(err);
-            writeLog("While trying to connect to database: " + err.toString());
+            miscellaneous.writeLog("While trying to connect to database: " + err.toString());
         }
     }
 }
@@ -75,17 +74,17 @@ const activateAccount = async (clientID) => {
         //         if (err) {
         //             console.log("While activating account:");
         //             console.log(err);
-        //             writeLog("While activating account: " + err.toString());
+        //             miscellaneous.writeLog("While activating account: " + err.toString());
         //         } else {
         //             console.log("Activated client " + clientID);
-        //             writeLog("Activated client " + clientID);
+        //             miscellaneous.writeLog("Activated client " + clientID);
         //         }   
         //     });
         // });
     }catch(err){
         console.log("While activating account:");
         console.error(err);
-        writeLog("While activating account: " + err.toString());
+        miscellaneous.writeLog("While activating account: " + err.toString());
     }
 }
 
@@ -119,17 +118,17 @@ const deactivateAccount = async (clientID) => {
         //         if (err) {
         //             console.log("While deactivating account:");
         //             console.log(err);
-        //             writeLog("While deactivating account: " + err.toString());
+        //             miscellaneous.writeLog("While deactivating account: " + err.toString());
         //         } else {
         //             console.log("Deactivated client " + clientID);
-        //             writeLog("Deactivated client " + clientID);
+        //             miscellaneous.writeLog("Deactivated client " + clientID);
         //         }      
         //     });
         // });
     }catch(err){
         console.log("While deactivating account:");
         console.error(err);
-        writeLog("While deactivating account: " + err.toString());
+        miscellaneous.writeLog("While deactivating account: " + err.toString());
     }
 }
 
@@ -164,17 +163,17 @@ const upgradeAccount = async (clientID, expireDate) => {
         //         if (err) {
         //             console.log("While upgrading account:");
         //             console.log(err);
-        //             writeLog("While upgrading account: " + err.toString());
+        //             miscellaneous.writeLog("While upgrading account: " + err.toString());
         //         } else {
         //             console.log("Upgraded client " + clientID + ", expire on " + expireDate.toString());
-        //             writeLog("Upgraded client " + clientID + ", expire on " + expireDate.toString());
+        //             miscellaneous.writeLog("Upgraded client " + clientID + ", expire on " + expireDate.toString());
         //         }   
         //     });
         // });
     }catch(err){
         console.log("While upgrading account:");
         console.error(err);
-        writeLog("While upgrading account: " + err.toString());
+        miscellaneous.writeLog("While upgrading account: " + err.toString());
     }
 }
 
@@ -208,17 +207,17 @@ const downgradeAccount = async (clientID) => {
         //         if (err) {
         //             console.log("While downgrading account:");
         //             console.log(err);
-        //             writeLog("While downgrading account: " + err.toString());
+        //             miscellaneous.writeLog("While downgrading account: " + err.toString());
         //         } else {
         //             console.log("Downgraded client " + clientID);
-        //             writeLog("Downgraded client " + clientID);
+        //             miscellaneous.writeLog("Downgraded client " + clientID);
         //         }            
         //     });
         // });
     }catch(err){
         console.log("While downgrading account:");
         console.error(err);
-        writeLog("While downgrading account: " + err.toString());
+        miscellaneous.writeLog("While downgrading account: " + err.toString());
     }
 }
 
@@ -227,7 +226,7 @@ const checkExpiredAccount = async (clientID, expireDate) => {
     if (expireDate == null || expireDate.getTime() < new Date().getTime()){
         // Expired
         console.log("Client " + clientID + " has expired");
-        writeLog("Client " + clientID + " has expired");
+        miscellaneous.writeLog("Client " + clientID + " has expired");
         downgradeAccount(clientID);
     }
 }
@@ -270,7 +269,7 @@ const isPremium = async (clientID) => {
     }catch(err){
         console.log("While checking premium: ");
         console.error(err);
-        writeLog("While checking premium: " + err.toString());
+        miscellaneous.writeLog("While checking premium: " + err.toString());
         // Default return false
         return [false, false];
     }
@@ -278,7 +277,7 @@ const isPremium = async (clientID) => {
 
 const getPendingCount = async (clientID, url) => {
     try{
-        if (url != null) url = 'https://www.twitch.tv/videos/' + getVideoCode(url);
+        if (url != null) url = 'https://www.twitch.tv/videos/' + miscellaneous.getVideoCode(url);
         
         // Reading from MongoDB
         let res = null;
@@ -349,7 +348,7 @@ const getPendingCount = async (clientID, url) => {
     }catch(err){
         console.log("While getting pending count: ");
         console.error(err);
-        writeLog("While getting pending count: " + err.toString());
+        miscellaneous.writeLog("While getting pending count: " + err.toString());
         // Default return 1e9
         return 1000000000;
     }
@@ -394,20 +393,20 @@ const appendClient = async (clientID) => {
         //         if (err) {
         //             console.log("While making query to the database:");
         //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
+        //             miscellaneous.writeLog("While making query to the database: " + err.toString());
         //         }       
         //     });
         // });
     }catch(err){
         console.log("While appending client: " + clientID);
         console.error(err);
-        writeLog("While appending client " + clientID + ": " + err.toString());
+        miscellaneous.writeLog("While appending client " + clientID + ": " + err.toString());
     }
 }
 
 const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => {
     try{
-        url = 'https://www.twitch.tv/videos/' + getVideoCode(url);
+        url = 'https://www.twitch.tv/videos/' + miscellaneous.getVideoCode(url);
 
         // Writing to MongoDB
         let db = await getMongoDB();
@@ -461,7 +460,7 @@ const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => 
         //         if (err) {
         //             console.log("While making query to the database:");
         //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
+        //             miscellaneous.writeLog("While making query to the database: " + err.toString());
         //         }       
         //     });
         // });
@@ -489,14 +488,14 @@ const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => 
         //         if (err) {
         //             console.log("While making query to the database:");
         //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
+        //             miscellaneous.writeLog("While making query to the database: " + err.toString());
         //         }       
         //     });
         // });
     }catch(err){
         console.log("While appending request: ");
         console.error(err);
-        writeLog("While appending request: " + err.toString());
+        miscellaneous.writeLog("While appending request: " + err.toString());
     }
 }
 
@@ -534,20 +533,20 @@ const updateRequest = async (id) => {
         //         if (err) {
         //             console.log("While making query to the database:");
         //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
+        //             miscellaneous.writeLog("While making query to the database: " + err.toString());
         //         }       
         //     });
         // });
     }catch(err){
         console.log("While updating request: ");
         console.error(err);
-        writeLog("While updating request: " + err.toString());
+        miscellaneous.writeLog("While updating request: " + err.toString());
     }
 }
 
 const appendReport = async (clientID, videoURL, email, message) => {
     try{
-        url = 'https://www.twitch.tv/videos/' + getVideoCode(videoURL);
+        url = 'https://www.twitch.tv/videos/' + miscellaneous.getVideoCode(videoURL);
 
         // Writing to MongoDB
         let db = await getMongoDB();
@@ -591,7 +590,7 @@ const appendReport = async (clientID, videoURL, email, message) => {
         //         if (err) {
         //             console.log("While making query to the database:");
         //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
+        //             miscellaneous.writeLog("While making query to the database: " + err.toString());
         //         }
         //     });
         // });
@@ -619,14 +618,14 @@ const appendReport = async (clientID, videoURL, email, message) => {
         //         if (err) {
         //             console.log("While making query to the database:");
         //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
+        //             miscellaneous.writeLog("While making query to the database: " + err.toString());
         //         }       
         //     });
         // });
     }catch(err){
         console.log("While appending report: ");
         console.error(err);
-        writeLog("While appending report: " + err.toString());
+        miscellaneous.writeLog("While appending report: " + err.toString());
     }
 }
 
@@ -678,7 +677,7 @@ const updateStatus = async (clientID, license) => {
         //         if (err) {
         //             console.log("While making query to the database:");
         //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
+        //             miscellaneous.writeLog("While making query to the database: " + err.toString());
         //         }
         //     });
         // });
@@ -687,7 +686,7 @@ const updateStatus = async (clientID, license) => {
     }catch(err){
         console.log("While updating status: ");
         console.error(err);
-        writeLog("While updating status: " + err.toString());
+        miscellaneous.writeLog("While updating status: " + err.toString());
     }
 }
 
@@ -729,14 +728,14 @@ const appendPurchase = async (clientID, jwt, cartID, orderID) => {
         //         if (err) {
         //             console.log("While making query to the database:");
         //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
+        //             miscellaneous.writeLog("While making query to the database: " + err.toString());
         //         }
         //     });
         // });
     }catch(err){
         console.log("While appending purchase: ");
         console.error(err);
-        writeLog("While appending purchase: " + err.toString());
+        miscellaneous.writeLog("While appending purchase: " + err.toString());
     }
 }
 
@@ -752,7 +751,7 @@ const updateIPAddress = async () => {
 
 	  res.on("data", async (chunk) => {
 		console.log("Server is being hosted on: " + chunk);
-		writeLog("Server is being hosted on: " + chunk);
+		miscellaneous.writeLog("Server is being hosted on: " + chunk);
 		
 		try{ 
 			// Writing to MongoDB
@@ -762,16 +761,18 @@ const updateIPAddress = async () => {
 			}, {
 				$set: {ip: chunk.toString()},
 				$currentDate: {lastUpdateDate: true}
-			});
+            });
+            // Free memory
+            _db = null;
 		}catch(err){
 			console.log("While updating ipaddress: ");
 			console.error(err);
-			writeLog("While updating ipaddress: " + err.toString());
+			miscellaneous.writeLog("While updating ipaddress: " + err.toString());
 		}
 	  });
 	}).on('error', async (e) => {
 	  console.log("While getting the ip address, error: " + e.message + ", retrying...");
-	  writeLog("While getting the ip address, error: " + e.message + ", retrying...");
+	  miscellaneous.writeLog("While getting the ip address, error: " + e.message + ", retrying...");
 	  setInterval(updateIPAddress, 1 * 60 * 1000);
 	});
 }

@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const writeLog = require('./miscellaneous').writeLog;
-
-const appendPurchase = require('./database').appendPurchase;
+const miscellaneous = require('./miscellaneous');
+const database = require('./database');
 
 router.post('/', async (req, res) => {
-    appendPurchase(req.body.clientID, req.body.jwt, req.body.cartId, req.body.orderId);
+    database.appendPurchase(req.body.clientID, req.body.jwt, req.body.cartId, req.body.orderId);
     console.log("Received a purchase from " + req.body.clientID);
-    writeLog("Received a purchase from " + req.body.clientID);
+    miscellaneous.writeLog("Received a purchase from " + req.body.clientID);
 
     res.sendStatus(200);
 });
