@@ -773,7 +773,7 @@ const updateIPAddress = async () => {
 	}).on('error', async (e) => {
 	  console.log("While getting the ip address, error: " + e.message + ", retrying...");
 	  miscellaneous.writeLog("While getting the ip address, error: " + e.message + ", retrying...");
-	  setInterval(updateIPAddress, 1 * 60 * 1000);
+	  setTimeout(updateIPAddress, 1 * 60 * 1000);
 	});
 }
 
