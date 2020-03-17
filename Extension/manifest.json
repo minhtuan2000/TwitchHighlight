@@ -4,8 +4,6 @@
   "description": "Automatically finds highlights from Twitch VODs!",
   "permissions": [
     "activeTab", 
-    "webRequest",
-    "webRequestBlocking",
     "https://highlights.now.sh/api"
   ],
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
