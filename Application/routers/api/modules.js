@@ -20,10 +20,16 @@ const getChat = (id)=>{
                 console.log(err);
                 writeLog("While running getChat(): " + err.toString());
             }
+            else {
+                // If not error
+                fs.writeFileSync(`assets/data/${id}.done`,'True');
+                updateRequest(id);
+                console.log(stdout);
+            }
             // Even if error, it is still done, because this problem is unsolved.
-            fs.writeFileSync(`assets/data/${id}.done`,'True');
-            updateRequest(id);
-            console.log(stdout);
+            // fs.writeFileSync(`assets/data/${id}.done`,'True');
+            // updateRequest(id);
+            // console.log(stdout);
         }
     );
     return; // non blocking
@@ -85,5 +91,12 @@ const advancedFinder =(id, from, to) =>{
     })
 }
 
-module.exports = {getChat, basicFinder, advancedFinder};
+const cleanFiles = () => {
+    // Remove files older than 1 week old
+
+    // Remove files that were not finished
+    
+}
+
+module.exports = {getChat, basicFinder, advancedFinder, cleanFiles};
 
