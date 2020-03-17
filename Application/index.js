@@ -19,9 +19,9 @@ app.get('/*', function (req, res) {
 app.listen(port, () => {
     updateIPAddress();
     console.log(`App listening on port ${port}!`);
-    // Set timer for self-destruct in 1 minute
+    // Set timer for self-destruct in 1 day
     setTimeout(() => {
         console.log("Restarting...");
         process.exit();
-    }, 1 * 60 * 1000);
+    }, 24 * 60 * 60 * 1000);
 });
