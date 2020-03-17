@@ -20,5 +20,8 @@ app.listen(port, () => {
     updateIPAddress();
     console.log(`App listening on port ${port}!`);
     // Set timer for self-destruct in 1 minute
-    setTimeout(process.exit(), 1 * 60 * 1000);
+    setTimeout(() => {
+        console.log("Restarting...");
+        process.exit();
+    }, 1 * 60 * 1000);
 });
