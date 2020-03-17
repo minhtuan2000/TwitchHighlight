@@ -10,11 +10,11 @@
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "512": "images/512.png"
+      "128": "images/128.png"
     }
   },
   "icons": {
-    "512": "images/512.png"
+    "128": "images/128.png"
   },
   "manifest_version": 2
 }
