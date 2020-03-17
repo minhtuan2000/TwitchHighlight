@@ -93,9 +93,9 @@ const advancedFinder =(id, from, to) =>{
 
 const cleanFiles = () => {
     // Remove files older than 1 week old
-
-    // Remove files that were not finished
     
+    // Remove files that were not finished
+
 }
 
 module.exports = {getChat, basicFinder, advancedFinder, cleanFiles};
