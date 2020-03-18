@@ -93,7 +93,7 @@ const advancedFinder = (id, from, to) => {
 
 const cleanFiles = async () => {
     // Remove files older than 1 week old
-    dir = execSync(`find . -name *.log -type f -mtime +7 -exec rm -f {} \\;`,  
+    dir = execSync(`find . -name *.txt -type f -mtime +7 -exec rm -f {} \\;`,  
         {
             maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/assets/data'
