@@ -91,10 +91,10 @@ const advancedFinder = (id, from, to) => {
     })
 }
 
-const cleanFiles = async () => {
+const cleanFiles = () => {
     // Remove files older than 1 week old
     // Remove *.txt files
-    dir = exec(`find . -name *.txt -type f -mtime +7 -exec rm -f {} \\;`,  
+    dir = exec(`find . -name '*.txt' -type f -mtime +7 -exec rm -f {} \\;`,  
         {
             maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/../../assets/data'
@@ -111,7 +111,7 @@ const cleanFiles = async () => {
             }
         });
     // Remove *.done files
-    dir = exec(`find . -name *.done -type f -mtime +7 -exec rm -f {} \\;`,  
+    dir = exec(`find . -name '*.done' -type f -mtime +7 -exec rm -f {} \\;`,  
         {
             maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/../../assets/data'
@@ -129,8 +129,8 @@ const cleanFiles = async () => {
         });
     // Remove files that were not finished
     // Loop through all files in the folder
-    const dir = await fs.promises.opendir(__dirname + '/../../assets/data');
-    for await (const dirent of dir) {
+    const dir = fs.opendirSync(__dirname + '/../../assets/data');
+    for (const dirent of dir) {
         console.log(dirent.name);
     }
 }
