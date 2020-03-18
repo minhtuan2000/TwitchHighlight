@@ -105,9 +105,8 @@ const cleanFiles = async () => {
                 console.error(err); 
                 writeLog("While removing old *.txt files: " + err.toString());
             } else {
-                console.log("Successfully removed old *.txt files: ");
-                console.error(stdout); 
-                writeLog("Successfully removed old *.txt files: " + stdout);
+                console.log("Successfully removed old *.txt files!");
+                writeLog("Successfully removed old *.txt files!");
             }
         });
     // Remove *.done files
@@ -122,14 +121,13 @@ const cleanFiles = async () => {
                 console.error(err); 
                 writeLog("While removing old *.done files: " + err.toString());
             } else {
-                console.log("Successfully removed old *.done files: ");
-                console.error(stdout); 
-                writeLog("Successfully removed old *.done files: " + stdout);
+                console.log("Successfully removed old *.done files!");
+                writeLog("Successfully removed old *.done files!");
             }
         });
     // Remove files that were not finished
     // Loop through all files in the folder
-    const dir = await fs.promises.opendir(path);
+    const dir = await fs.promises.opendir(__dirname + '/../../assets/data');
     for await (const dirent of dir) {
         console.log(dirent.name);
     }
