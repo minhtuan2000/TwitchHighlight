@@ -9,7 +9,7 @@ const updateRequest = require('./database').updateRequest;
 const getChat = (id) => {
     fs.writeFileSync(`assets/data/${id}.done`,'False');
     console.log(__dirname);
-    dir = exec(`tcd -v ${id} --format timeonly --client-id j3vtenqy8mg878bzbkg7txbrj61p52`,  
+    exec(`tcd -v ${id} --format timeonly --client-id j3vtenqy8mg878bzbkg7txbrj61p52`,  
         {
             maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/../../assets/data'
@@ -39,7 +39,7 @@ const getChat = (id) => {
 const basicFinder = (id, number, length, offset) => {
     return new Promise((resolve,reject)=>{
         try{
-            dir = exec(`python3.7 basic.py ${id}.txt ${id}basicresults.txt ${id}basicdurations.txt ${number} ${length} ${offset}`, 
+            exec(`python3.7 basic.py ${id}.txt ${id}basicresults.txt ${id}basicdurations.txt ${number} ${length} ${offset}`, 
             {
                 cwd: __dirname + '/../../assets/data'
             },
@@ -67,7 +67,7 @@ const basicFinder = (id, number, length, offset) => {
 const advancedFinder = (id, from, to) => {
     return new Promise((resolve,reject) => {
         try{
-            dir = exec(`python3.7 advance.py ${id}.txt ${id}advancedresults.txt ${id}advanceddurations.txt ${from} ${to}`, 
+            exec(`python3.7 advance.py ${id}.txt ${id}advancedresults.txt ${id}advanceddurations.txt ${from} ${to}`, 
             {
                 cwd: __dirname + '/../../assets/data'
             },
@@ -94,7 +94,7 @@ const advancedFinder = (id, from, to) => {
 const cleanFiles = () => {
     // Remove files older than 1 week old
     // Remove *.txt files
-    dir = exec(`find . -name '*.txt' -type f -mtime +7 -exec rm -f {} \\;`,  
+    exec(`find . -name '*.txt' -type f -mtime +7 -exec rm -f {} \\;`,  
         {
             maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/../../assets/data'
@@ -111,7 +111,7 @@ const cleanFiles = () => {
             }
         });
     // Remove *.done files
-    dir = exec(`find . -name '*.done' -type f -mtime +7 -exec rm -f {} \\;`,  
+    exec(`find . -name '*.done' -type f -mtime +7 -exec rm -f {} \\;`,  
         {
             maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/../../assets/data'
