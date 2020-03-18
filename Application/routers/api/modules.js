@@ -92,6 +92,8 @@ const advancedFinder = (id, from, to) => {
 }
 
 const cleanFiles = async () => {
+    console.log("Initiate files cleanup...");
+    writeLog("Initiate files cleanup...")
     // Remove files older than 1 week old
     // Remove *.txt files
     exec(`find . -name '*.txt' -type f -mtime +7 -exec rm -f {} \\;`,  
@@ -127,9 +129,47 @@ const cleanFiles = async () => {
         });
     // Remove files that were not finished
     // Loop through all files in the folder
-    const dir = await fs.promises.opendir(__dirname + '/../../assets/data');
+    const dir = await fs.promises.opendir('assets/data');
     for await (const dirent of dir) {
-        console.log(dirent.name);
+        if (dirent.name.endsWith(".done")){
+            fs.readFile('assets/data/' + dirent.name,
+                async function(err, data){
+                    if (err) {
+                        console.log("While reading file " + dirent.name + ": ");
+                        console.log(err);
+                        writeLog("While reading file " + dirent.name + ": " + err.toString());
+                    } else {
+                        // If not done
+                        if (data.includes("False")){
+                            // Remove all files
+                            let id = dirent.name.split(".")[0];
+                            let fileList = [`assets/data/${id}.done`, 
+                                            `assets/data/${id}.txt`, 
+                                            `assets/data/${id}basicresults.txt`, 
+                                            `assets/data/${id}basicdurations.txt`,
+                                            `assets/data/${id}advancedresults.txt`,
+                                            `assets/data/${id}advanceddurations.txt`
+                                        ];
+                            for (let file of fileList){
+                                fs.exists(file, 
+                                    function (exists){
+                                        if (exists) fs.unlink(file,
+                                            function (err){
+                                                if (err) {
+                                                    console.log("While removing file " + file + ": ");
+                                                    console.log(err);
+                                                    writeLog("While removing file " + file + ": " + err.toString());
+                                                }
+                                            }
+                                        );
+                                    }
+                                );
+                            }
+                            
+                        }
+                    }
+                });
+        };
     }
 }
 
