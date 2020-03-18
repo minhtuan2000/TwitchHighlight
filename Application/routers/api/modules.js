@@ -6,7 +6,7 @@ const writeLog = require('./miscellaneous').writeLog;
 const updateRequest = require('./database').updateRequest;
 
 //Run RechatTool
-const getChat = (id)=>{
+const getChat = (id) => {
     fs.writeFileSync(`assets/data/${id}.done`,'False');
     console.log(__dirname);
     dir = exec(`tcd -v ${id} --format timeonly --client-id j3vtenqy8mg878bzbkg7txbrj61p52`,  
@@ -36,7 +36,7 @@ const getChat = (id)=>{
 }
 
 //Run basicFinder algorithm
-const basicFinder =(id, number, length, offset) =>{
+const basicFinder = (id, number, length, offset) => {
     return new Promise((resolve,reject)=>{
         try{
             dir = exec(`python3.7 basic.py ${id}.txt ${id}basicresults.txt ${id}basicdurations.txt ${number} ${length} ${offset}`, 
@@ -64,8 +64,8 @@ const basicFinder =(id, number, length, offset) =>{
 }
 
 //Run advancedFinder algorithm
-const advancedFinder =(id, from, to) =>{
-    return new Promise((resolve,reject)=>{
+const advancedFinder = (id, from, to) => {
+    return new Promise((resolve,reject) => {
         try{
             dir = exec(`python3.7 advance.py ${id}.txt ${id}advancedresults.txt ${id}advanceddurations.txt ${from} ${to}`, 
             {
@@ -91,7 +91,7 @@ const advancedFinder =(id, from, to) =>{
     })
 }
 
-const cleanFiles = () => {
+const cleanFiles = async () => {
     // Remove files older than 1 week old
     dir = execSync(`find . -name *.log -type f -mtime +7 -exec rm -f {} \\;`,  
         {
@@ -104,7 +104,11 @@ const cleanFiles = () => {
             cwd: __dirname + '/assets/data'
         });
     // Remove files that were not finished
-    
+    // Loop through all files in the folder
+    const dir = await fs.promises.opendir('/assets/data');
+    for await (const dirent of dir) {
+        console.log(dirent.name);
+    }
 }
 
 module.exports = {getChat, basicFinder, advancedFinder, cleanFiles};
