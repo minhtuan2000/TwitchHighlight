@@ -93,15 +93,39 @@ const advancedFinder = (id, from, to) => {
 
 const cleanFiles = async () => {
     // Remove files older than 1 week old
-    dir = execSync(`find . -name *.txt -type f -mtime +7 -exec rm -f {} \\;`,  
+    // Remove *.txt files
+    dir = exec(`find . -name *.txt -type f -mtime +7 -exec rm -f {} \\;`,  
         {
             maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/assets/data'
+        },
+        async function(err, stdout, stderr) {
+            if (err) {
+                console.log("While removing old *.txt files: ");
+                console.error(err); 
+                writeLog("While removing old *.txt files: " + err.toString());
+            } else {
+                console.log("Successfully removed old *.txt files: ");
+                console.error(stdout); 
+                writeLog("Successfully removed old *.txt files: " + stdout);
+            }
         });
-    dir = execSync(`find . -name *.done -type f -mtime +7 -exec rm -f {} \\;`,  
+    // Remove *.done files
+    dir = exec(`find . -name *.done -type f -mtime +7 -exec rm -f {} \\;`,  
         {
             maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/assets/data'
+        },
+        async function(err, stdout, stderr) {
+            if (err) {
+                console.log("While removing old *.done files: ");
+                console.error(err); 
+                writeLog("While removing old *.done files: " + err.toString());
+            } else {
+                console.log("Successfully removed old *.done files: ");
+                console.error(stdout); 
+                writeLog("Successfully removed old *.done files: " + stdout);
+            }
         });
     // Remove files that were not finished
     // Loop through all files in the folder
