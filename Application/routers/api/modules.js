@@ -92,8 +92,8 @@ const advancedFinder = (id, from, to) => {
 }
 
 const cleanFiles = async () => {
-    console.log("Initiate files cleanup...");
-    writeLog("Initiate files cleanup...")
+    console.log("Initiating files cleanup...");
+    writeLog("Initiating files cleanup...")
     // Remove files older than 1 week old
     // Remove *.txt files
     exec(`find . -name '*.txt' -type f -mtime +7 -exec rm -f {} \\;`,  
@@ -150,6 +150,8 @@ const cleanFiles = async () => {
                                             `assets/data/${id}advancedresults.txt`,
                                             `assets/data/${id}advanceddurations.txt`
                                         ];
+                            console.log("Cleaning up " + id);
+                            writeLog("Cleaning up " + id);
                             for (let file of fileList){
                                 fs.exists(file, 
                                     function (exists){
@@ -159,13 +161,14 @@ const cleanFiles = async () => {
                                                     console.log("While removing file " + file + ": ");
                                                     console.log(err);
                                                     writeLog("While removing file " + file + ": " + err.toString());
+                                                } else {
+                                                    // Success
                                                 }
                                             }
                                         );
                                     }
                                 );
                             }
-                            
                         }
                     }
                 });
