@@ -91,7 +91,7 @@ const advancedFinder = (id, from, to) => {
     })
 }
 
-const cleanFiles = () => {
+const cleanFiles = async () => {
     // Remove files older than 1 week old
     // Remove *.txt files
     exec(`find . -name '*.txt' -type f -mtime +7 -exec rm -f {} \\;`,  
@@ -129,8 +129,8 @@ const cleanFiles = () => {
         });
     // Remove files that were not finished
     // Loop through all files in the folder
-    const dir = fs.opendirSync(__dirname + '/../../assets/data');
-    for (const dirent of dir) {
+    const dir = await fs.promises.opendir(path);
+    for await (const dirent of dir) {
         console.log(dirent.name);
     }
 }
