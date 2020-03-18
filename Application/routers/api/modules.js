@@ -97,7 +97,7 @@ const cleanFiles = async () => {
     dir = exec(`find . -name *.txt -type f -mtime +7 -exec rm -f {} \\;`,  
         {
             maxBuffer: 1024 * 1024 * 64,
-            cwd: __dirname + '/assets/data'
+            cwd: __dirname + '/../../assets/data'
         },
         async function(err, stdout, stderr) {
             if (err) {
@@ -114,7 +114,7 @@ const cleanFiles = async () => {
     dir = exec(`find . -name *.done -type f -mtime +7 -exec rm -f {} \\;`,  
         {
             maxBuffer: 1024 * 1024 * 64,
-            cwd: __dirname + '/assets/data'
+            cwd: __dirname + '/../../assets/data'
         },
         async function(err, stdout, stderr) {
             if (err) {
@@ -129,7 +129,7 @@ const cleanFiles = async () => {
         });
     // Remove files that were not finished
     // Loop through all files in the folder
-    const dir = await fs.promises.opendir('/assets/data');
+    const dir = await fs.promises.opendir(__dirname + '/../../assets/data');
     for await (const dirent of dir) {
         console.log(dirent.name);
     }
