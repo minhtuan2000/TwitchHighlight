@@ -85,7 +85,7 @@ function cleanURL(url){
 
 function process(tab){
   if (online){
-    // If online, then analyse the video
+    // If online, then analyze the video
     let tabId = tab.id;
     let tabUrl = cleanURL(tab.url);
 

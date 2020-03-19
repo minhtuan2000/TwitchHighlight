@@ -3,7 +3,7 @@
   "version": "0.2.13.0",
   "description": "Automatically finds highlights from Twitch VODs!",
   "permissions": [
-    "activeTab", 
+    "tabs", 
     "https://highlights.now.sh/api"
   ],
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
