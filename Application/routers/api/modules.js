@@ -9,7 +9,7 @@ const updateRequest = require('./database').updateRequest;
 const getChat = (id) => {
     fs.writeFileSync(`assets/data/${id}.done`,'False');
     console.log(__dirname);
-    exec(`tcd -v ${id} --format timeonly --client-id j3vtenqy8mg878bzbkg7txbrj61p52`,  
+    exec(`tcd -v ${id} --format timeonly --client-id j3vtenqy8mg878bzbkg7txbrj61p52 -q`,  
         {
             maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/../../assets/data'
