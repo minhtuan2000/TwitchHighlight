@@ -8,7 +8,7 @@ const updateRequest = require('./database').updateRequest;
 //Run RechatTool
 const getChat = (id) => {
     fs.writeFileSync(`assets/data/${id}.done`,'False');
-    console.log(__dirname);
+    //console.log(__dirname);
     exec(`tcd -v ${id} --format timeonly --client-id j3vtenqy8mg878bzbkg7txbrj61p52 -q`,  
         {
             maxBuffer: 1024 * 1024 * 64,
