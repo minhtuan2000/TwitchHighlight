@@ -1,76 +1,6 @@
 'use strict';
 
-function resetConfig(){
-    window.localStorage.setItem("n", const_n.toString());
-    window.localStorage.setItem("l", const_l.toString());
-    window.localStorage.setItem("offset", const_offset.toString());
-    window.localStorage.setItem("from", const_from.toString());
-    window.localStorage.setItem("to", const_to.toString());
-    window.localStorage.setItem("isBasic", const_isBasic.toString());
-    window.localStorage.setItem("automode", const_automode.toString());
-    
-    n = parseInt(window.localStorage.getItem("n"));
-    l = parseInt(window.localStorage.getItem("l"));
-    offset = parseInt(window.localStorage.getItem("offset"));
-    from = parseInt(window.localStorage.getItem("from"));
-    to = parseInt(window.localStorage.getItem("to"));
-    isBasic = parseInt(window.localStorage.getItem("isBasic"));
-    automode = parseInt(window.localStorage.getItem("automode"));
-    
-    const textboxN = document.getElementsByName("n")[0];
-    const textboxL = document.getElementsByName("l")[0];
-    const tickboxAutomode = document.getElementsByName("automode")[0];
-    const textboxFrom = document.getElementsByName("from")[0];
-    const textboxTo = document.getElementsByName("to")[0];
-
-    textboxN.value = n;
-    textboxL.value = l;
-    if (automode == 1) textboxL.disabled = true; else textboxL.disabled = false;
-    tickboxAutomode.checked = (automode == 1);
-    textboxFrom.value = from;
-    textboxTo.value = to;
-
-    settingBasicButtonClicked();
-}
-
-function settingAdvanceButtonClicked(){
-    const settingBasicPage = document.getElementById("setting-basic");
-    const settingAdvancePage = document.getElementById("setting-advance");
-    settingBasicPage.style.display = "none";
-    settingAdvancePage.style.display = "inline-block";
-    isBasic = 0;
-    window.localStorage.setItem("isBasic", "0");
-    console.log("Changed to advance algorithm");
-}
-
-function settingBasicButtonClicked(){
-    const settingBasicPage = document.getElementById("setting-basic");
-    const settingAdvancePage = document.getElementById("setting-advance");
-    settingBasicPage.style.display = "inline-block";
-    settingAdvancePage.style.display = "none";
-    isBasic = 1;
-    window.localStorage.setItem("isBasic", "1");
-    console.log("Changed to basic algorithm");
-}
-
-function reportButtonClicked(){
-    const main = document.getElementById("main");
-    const report = document.getElementById("report");
-    if (main.style.display == "none"){
-        main.style.display = "block";
-        report.style.display = "none";
-    } else {
-        main.style.display = "none";
-        report.style.display = "block";
-    }
-}
-
-function config(tab){
-    if (document.getElementsByName("n").length == 0){
-        console.log("Config: Waiting for page to load");
-        setTimeout(() => config(tab), 100);
-        return;
-    }
+function loadConfig(){
     //Initialize DOM elements
     const reportButton = document.getElementById("report-icon");
     const sendReportButton = document.getElementById("send-button");
@@ -210,6 +140,79 @@ function config(tab){
         settingAdvanceButtonClicked();
     } else {
         settingBasicButtonClicked();
+    }
+}
+
+function resetConfig(){
+    window.localStorage.setItem("n", const_n.toString());
+    window.localStorage.setItem("l", const_l.toString());
+    window.localStorage.setItem("offset", const_offset.toString());
+    window.localStorage.setItem("from", const_from.toString());
+    window.localStorage.setItem("to", const_to.toString());
+    window.localStorage.setItem("isBasic", const_isBasic.toString());
+    window.localStorage.setItem("automode", const_automode.toString());
+    
+    n = parseInt(window.localStorage.getItem("n"));
+    l = parseInt(window.localStorage.getItem("l"));
+    offset = parseInt(window.localStorage.getItem("offset"));
+    from = parseInt(window.localStorage.getItem("from"));
+    to = parseInt(window.localStorage.getItem("to"));
+    isBasic = parseInt(window.localStorage.getItem("isBasic"));
+    automode = parseInt(window.localStorage.getItem("automode"));
+    
+    const textboxN = document.getElementsByName("n")[0];
+    const textboxL = document.getElementsByName("l")[0];
+    const tickboxAutomode = document.getElementsByName("automode")[0];
+    const textboxFrom = document.getElementsByName("from")[0];
+    const textboxTo = document.getElementsByName("to")[0];
+
+    textboxN.value = n;
+    textboxL.value = l;
+    if (automode == 1) textboxL.disabled = true; else textboxL.disabled = false;
+    tickboxAutomode.checked = (automode == 1);
+    textboxFrom.value = from;
+    textboxTo.value = to;
+
+    settingBasicButtonClicked();
+}
+
+function settingAdvanceButtonClicked(){
+    const settingBasicPage = document.getElementById("setting-basic");
+    const settingAdvancePage = document.getElementById("setting-advance");
+    settingBasicPage.style.display = "none";
+    settingAdvancePage.style.display = "inline-block";
+    isBasic = 0;
+    window.localStorage.setItem("isBasic", "0");
+    console.log("Changed to advance algorithm");
+}
+
+function settingBasicButtonClicked(){
+    const settingBasicPage = document.getElementById("setting-basic");
+    const settingAdvancePage = document.getElementById("setting-advance");
+    settingBasicPage.style.display = "inline-block";
+    settingAdvancePage.style.display = "none";
+    isBasic = 1;
+    window.localStorage.setItem("isBasic", "1");
+    console.log("Changed to basic algorithm");
+}
+
+function reportButtonClicked(){
+    const main = document.getElementById("main");
+    const report = document.getElementById("report");
+    if (main.style.display == "none"){
+        main.style.display = "block";
+        report.style.display = "none";
+    } else {
+        main.style.display = "none";
+        report.style.display = "block";
+    }
+}
+
+function config(tab){
+    if(document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded',loadConfig);
+    } else {
+        loadConfig();
     }
 }
 
