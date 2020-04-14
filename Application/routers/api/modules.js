@@ -1,37 +1,53 @@
-const exec = require('child_process').exec;
+const freemem = require('os').freemem;
+
 const fs = require('fs');
+
+const spawn = require('child_process').spawn;
+const exec = require('child_process').exec;
+const kill = require('child_process').kill;
 
 const writeLog = require('./miscellaneous').writeLog;
 
 const updateRequest = require('./database').updateRequest;
 
+//Control Memory Usage
+const memoryMonitor = (tcdID) => {
+    // If not enough memory, kill process
+    if (freemem() < 20 * 1024 * 1024) kill(tcdID);
+}
+
 //Run RechatTool
 const getChat = (id) => {
     fs.writeFileSync(`assets/data/${id}.done`,'False');
     //console.log(__dirname);
-    exec(`tcd -v ${id} --format timeonly --client-id j3vtenqy8mg878bzbkg7txbrj61p52 -q`,  
+    const tcdID = spawn('tcd',
+        ['-v', id.toString(), '--format', 'timeonly', '--client-id', 'j3vtenqy8mg878bzbkg7txbrj61p52', '-q'],  
         {
-            maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/../../assets/data'
-        },
-        function(err, stdout, stderr) {
-            if (err) {
-                console.log("While running getchat(): ");
-                console.log(err);
-                writeLog("While running getChat(): " + err.toString());
-            }
-            else {
-                // If not error
-                fs.writeFileSync(`assets/data/${id}.done`,'True');
-                updateRequest(id);
-                console.log(stdout);
-            }
-            // Even if error, it is still done, because this problem is unsolved.
-            // fs.writeFileSync(`assets/data/${id}.done`,'True');
-            // updateRequest(id);
-            // console.log(stdout);
         }
     );
+
+    const monitorID = setInterval(memoryMonitor, 10000, tcdID);
+    
+    tcdID.stderr.on('data', (err) => {
+        // On error
+        console.log("While running getchat(): ");
+        console.log(err);
+        writeLog("While running getChat(): " + err.toString());
+    });
+
+    tcdID.on('close', (code) => {
+        // On exit
+        console.log(`getChat() exited with code ${code}`);
+        writeLog("getChat() exited with code " + code.toString());
+        clearInterval(monitorID);
+        if (code === 0){
+            // If not error
+            fs.writeFileSync(`assets/data/${id}.done`,'True');
+            updateRequest(id);
+        }
+    });
+
     return; // non blocking
 }
 
