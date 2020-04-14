@@ -4,7 +4,6 @@ const fs = require('fs');
 
 const spawn = require('child_process').spawn;
 const exec = require('child_process').exec;
-const kill = require('child_process').kill;
 
 const writeLog = require('./miscellaneous').writeLog;
 
@@ -13,7 +12,11 @@ const updateRequest = require('./database').updateRequest;
 //Control Memory Usage
 const memoryMonitor = (tcdID) => {
     // If not enough memory, kill process
-    if (freemem() < 20 * 1024 * 1024) kill(tcdID);
+    if (freemem() < 20 * 1024 * 1024){
+        console.log("While running getChat(): Out of memory, kill child process");
+        writeLog("While running getChat(): Out of memory, kill child process");
+        tcdID.kill();
+    }
 }
 
 //Run RechatTool
@@ -31,7 +34,7 @@ const getChat = (id) => {
     
     tcdID.stderr.on('data', (err) => {
         // On error
-        console.log("While running getchat(): ");
+        console.log("While running getChat(): ");
         console.log(err);
         writeLog("While running getChat(): " + err.toString());
     });
@@ -39,7 +42,6 @@ const getChat = (id) => {
     tcdID.on('close', (code) => {
         // On exit
         console.log(`getChat() exited with code ${code}`);
-        writeLog("getChat() exited with code " + code.toString());
         clearInterval(monitorID);
         if (code === 0){
             // If not error
