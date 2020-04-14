@@ -507,7 +507,7 @@ const updateRequest = async (id) => {
         // Writing to MongoDB
         let db = await getMongoDB();
         db.collection("RequestLog").updateMany({
-            //VideoURL: url,
+            VideoURL: url,
             Status: "Processing"
         }, {
             $set: {Status: "Done"}
