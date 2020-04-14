@@ -47,8 +47,8 @@ const getChat = (id) => {
         // On exit
         console.log(`getChat() exited with code ${code}`);
         clearInterval(monitorID);
-        if (code === 0){
-            // If not error
+        if (code === 0 || code === null){
+            // If not error or out of memory
             fs.writeFileSync(`assets/data/${id}.done`,'True');
             updateRequest(id);
         }
