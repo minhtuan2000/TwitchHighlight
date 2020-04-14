@@ -13,7 +13,7 @@ const updateRequest = require('./database').updateRequest;
 const memoryMonitor = (tcdID) => {
     // If not enough memory, kill process
     // console.log(freemem() / (1024 * 1024));
-    if (freemem() < 10 * 1024 * 1024){
+    if (freemem() < 50 * 1024 * 1024){
         console.log("While running getChat(): Out of memory, kill child process");
         writeLog("While running getChat(): Out of memory, kill child process");
         tcdID.kill();
