@@ -172,6 +172,7 @@ const cleanFiles = async () => {
                                             `assets/data/${id}advancedresults.txt`,
                                             `assets/data/${id}advanceddurations.txt`
                                         ];
+                            updateRequest(id);
                             console.log("Cleaning up " + id);
                             writeLog("Cleaning up " + id);
                             for (let file of fileList){
