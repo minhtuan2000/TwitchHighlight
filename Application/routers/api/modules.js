@@ -79,15 +79,15 @@ const getChat = async (id) => {
                 } else {
                     fs.writeFileSync(`assets/data/${id}.txt`, output);
                 }
-            } catch {
-                console.log("While running getChat(): " + response.status + " " + response.data.error + " " + response.data.message);
-                writeLog("While running getChat(): " + response.status + " " + response.data.error + " " + response.data.message);
+            } catch (err){
+                console.log("While running getChat(): " + err.response.status.toString() + " " + err.response.data.error + " " + err.response.data.message);
+                writeLog("While running getChat(): " + err.response.status.toString() + " " + err.response.data.error + " " + err.response.data.message);
                 
                 tolerant--;
                 if (tolerant <= 0) return;
                 
                 // Try to get new access token if receive 401 error
-                if (response.status === 401){
+                if (err.response.status === 401){
                     try {
                         OAthAccessToken = await getOAthAccessToken();
                     } catch(err) {
