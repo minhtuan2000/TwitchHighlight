@@ -37,7 +37,7 @@ const getChat = async (id) => {
         } catch(err) {
             try {
                 // Get new access token
-                OAthAccessToken = getOAthAccessToken();
+                OAthAccessToken = await getOAthAccessToken();
             } catch(err) {
                 console.log("While running getChat(): Can't get OAth access token");
                 writeLog("While running getChat(): Can't get OAth access token");
