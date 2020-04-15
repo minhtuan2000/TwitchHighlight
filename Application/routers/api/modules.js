@@ -86,7 +86,7 @@ const getChat = async (id) => {
                 writeLog("While running getChat(): " + err.response.status.toString() + " " + err.response.data.error + " " + err.response.data.message);
                 
                 tolerant--;
-                if (tolerant <= 0) return;
+                if (tolerant <= 0) break;
                 
                 // Try to get new access token if receive 401 error
                 if (err.response.status === 401){
@@ -95,17 +95,14 @@ const getChat = async (id) => {
                     } catch(err) {
                         console.log("While running getChat(): Can't get OAth access token");
                         writeLog("While running getChat(): Can't get OAth access token");
-                        return;
                     }
                 }
-                continue;
             }
         }
     } catch (err) {
         console.log("While running getChat(): ");
         console.log(err);
         writeLog("While running getChat(): " + err.toString());
-        return "";
     }
 
     fs.writeFileSync(`assets/data/${id}.done`,'True');
