@@ -71,7 +71,7 @@ const getChat = async (id) => {
                     while (hour.length < 2) hour = "0" + hour;
                     let minute = (Math.floor(response.data.comments[i].content_offset_seconds / 60) % 60).toString();
                     while (minute.length < 2) minute = "0" + minute;
-                    let second = (response.data.comments[i].content_offset_seconds % 60).toString();
+                    let second = (Math.floor(response.data.comments[i].content_offset_seconds) % 60).toString();
                     while (second.length < 2) second = "0" + second;
                     output += `[${hour}:${minute}:${second}]\n`;
                 }
