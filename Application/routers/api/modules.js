@@ -48,6 +48,7 @@ const getChat = async (id) => {
     
     //console.log("Using OAth access token: " + OAthAccessToken);
     // Get chat    
+    fs.writeFileSync(`assets/data/${id}.done`,'False');
     let _next = "";
     let tolerant = 5;
     try{
@@ -106,6 +107,9 @@ const getChat = async (id) => {
         writeLog("While running getChat(): " + err.toString());
         return "";
     }
+
+    fs.writeFileSync(`assets/data/${id}.done`,'True');
+    updateRequest(id);
 }
 
 // //Control Memory Usage
