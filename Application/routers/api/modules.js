@@ -9,45 +9,46 @@ const updateRequest = require('./database').updateRequest;
 
 const twitch_client_id = "j3vtenqy8mg878bzbkg7txbrj61p52";
 const twitch_client_secret = "5i8u17i00lmm85rl7bgjjvmao2mf31";
-let OAthAccessKey = "";
+let OAthAccessToken = "";
 
-const getOAthAccessKey = async () => {
+const getOAthAccessToken = async () => {
     try{
         let response = await axios.post(
             `https://id.twitch.tv/oauth2/token?` + 
             `client_id=${twitch_client_id}&` + 
             `client_secret=${twitch_client_secret}&` + 
             `grant_type=client_credentials`);
-        console.log(response);
-        return "";
+        fs.writeFileSync("assets/OAth.token", response.data.access_token);
+        return response.data.access_token;
     } catch (err) {
-        console.log("While running getOAthAccessKey: ");
+        console.log("While running getOAthAccessToken: ");
         console.log(err);
-        writeLog("While running getOAthAccessKey: " + err.toString());
+        writeLog("While running getOAthAccessToken: " + err.toString());
         return "";
     }
-    return "";
 }
 
 const getChat = async (id) => {
-    // Get OAth access key
-    if (OAthAccessKey === ""){
+    // Get OAth access token
+    if (OAthAccessToken === ""){
         try {
             // Read from file
-            OAthAccessKey = fs.readFileSync("assets/OAth.key");
+            OAthAccessToken = fs.readFileSync("assets/OAth.token");
         } catch(err) {
             try {
-                // Get new access key
-                OAthAccessKey = getOAthAccessKey();
+                // Get new access token
+                OAthAccessToken = getOAthAccessToken();
             } catch(err) {
-                console.log("While running getChat(): Can't get OAth access key");
-                writeLog("While running getChat(): Can't get OAth access key");
+                console.log("While running getChat(): Can't get OAth access token");
+                writeLog("While running getChat(): Can't get OAth access token");
                 return;
             }
         }
     }
     
+    console.log("Using OAth access token: " + OAthAccessToken);
     
+
 }
 
 // //Control Memory Usage
