@@ -95,6 +95,7 @@ const getChat = async (id) => {
                     } catch(err) {
                         console.log("While running getChat(): Can't get OAth access token");
                         writeLog("While running getChat(): Can't get OAth access token");
+                        break;
                     }
                 }
             }
