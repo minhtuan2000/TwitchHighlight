@@ -57,30 +57,12 @@ const getChat = async (id) => {
                 "Authorization": OAthAccessToken,
                 "Client-ID": twitch_client_id
             };
-
-            let response = await axios.get(
-                `https://api.twitch.tv/v5/videos/${id}/comments?` + 
-                (_next === "" ? "content_offset_seconds=0": `cursor=${_next}`)
-            );
-
-            if (response.status !== 200){
-                console.log("While running getChat(): " + response.status + " " + response.data.error + " " + response.data.message);
-                writeLog("While running getChat(): " + response.status + " " + response.data.error + " " + response.data.message);
-                
-                tolerant--;
-                if (tolerant <= 0) return;
-                
-                // Try to get new access token if receive 401 error
-                if (response.status === 401){
-                    try {
-                        OAthAccessToken = await getOAthAccessToken();
-                    } catch(err) {
-                        console.log("While running getChat(): Can't get OAth access token");
-                        writeLog("While running getChat(): Can't get OAth access token");
-                        return;
-                    }
-                }
-            } else {
+            
+            try{
+                let response = await axios.get(
+                    `https://api.twitch.tv/v5/videos/${id}/comments?` + 
+                    (_next === "" ? "content_offset_seconds=0": `cursor=${_next}`)
+                );
                 _next = response.data._next;
                 let output = "";
                 for (let i = 0; i < response.data.comments.length; i++){
@@ -97,6 +79,24 @@ const getChat = async (id) => {
                 } else {
                     fs.writeFileSync(`assets/data/${id}.txt`, output);
                 }
+            } catch {
+                console.log("While running getChat(): " + response.status + " " + response.data.error + " " + response.data.message);
+                writeLog("While running getChat(): " + response.status + " " + response.data.error + " " + response.data.message);
+                
+                tolerant--;
+                if (tolerant <= 0) return;
+                
+                // Try to get new access token if receive 401 error
+                if (response.status === 401){
+                    try {
+                        OAthAccessToken = await getOAthAccessToken();
+                    } catch(err) {
+                        console.log("While running getChat(): Can't get OAth access token");
+                        writeLog("While running getChat(): Can't get OAth access token");
+                        return;
+                    }
+                }
+                continue;
             }
         }
     } catch (err) {
