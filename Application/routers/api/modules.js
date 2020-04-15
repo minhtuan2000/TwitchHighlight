@@ -21,9 +21,9 @@ const getOAthAccessToken = async () => {
         fs.writeFileSync("assets/OAth.token", response.data.access_token);
         return response.data.access_token;
     } catch (err) {
-        console.log("While running getOAthAccessToken: ");
+        console.log("While running getOAthAccessToken(): ");
         console.log(err);
-        writeLog("While running getOAthAccessToken: " + err.toString());
+        writeLog("While running getOAthAccessToken(): " + err.toString());
         return "";
     }
 }
@@ -46,9 +46,65 @@ const getChat = async (id) => {
         }
     }
     
-    console.log("Using OAth access token: " + OAthAccessToken);
-    
+    //console.log("Using OAth access token: " + OAthAccessToken);
+    // Get chat    
+    let _next = "";
+    let tolerant = 5;
+    try{
+        while (_next !== undefined){
+            headers = {
+                "Accept": "application/vnd.twitchtv.v5+json",
+                "Authorization": OAthAccessToken,
+                "Client-ID": twitch_client_id
+            };
 
+            let response = await axios.get(
+                `https://api.twitch.tv/v5/videos/${id}/comments?` + 
+                (_next === "" ? "content_offset_seconds=0": `cursor=${_next}`)
+            );
+
+            if (response.status !== 200){
+                console.log("While running getChat(): " + response.status + " " + response.data.error + " " + response.data.message);
+                writeLog("While running getChat(): " + response.status + " " + response.data.error + " " + response.data.message);
+                
+                tolerant--;
+                if (tolerant <= 0) return;
+                
+                // Try to get new access token if receive 401 error
+                if (response.status === 401){
+                    try {
+                        OAthAccessToken = await getOAthAccessToken();
+                    } catch(err) {
+                        console.log("While running getChat(): Can't get OAth access token");
+                        writeLog("While running getChat(): Can't get OAth access token");
+                        return;
+                    }
+                }
+            } else {
+                _next = response.data._next;
+                let output = "";
+                for (let i = 0; i < response.data.comments.length; i++){
+                    let hour = Math.floor(response.data.comments[i].content_offset_seconds / 3600).toString();
+                    while (hour.length < 2) hour = "0" + hour;
+                    let minute = (Math.floor(response.data.comments[i].content_offset_seconds / 60) % 60).toString();
+                    while (minute.length < 2) minute = "0" + minute;
+                    let second = (response.data.comments[i].content_offset_seconds % 60).toString();
+                    while (second.length < 2) second = "0" + second;
+                    output += `[${hour}:${minute}:${second}]\n`;
+                }
+                if (fs.existsSync(`assets/data/${id}.txt`)){
+                    fs.appendFileSync(`assets/data/${id}.txt`, output);
+                } else {
+                    fs.writeFileSync(`assets/data/${id}.txt`, output);
+                }
+            }
+        }
+    } catch (err) {
+        console.log("While running getChat(): ");
+        console.log(err);
+        writeLog("While running getChat(): " + err.toString());
+        return "";
+    }
 }
 
 // //Control Memory Usage
