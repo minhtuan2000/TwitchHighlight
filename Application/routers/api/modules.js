@@ -52,7 +52,7 @@ const getChat = async (id) => {
     let tolerant = 5;
     try{
         while (_next !== undefined){
-            headers = {
+            let headers = {
                 "Accept": "application/vnd.twitchtv.v5+json",
                 "Authorization": OAthAccessToken,
                 "Client-ID": twitch_client_id
@@ -61,7 +61,7 @@ const getChat = async (id) => {
             try{
                 let response = await axios.get(
                     `https://api.twitch.tv/v5/videos/${id}/comments?` + 
-                    (_next === "" ? "content_offset_seconds=0": `cursor=${_next}`, headers)
+                    (_next === "" ? "content_offset_seconds=0": `cursor=${_next}`, { headers: headers})
                 );
                 _next = response.data._next;
                 let output = "";
