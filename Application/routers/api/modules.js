@@ -1,58 +1,99 @@
-const freemem = require('os').freemem;
-
+//const freemem = require('os').freemem;
 const fs = require('fs');
-
-const spawn = require('child_process').spawn;
+//const spawn = require('child_process').spawn;
 const exec = require('child_process').exec;
+const axios = require('axios');
 
 const writeLog = require('./miscellaneous').writeLog;
-
 const updateRequest = require('./database').updateRequest;
 
-//Control Memory Usage
-const memoryMonitor = (tcdID) => {
-    // If not enough memory, kill process
-    // console.log(freemem() / (1024 * 1024));
-    if (freemem() < 50 * 1024 * 1024){
-        console.log("While running getChat(): Out of memory, kill child process");
-        writeLog("While running getChat(): Out of memory, kill child process");
-        tcdID.kill();
-    }
-}
+const twitch_client_id = "j3vtenqy8mg878bzbkg7txbrj61p52";
+const twitch_client_secret = "5i8u17i00lmm85rl7bgjjvmao2mf31";
+let OAthAccessKey = "";
 
-//Run RechatTool
-const getChat = (id) => {
-    fs.writeFileSync(`assets/data/${id}.done`,'False');
-    //console.log(__dirname);
-    const tcdID = spawn('tcd',
-        ['-v', id.toString(), '--format', 'timeonly', '--client-id', 'j3vtenqy8mg878bzbkg7txbrj61p52', '-q'],  
-        {
-            cwd: __dirname + '/../../assets/data'
-        }
-    );
-
-    const monitorID = setInterval(memoryMonitor, 10000, tcdID);
-    
-    tcdID.stderr.on('data', (err) => {
-        // On error
-        console.log("While running getChat(): ");
+const getOAthAccessKey = async () => {
+    try{
+        let response = await axios.post(
+            `https://id.twitch.tv/oauth2/token?` + 
+            `client_id=${twitch_client_id}&` + 
+            `client_secret=${twitch_client_secret}&` + 
+            `grant_type=client_credentials`);
+        console.log(response);
+        return "";
+    } catch (err) {
+        console.log("While running getOAthAccessKey: ");
         console.log(err);
-        writeLog("While running getChat(): " + err.toString());
-    });
-
-    tcdID.on('close', (code) => {
-        // On exit
-        console.log(`getChat() exited with code ${code}`);
-        clearInterval(monitorID);
-        if (code === 0 || code === null){
-            // If not error or out of memory
-            fs.writeFileSync(`assets/data/${id}.done`,'True');
-            updateRequest(id);
-        }
-    });
-
-    return; // non blocking
+        writeLog("While running getOAthAccessKey: " + err.toString());
+        return "";
+    }
+    return "";
 }
+
+const getChat = async (id) => {
+    // Get OAth access key
+    if (OAthAccessKey === ""){
+        try {
+            // Read from file
+            OAthAccessKey = fs.readFileSync("assets/OAth.key");
+        } catch(err) {
+            try {
+                // Get new access key
+                OAthAccessKey = getOAthAccessKey();
+            } catch(err) {
+                console.log("While running getChat(): Can't get OAth access key");
+                writeLog("While running getChat(): Can't get OAth access key");
+                return;
+            }
+        }
+    }
+    
+    
+}
+
+// //Control Memory Usage
+// const memoryMonitor = (tcdID) => {
+//     // If not enough memory, kill process
+//     // console.log(freemem() / (1024 * 1024));
+//     if (freemem() < 50 * 1024 * 1024){
+//         console.log("While running getChat(): Out of memory, kill child process");
+//         writeLog("While running getChat(): Out of memory, kill child process");
+//         tcdID.kill();
+//     }
+// }
+
+// //Run TwitchChatDownloader
+// const getChat = (id) => {
+//     fs.writeFileSync(`assets/data/${id}.done`,'False');
+//     //console.log(__dirname);
+//     const tcdID = spawn('tcd',
+//         ['-v', id.toString(), '--format', 'timeonly', '--client-id', 'j3vtenqy8mg878bzbkg7txbrj61p52', '-q'],  
+//         {
+//             cwd: __dirname + '/../../assets/data'
+//         }
+//     );
+
+//     const monitorID = setInterval(memoryMonitor, 10000, tcdID);
+    
+//     tcdID.stderr.on('data', (err) => {
+//         // On error
+//         console.log("While running getChat(): ");
+//         console.log(err);
+//         writeLog("While running getChat(): " + err.toString());
+//     });
+
+//     tcdID.on('close', (code) => {
+//         // On exit
+//         console.log(`getChat() exited with code ${code}`);
+//         clearInterval(monitorID);
+//         if (code === 0 || code === null){
+//             // If not error or out of memory
+//             fs.writeFileSync(`assets/data/${id}.done`,'True');
+//             updateRequest(id);
+//         }
+//     });
+
+//     return; // non blocking
+// }
 
 //Run basicFinder algorithm
 const basicFinder = (id, number, length, offset) => {
