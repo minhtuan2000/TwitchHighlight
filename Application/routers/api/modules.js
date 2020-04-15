@@ -61,7 +61,8 @@ const getChat = async (id) => {
             try{
                 let response = await axios.get(
                     `https://api.twitch.tv/v5/videos/${id}/comments?` + 
-                    (_next === "" ? "content_offset_seconds=0": `cursor=${_next}`, { headers: headers})
+                    (_next === "" ? "content_offset_seconds=0": `cursor=${_next}`), 
+                    { headers: headers}
                 );
                 _next = response.data._next;
                 let output = "";
