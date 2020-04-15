@@ -1,39 +1,64 @@
-const exec = require('child_process').exec;
+const freemem = require('os').freemem;
+
 const fs = require('fs');
+
+const spawn = require('child_process').spawn;
+const exec = require('child_process').exec;
 
 const writeLog = require('./miscellaneous').writeLog;
 
 const updateRequest = require('./database').updateRequest;
 
+//Control Memory Usage
+const memoryMonitor = (tcdID) => {
+    // If not enough memory, kill process
+    // console.log(freemem() / (1024 * 1024));
+    if (freemem() < 50 * 1024 * 1024){
+        console.log("While running getChat(): Out of memory, kill child process");
+        writeLog("While running getChat(): Out of memory, kill child process");
+        tcdID.kill();
+    }
+}
+
 //Run RechatTool
-const getChat = (id)=>{
+const getChat = (id) => {
     fs.writeFileSync(`assets/data/${id}.done`,'False');
-    console.log(__dirname);
-    dir = exec(`tcd -v ${id} --format timeonly --client-id j3vtenqy8mg878bzbkg7txbrj61p52`,  
+    //console.log(__dirname);
+    const tcdID = spawn('tcd',
+        ['-v', id.toString(), '--format', 'timeonly', '--client-id', 'j3vtenqy8mg878bzbkg7txbrj61p52', '-q'],  
         {
-            maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/../../assets/data'
-        },
-        function(err, stdout, stderr) {
-            if (err) {
-                console.log("While running getchat(): ");
-                console.log(err);
-                writeLog("While running getChat(): " + err.toString());
-            }
-            // Even if error, it is still done, because this problem is unsolved.
-            fs.writeFileSync(`assets/data/${id}.done`,'True');
-            updateRequest(id);
-            console.log(stdout);
         }
     );
+
+    const monitorID = setInterval(memoryMonitor, 10000, tcdID);
+    
+    tcdID.stderr.on('data', (err) => {
+        // On error
+        console.log("While running getChat(): ");
+        console.log(err);
+        writeLog("While running getChat(): " + err.toString());
+    });
+
+    tcdID.on('close', (code) => {
+        // On exit
+        console.log(`getChat() exited with code ${code}`);
+        clearInterval(monitorID);
+        if (code === 0 || code === null){
+            // If not error or out of memory
+            fs.writeFileSync(`assets/data/${id}.done`,'True');
+            updateRequest(id);
+        }
+    });
+
     return; // non blocking
 }
 
 //Run basicFinder algorithm
-const basicFinder =(id, number, length, offset) =>{
+const basicFinder = (id, number, length, offset) => {
     return new Promise((resolve,reject)=>{
         try{
-            dir = exec(`python3.7 basic.py ${id}.txt ${id}basicresults.txt ${id}basicdurations.txt ${number} ${length} ${offset}`, 
+            exec(`python3.7 basic.py ${id}.txt ${id}basicresults.txt ${id}basicdurations.txt ${number} ${length} ${offset}`, 
             {
                 cwd: __dirname + '/../../assets/data'
             },
@@ -58,10 +83,10 @@ const basicFinder =(id, number, length, offset) =>{
 }
 
 //Run advancedFinder algorithm
-const advancedFinder =(id, from, to) =>{
-    return new Promise((resolve,reject)=>{
+const advancedFinder = (id, from, to) => {
+    return new Promise((resolve,reject) => {
         try{
-            dir = exec(`python3.7 advance.py ${id}.txt ${id}advancedresults.txt ${id}advanceddurations.txt ${from} ${to}`, 
+            exec(`python3.7 advance.py ${id}.txt ${id}advancedresults.txt ${id}advanceddurations.txt ${from} ${to}`, 
             {
                 cwd: __dirname + '/../../assets/data'
             },
@@ -85,5 +110,91 @@ const advancedFinder =(id, from, to) =>{
     })
 }
 
-module.exports = {getChat, basicFinder, advancedFinder};
+const cleanFiles = async () => {
+    console.log("Initiating files cleanup...");
+    writeLog("Initiating files cleanup...")
+    // Remove files older than 1 week old
+    // Remove *.txt files
+    exec(`find . -name '*.txt' -type f -mtime +7 -exec rm -f {} \\;`,  
+        {
+            maxBuffer: 1024 * 1024 * 64,
+            cwd: __dirname + '/../../assets/data'
+        },
+        async function(err, stdout, stderr) {
+            if (err) {
+                console.log("While removing old *.txt files: ");
+                console.error(err); 
+                writeLog("While removing old *.txt files: " + err.toString());
+            } else {
+                console.log("Successfully removed old *.txt files!");
+                writeLog("Successfully removed old *.txt files!");
+            }
+        });
+    // Remove *.done files
+    exec(`find . -name '*.done' -type f -mtime +7 -exec rm -f {} \\;`,  
+        {
+            maxBuffer: 1024 * 1024 * 64,
+            cwd: __dirname + '/../../assets/data'
+        },
+        async function(err, stdout, stderr) {
+            if (err) {
+                console.log("While removing old *.done files: ");
+                console.error(err); 
+                writeLog("While removing old *.done files: " + err.toString());
+            } else {
+                console.log("Successfully removed old *.done files!");
+                writeLog("Successfully removed old *.done files!");
+            }
+        });
+    // Remove files that were not finished
+    // Loop through all files in the folder
+    const dir = await fs.promises.opendir('assets/data');
+    for await (const dirent of dir) {
+        if (dirent.name.endsWith(".done")){
+            fs.readFile('assets/data/' + dirent.name,
+                async function(err, data){
+                    if (err) {
+                        console.log("While reading file " + dirent.name + ": ");
+                        console.log(err);
+                        writeLog("While reading file " + dirent.name + ": " + err.toString());
+                    } else {
+                        // If not done
+                        if (data.includes("False")){
+                            // Remove all files
+                            let id = dirent.name.split(".")[0];
+                            let fileList = [`assets/data/${id}.done`, 
+                                            `assets/data/${id}.txt`, 
+                                            `assets/data/${id}basicresults.txt`, 
+                                            `assets/data/${id}basicdurations.txt`,
+                                            `assets/data/${id}advancedresults.txt`,
+                                            `assets/data/${id}advanceddurations.txt`
+                                        ];
+                            updateRequest(id);
+                            console.log("Cleaning up " + id);
+                            writeLog("Cleaning up " + id);
+                            for (let file of fileList){
+                                fs.exists(file, 
+                                    function (exists){
+                                        if (exists) fs.unlink(file,
+                                            function (err){
+                                                if (err) {
+                                                    console.log("While removing file " + file + ": ");
+                                                    console.log(err);
+                                                    writeLog("While removing file " + file + ": " + err.toString());
+                                                } else {
+                                                    // Success
+                                                }
+                                            }
+                                        );
+                                    }
+                                );
+                            }
+                        }
+                    }
+                });
+        };
+    }
+}
+
+module.exports = {getChat, basicFinder, advancedFinder, cleanFiles};
 

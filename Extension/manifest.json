@@ -1,22 +1,20 @@
 {
   "name": "Twitch Highlights",
-  "version": "0.2.12.1",
+  "version": "0.2.13.1",
   "description": "Automatically finds highlights from Twitch VODs!",
   "permissions": [
-    "activeTab", 
-    "webRequest",
-    "webRequestBlocking",
+    "tabs", 
     "https://highlights.now.sh/api"
   ],
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "128": "images/512.png"
+      "128": "images/128.png"
     }
   },
   "icons": {
-    "128": "images/512.png"
+    "128": "images/128.png"
   },
   "manifest_version": 2
 }

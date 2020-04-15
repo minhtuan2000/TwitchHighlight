@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 
 const updateIPAddress = require('./routers/api/database').updateIPAddress;
+const cleanFiles = require('./routers/api/modules').cleanFiles;
 
 app.use(express.json());
 app.use('/api/link', require('./routers/api/link'));
@@ -18,5 +19,11 @@ app.get('/*', function (req, res) {
 
 app.listen(port, () => {
     updateIPAddress();
+    cleanFiles();
     console.log(`App listening on port ${port}!`);
+    // Set timer for self-destruct in 1 day
+    setTimeout(() => {
+        console.log("Restarting...");
+        process.exit();
+    }, 24 * 60 * 60 * 1000);
 });
