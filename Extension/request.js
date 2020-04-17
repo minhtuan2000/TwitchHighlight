@@ -11,7 +11,7 @@ function sendRequest(tabId, tabUrl){
                               url: tabUrl, 
                               isBasic: isBasic, 
                               n: n, 
-                              l: (automode == 0)? l: -1, 
+                              l: (isBasic == 1) ? l : "-1", 
                               offset: offset, 
                               from: from,
                               to: to}));

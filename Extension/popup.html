@@ -40,47 +40,45 @@
         </div>
         <div id="setting-basic">
           <table id="setting-table-basic" class="setting-table">
-            <tr title="Set the total number of highlights">
-              <td>Count:</td>
+            <tr title="Set the total number of highlights" id="setting-n-basic">
+              <td>Number of highlights:</td>
               <td>
-                <input type="number" style="width: 40px;" name="n" min="5" max="50" value="6">
+                <input type="number" style="width: 40px;" name="n" min="5" max="50" value="15">
               </td>
             </tr>
-            <tr title="Set a fixed length for each highlight">
-              <td>Duration:</td>
+            <tr title="Set duration for each highlight">
+              <td>Expected duration of each highlight:</td>
               <td>
-                <input type="number" style="width: 40px;" name="l" min="1" max="10" value="2" disabled> min  
-              </td>
-            </tr>
-            <tr title="Detect durations automatically">
-              <td>Automode:</td>
-              <td>
-                <input type="checkbox" name="automode" checked>
+                <select name="l" style="width: 60px; height: 22px;">
+                  <option value="-1" title="Automatically detech highlight duration">Auto</option>
+                  <option value="1">1 min</option>
+                  <option value="2">2 mins</option>
+                  <option value="5">5 mins</option>
+                  <option value="10">10 mins</option>
+                </select> 
               </td>
             </tr>
           </table>   
         </div>
         <div id="setting-advance">
           <table id="setting-table-advance" class="setting-table">
-            <tr>
-              <td></td>
+            <tr title="Set the total number of highlights" id="setting-n-basic">
+              <td>Number of highlights:</td>
               <td>
-                RANGE
-              </td>
-            </tr>
-            <tr title="Set the minimum number of highlights">
-              <td>From:</td>
-              <td>
-                <input type="number" style="width: 40px;" name="from" min="2" max="50" value="10"> highlights
-              </td>
-            </tr>
-            <tr title="Set the maximum number of highlights">
-              <td>To:</td>
-              <td>
-                <input type="number" style="width: 40px;" name="to" min="1" max="50" value="50"> highlights
+                <input type="number" style="width: 40px;" name="n2" min="5" max="50" value="15">
               </td>
             </tr>
           </table>   
+          <table class="setting-table">
+            <tr title="Choose game">
+              <td>Title:</td>
+              <td>
+                <select title="Choose game title" name="title" style="width: 140px; height: 22px;">
+                  <option value="0">League of legends</option>
+                </select> 
+              </td>
+            </tr>
+          </table>
         </div>
         <div id="setting-error" style="color: red; text-align: center;"></div>
       </div>
