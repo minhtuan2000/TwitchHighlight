@@ -74,7 +74,7 @@ const getChat = async (id) => {
                     while (minute.length < 2) minute = "0" + minute;
                     let second = (Math.floor(response.data.comments[i].content_offset_seconds) % 60).toString();
                     while (second.length < 2) second = "0" + second;
-                    output += `[${hour}:${minute}:${second}]\n`;
+                    output += `[${hour}:${minute}:${second}] ${response.data.comments[i].message.body}\n`;
                 }
                 if (fs.existsSync(`assets/data/${id}.txt`)){
                     fs.appendFileSync(`assets/data/${id}.txt`, output);
@@ -184,10 +184,10 @@ const basicFinder = (id, number, length, offset) => {
 }
 
 //Run advancedFinder algorithm
-const advancedFinder = (id, from, to) => {
+const advancedFinder = (id, number, length, offset) => {
     return new Promise((resolve,reject) => {
         try{
-            exec(`python3.7 advance.py ${id}.txt ${id}advancedresults.txt ${id}advanceddurations.txt ${from} ${to}`, 
+            exec(`python3.7 advanced_league_of_legends.py ${id}.txt ${id}advancedresults.txt ${id}advanceddurations.txt ${number} ${length} ${offset}`, 
             {
                 cwd: __dirname + '/../../assets/data'
             },

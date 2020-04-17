@@ -55,7 +55,7 @@ async function getHighlights(url, isBasic, n, l, offset, from, to){
                 writeLog("Running advance algorithm for video " + code);
                 // to be continue
                 
-                let highlights = await advancedFinder(code, from, to);
+                let highlights = await advancedFinder(code, n, l, offset);
                 return highlights;
             }
 
@@ -134,11 +134,11 @@ router.post('/', async (req, res) => {
             console.log("Request Error: Not activated");
             writeLog("Request Error: Not activated");
         } else  if ((!premium && pendingRequests >= 2) || (pendingRequests >= 5)){
-            message = "We are still processing your recent requests, please wait a moment!";
+            message = "We are still processing your recent requests, please wait a moment";
             console.log("Request Error: Too many requests");
             writeLog("Request Error: Too many requests");
         } else {
-            message = "Unavailable at the moment";
+            message = "Currently unavailable";
             console.log("Request Error: Not premium");
             writeLog("Request Error: Not premium");
         }
