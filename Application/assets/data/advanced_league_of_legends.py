@@ -80,6 +80,7 @@ def findhighlights(filename, count, length, offset, keywords = [], antikeywords 
     """
     
     timestamp, signal = readfile(filename, keywords, antikeywords)
+    if len(timestamp) == 0: return [], []
 
     sums = np.zeros(len(timestamp))
     sums[0] = timestamp[0]
@@ -243,6 +244,8 @@ if vod_chat_count / vod_length > 1000:
     ranges = list(zip(game_starts, game_ends))
 
 highlights, durations = findhighlights(filename, int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]), ranges = ranges)
+if highlights == []: 
+    highlights, durations =  findhighlights(filename, int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]))
 
 # Write to results to files
 writefile(sys.argv[2], highlights)
