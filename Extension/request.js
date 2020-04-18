@@ -30,6 +30,10 @@ function sendRequest(tabId, tabUrl){
         let responsePremium = JSON.parse(xhr.responseText)["premium"];
         let responseIsBasic = JSON.parse(xhr.responseText)["isBasic"];
         if (responseMessage == "OK"){
+          // Remove error message
+          const highlightContainerError = document.getElementById("highlight-container-error");
+          highlightContainerError.textContent = "";
+
           // Parse highlights
           let highlights = JSON.parse(xhr.responseText)["results"][0];
           // Parse durations
@@ -69,12 +73,12 @@ function sendRequest(tabId, tabUrl){
           }
           
         } else {
-          // This part only check if client is authorized to use advance setting or request multiple times
+          // Check if client is authorized to use advance setting or request multiple times
           const highlightContainerError = document.getElementById("highlight-container-error");
           highlightContainerError.textContent = responseMessage;
           if (!responsePremium){
-            // Reset config
-            resetConfig();
+            const subscribe = document.getElementById("subscribe-container");
+            subscribe.style.display = "block";
           }
         }
         

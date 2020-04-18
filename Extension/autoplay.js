@@ -36,14 +36,14 @@ function autoPlay(apID, id, url, i, highlights, durations){
     if (i >= highlights.length){
         let autoplayWarning = document.getElementById("autoplay-warning");
         autoplayWarning.style.display = "none";
-        autoplayButton.textContent = "Autoplay";
+        autoplayButton.textContent = "Play all highlights";
         setAutoplayButton(id, url, highlights, durations);
         //Reset all highlights buttons
         buttonList = document.getElementsByClassName("button");
         for (let i = 0; i < buttonList.length; i++){
             try{
                 buttonList[i].onclick = function(){    
-                    buttonList[i].style.backgroundColor = "darkorange";
+                    buttonList[i].style.backgroundColor = "rgb(200, 200, 200)";
                     chrome.tabs.update(id, {url: "https://www.twitch.tv/videos/" + getVideoCode(url) + "?t=" + highlights[i]});   
                 }
             } catch (err){
@@ -54,7 +54,7 @@ function autoPlay(apID, id, url, i, highlights, durations){
         quitButton.style.display = "none";
     } else {
         chrome.tabs.update(id, {url: "https://www.twitch.tv/videos/" + getVideoCode(url) + "?t=" + highlights[i]});
-        document.getElementById((i + 1).toString()).style.backgroundColor = "darkorange";
+        document.getElementById((i + 1).toString()).style.backgroundColor = "rgb(200, 200, 200)";
 
         autoplayButton.textContent = "Next";
         autoplayButton.onclick = function(){

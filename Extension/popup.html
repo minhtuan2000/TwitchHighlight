@@ -18,7 +18,7 @@
       <img id="setting-icon"  title="Minimize / Maximize" src="images/mini.png">
     </div>
     <div id="report" style="display: none; padding: 10px;">
-      <h3>Please fill in the form below:</h3>
+      <h3 style="text-align: center;">Support / Report a bug</h3>
       <div>Your email address:</div>
       <div>(Optional, if you want to receive reply)</div>
       <div><input type="text" name="email" style="margin: 10px 0px; width: 275px;"></div>
@@ -26,7 +26,9 @@
       <div><input type="text" name="url"  style="margin: 10px 0px; width: 275px;"></div>
       <div>Please describe the problem:</div>
       <div><textarea name="message" rows="4" cols="50" maxlength="900" style="margin: 10px 0px; width: 275px;"></textarea></div>
-      <button id="send-button">Send</button>
+      <div id="container-send-button">
+        <button id="send-button">Send</button>
+      </div>
     </div>
     <div id="main">
       <div id="setting">
@@ -92,13 +94,16 @@
       </div>
 
       <div id="autoplay-container">
-        <button id="autoplay-button">Autoplay</button>
+        <button id="autoplay-button">Play all highlights</button>
         <button id="quit-button" title="Quit autoplay">X</button>
-        <div id="autoplay-warning"> Clicking outside of this extension will stop the autoplay!</div>
+        <div id="autoplay-warning"> Clicking outside of this extension will stop the autoplay</div>
       </div>
       <div id="subscribe-container" style="display: none;">
-        <button id="subscribe-button">Upgrade</button>
-        <div id="subscribe-warning">Already had Premium Access? <br> Log in to your google account</div>
+        <div id="subscribe-warning"> 
+          Try Premium 90 days for free!<br> 
+          $2.99/month - <a href="https://pay.google.com/">Cancel</a> anytime
+        </div>
+        <button id="subscribe-button">Try now!</button>
       </div>
     </div>
 

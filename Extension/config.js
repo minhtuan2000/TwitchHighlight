@@ -1,6 +1,6 @@
 'use strict';
 
-function loadConfig(){
+function loadConfig(tab){
     //Initialize DOM elements
     const reportButton = document.getElementById("report-icon");
     const sendReportButton = document.getElementById("send-button");
@@ -55,7 +55,7 @@ function loadConfig(){
         sendReport(email, url, message);
     });
 
-    //Setting basic or advance?
+    //Setting basic or advance
     settingBasicButton.addEventListener("click", function(){
         settingBasicButtonClicked();
         process(tab);
@@ -86,7 +86,10 @@ function loadConfig(){
             message.style.display = "block";
 
             //sub
-            subscribe.style.display = "none"; //"block";
+            if (isBasic == 0) 
+                subscribe.style.display = "block";
+            else 
+                subscribe.style.display = "none";
         } else {
             settingPage.style.display = "none";
 
@@ -192,8 +195,10 @@ function resetConfig(){
 function settingAdvanceButtonClicked(){
     const settingBasicPage = document.getElementById("setting-basic");
     const settingAdvancePage = document.getElementById("setting-advance");
+    const subscribe = document.getElementById("subscribe-container");
     settingBasicPage.style.display = "none";
     settingAdvancePage.style.display = "inline-block";
+    subscribe.style.display = "block";
     isBasic = 0;
     window.localStorage.setItem("isBasic", "0");
     console.log("Changed to advance algorithm");
@@ -202,8 +207,10 @@ function settingAdvanceButtonClicked(){
 function settingBasicButtonClicked(){
     const settingBasicPage = document.getElementById("setting-basic");
     const settingAdvancePage = document.getElementById("setting-advance");
+    const subscribe = document.getElementById("subscribe-container");
     settingBasicPage.style.display = "inline-block";
     settingAdvancePage.style.display = "none";
+    subscribe.style.display = "none";
     isBasic = 1;
     window.localStorage.setItem("isBasic", "1");
     console.log("Changed to basic algorithm");
@@ -225,7 +232,7 @@ function config(tab){
     if(document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded',loadConfig);
     } else {
-        loadConfig();
+        loadConfig(tab);
     }
 }
 

@@ -139,13 +139,13 @@ td{
 #quit-button{
     display: none;
     margin: 0px;
-    background-color: rgba(255, 0, 0, 0.767);
+    background-color: blueviolet;
     color: white;
     padding: 5px 7px;
 }
 
 #autoplay-warning{
-    color: darkorange;
+    color: rgb(46, 46, 46);
     display: none;
 }
 
@@ -170,12 +170,12 @@ img:hover{
 #subscribe-button{
     display: inline-block;
     margin: 5px;
+    margin-left: 10px;
+    padding: 7px 15px;
     background-color: gold;
-    color: lightyellow;
+    color: darkorange;
     font-weight: bold;
     font-size: 14px;
-    padding: 7px 15px;
-    margin-left: 10px;
     vertical-align: middle;
 }
 
@@ -184,4 +184,13 @@ img:hover{
     width: 190px;
     color: white;
     vertical-align: middle;
+    text-align: center;
+}
+
+#subscribe-warning a{
+    color: white;
+}
+
+#container-send-button{
+    text-align: center;
 }
