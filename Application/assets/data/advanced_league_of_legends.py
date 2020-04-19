@@ -244,9 +244,9 @@ if vod_chat_count / vod_length > 1000:
 
     ranges = list(zip(game_starts, game_ends))
 
-highlights, durations = findhighlights(filename, int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]), keywords=start_game_keywords, ranges = ranges)
+highlights, durations = findhighlights(filename, int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]), keywords=start_game_keywords + end_game_keywords, ranges = ranges)
 if highlights == []: 
-    highlights, durations =  findhighlights(filename, int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]), keywords=start_game_keywords)
+    highlights, durations =  findhighlights(filename, int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]))
 
 # Write to results to files
 writefile(sys.argv[2], highlights)
