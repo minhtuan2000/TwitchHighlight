@@ -228,11 +228,12 @@ if vod_chat_count / vod_length > 1000:
         a = re.split("h|m|s", a)
         a = int(a[0]) * 60 * 60 + int(a[1]) * 60 + int(a[2])
         b = float("inf")
+        game_ends.append("1000h0m0s")
         if i < len(game_starts) - 1:
             b = game_starts[i+1]
             b = re.split("h|m|s", b)
             b = int(b[0]) * 60 * 60 + int(b[1]) * 60 + int(b[2])
-        game_ends.append(game_starts[i])
+            game_ends[-1] = game_starts[i+1]
         for j in range(len(potential_game_ends)):
             c = potential_game_ends[j]
             c = re.split("h|m|s", c)
@@ -243,9 +244,9 @@ if vod_chat_count / vod_length > 1000:
 
     ranges = list(zip(game_starts, game_ends))
 
-highlights, durations = findhighlights(filename, int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]), ranges = ranges)
+highlights, durations = findhighlights(filename, int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]), keywords=start_game_keywords, ranges = ranges)
 if highlights == []: 
-    highlights, durations =  findhighlights(filename, int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]))
+    highlights, durations =  findhighlights(filename, int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]), keywords=start_game_keywords)
 
 # Write to results to files
 writefile(sys.argv[2], highlights)
