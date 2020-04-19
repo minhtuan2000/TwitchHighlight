@@ -196,7 +196,7 @@ def findhighlights(filename, count, length, offset, keywords = [], antikeywords 
 
         for length in range(4, 24):
             for i in range(len(true_labels) - length):
-                if (sums[i + length] - sums[i]) / (length ** 0.8) > best[int(true_labels[i])] and true_labels[i] == true_labels[i + length]:
+                if (sums[i + length] - sums[i]) / (length ** 0.9) > best[int(true_labels[i])] and true_labels[i] == true_labels[i + length]:
                     best[int(true_labels[i])] = (sums[i + length] - sums[i]) / (length ** 0.8)
                     l[int(true_labels[i])] = i
                     r[int(true_labels[i])] = i + length
