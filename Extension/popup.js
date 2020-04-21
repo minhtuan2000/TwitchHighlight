@@ -23,6 +23,9 @@ if (window.localStorage.getItem("isBasic") == null) window.localStorage.setItem(
 // // Default is automode
 // if (window.localStorage.getItem("automode") == null) window.localStorage.setItem("automode", const_automode.toString());
 
+// Default category is automatic
+if (window.localStorage.getItem("category") == null) window.localStorage.setItem("category", const_category.toString());
+
 // Initialize variables
 let n = parseInt(window.localStorage.getItem("n"));
 let l = window.localStorage.getItem("l");
@@ -33,6 +36,8 @@ let to = parseInt(window.localStorage.getItem("to"));
 
 let isBasic = parseInt(window.localStorage.getItem("isBasic"));
 // let automode = parseInt(window.localStorage.getItem("automode"));
+
+let category = window.localStorage.getItem("category");
 
 //Get client ID
 let clientID = window.localStorage.getItem("watermelon");
@@ -51,19 +56,20 @@ function changeMessage(message, color, backgroundColor){
 
 function removeOldButtons(){
   let oldButtonList = document.getElementsByClassName("button");
-  while (oldButtonList.length > 0) document.getElementById("highlight-container").removeChild(oldButtonList[0]);
+  while (oldButtonList.length > 0) 
+    document.getElementById("highlight-container").removeChild(oldButtonList[0]);
 }
 
-function setButton(id, url, i, time){
+function setButton(id, url, i, time, done){
   let newButton = document.createElement("button");
   newButton.classList.add("button");
   newButton.id = (i + 1).toString();
   newButton.onclick = function(){
-    newButton.style.backgroundColor = "darkorange";
+    newButton.style.backgroundColor = "rgb(200, 200, 200)";
     chrome.tabs.update(id, {url: "https://www.twitch.tv/videos/" + getVideoCode(url) + "?t=" + time});
   };
   newButton.textContent = (i + 1).toString();
-  document.getElementById("highlight-container").appendChild(newButton);
+  setTimeout(() => document.getElementById("highlight-container").appendChild(newButton), done? i * i * 5 + 500: 0);
   //console.log("Add button to " + time);
 }
 
@@ -82,7 +88,9 @@ function cleanURL(url){
     }
 }
 
-function process(tab){
+function process(tabs){
+  if (tabs.length == 0) return;
+  let tab = tabs[0];
   if (online){
     // If online, then analyze the video
     let tabId = tab.id;
@@ -111,8 +119,8 @@ function process(tab){
     }
   } else {
     // Try again in 1 second
-    setTimeout(() => process(tab), 1000);
+    setTimeout(() => process(tabs), 1000);
   }
 }
 
-chrome.tabs.getSelected(null, process);
+chrome.tabs.query({active: true}, process);

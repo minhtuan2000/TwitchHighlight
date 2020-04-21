@@ -6,15 +6,18 @@ function sendRequest(tabId, tabUrl){
     xhr.open("POST", "https://highlights.now.sh/api", true);
     xhr.setRequestHeader('Content-type', 'application/json');
     //console.log(JSON.stringify({url: tabUrl}));
-    xhr.send(JSON.stringify({type: "Request",
-                              clientID: clientID, 
-                              url: tabUrl, 
-                              isBasic: isBasic, 
-                              n: n, 
-                              l: (isBasic == 1) ? l : "-1", 
-                              offset: offset, 
-                              from: from,
-                              to: to}));
+    xhr.send(JSON.stringify({
+      type: "Request",
+      clientID: clientID, 
+      url: tabUrl, 
+      isBasic: isBasic, 
+      n: n, 
+      l: (isBasic == 1) ? l : "-1", 
+      offset: offset, 
+      from: from,
+      to: to,
+      category: category
+    }));
     xhr.onreadystatechange = function() {
       //console.log(xhr.readyState);
       //console.log(xhr.status);
@@ -29,6 +32,7 @@ function sendRequest(tabId, tabUrl){
         let responseMessage = JSON.parse(xhr.responseText)["message"];
         let responsePremium = JSON.parse(xhr.responseText)["premium"];
         let responseIsBasic = JSON.parse(xhr.responseText)["isBasic"];
+        let responseDone = JSON.parse(xhr.responseText)["done"];
         if (responseMessage == "OK"){
           // Remove error message
           const highlightContainerError = document.getElementById("highlight-container-error");
@@ -46,7 +50,7 @@ function sendRequest(tabId, tabUrl){
   
           // Add new buttons
           for (let i = 0; i < highlights.length; i++){
-            setButton(tabId, tabUrl, i, highlights[i]);
+            setButton(tabId, tabUrl, i, highlights[i], responseDone);
           }
   
           //Rewire autoplay button
@@ -55,17 +59,17 @@ function sendRequest(tabId, tabUrl){
           if (responseIsBasic){
             //Send a request to get update every 7 seconds
             //alert("I am still running!");
-            if (JSON.parse(xhr.responseText)["done"] == false){
+            if (!responseDone){
               setTimeout(() => sendRequest(tabId, tabUrl), 7000);
             } else {
               recentMessage = ["Done!", "white", "forestgreen"];
               changeMessage("Done!", "white", "forestgreen");
             }
           } else {            
-            //Send a request to get update every 30 seconds
+            //Send a request to get update every 7 seconds
             //alert("I am still running!");
-            if (JSON.parse(xhr.responseText)["done"] == false){
-              setTimeout(() => sendRequest(tabId, tabUrl), 30000);
+            if (!responseDone){
+              setTimeout(() => sendRequest(tabId, tabUrl), 7000);
             } else {
               recentMessage = ["Done!", "white", "forestgreen"];
               changeMessage("Done!", "white", "forestgreen");
@@ -80,6 +84,15 @@ function sendRequest(tabId, tabUrl){
             const subscribe = document.getElementById("subscribe-container");
             subscribe.style.display = "block";
           }
+          
+          // Remove old buttons
+          removeOldButtons();
+
+          // Reset autoplay buttons
+          document.getElementById("autoplay-container").style.display="none";
+          document.getElementById("autoplay-warning").style.display="none";
+          document.getElementById("autoplay-button").textContent = "Play all highlights";
+          document.getElementById("quit-button").style.display = "none";
         }
         
       }

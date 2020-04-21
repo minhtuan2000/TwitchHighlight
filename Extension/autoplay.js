@@ -5,7 +5,9 @@ function setAutoplayButton(id, url, highlights, durations){
     //DOM variables
     let autoplayContainer = document.getElementById("autoplay-container");
     let autoplayButton = document.getElementById("autoplay-button");
+    let autoplayWarning = document.getElementById("autoplay-warning");
     
+    autoplayWarning.style.display="none";
     autoplayContainer.style.display = "block";
     autoplayButton.onclick = function(){
         let autoplayWarning = document.getElementById("autoplay-warning");

@@ -45,13 +45,13 @@
             <tr title="Set the total number of highlights" id="setting-n-basic">
               <td>Number of highlights:</td>
               <td>
-                <input type="number" style="width: 59px; height: 22px; text-align: center;" name="n" min="5" max="50" value="15">
+                <input type="number" id="textbox-n" name="n" min="5" max="50" value="15">
               </td>
             </tr>
             <tr title="Set duration for each highlight">
               <td>Expected duration of each highlight:</td>
               <td>
-                <select name="l" style="width: 64px; height: 30px;">
+                <select name="l" id="select-l">
                   <option value="-1" title="Automatically detect highlight duration">Auto</option>
                   <option value="1">1 min</option>
                   <option value="2">2 mins</option>
@@ -67,16 +67,22 @@
             <tr title="Set the total number of highlights" id="setting-n-basic">
               <td>Number of highlights:</td>
               <td>
-                <input type="number" style="width: 59px; height: 22px; text-align: center;" name="n2" min="5" max="50" value="15">
+                <input type="number" id="textbox-n2" name="n2" min="5" max="50" value="15">
               </td>
             </tr>
           </table>   
           <table class="setting-table">
-            <tr title="Choose game">
-              <td>Game :</td>
+            <tr title="Choose game category">
+              <td>Category:</td>
               <td>
-                <select title="Choose game title" name="title" style="width: 142px; height: 30px; text-align: center;">
-                  <option value="0">League of legends</option>
+                <select title="Choose game title" name="title" id="select-title">
+                  <option value="-1">Automatic</option>
+                  <option value="0">General</option>
+                  <option value="1">League of legends</option>
+                  <option value="2">Dota 2</option>
+                  <option value="3">Fortnite</option>
+                  <option value="4">Counter-Strike: Global Offensive</option>
+                  <option value="5">VALORANT</option>
                 </select> 
               </td>
             </tr>
@@ -91,12 +97,13 @@
       
       <div id="highlight-container">
         <div id="highlight-container-error" style="color: red; text-align: center;"></div>
+        <div id="highlight-container-advice" style="color: rgb(46, 46, 46); text-align: center;"></div>
+        <div id="autoplay-warning"> Clicking outside of this extension will stop the autoplay</div>
       </div>
 
       <div id="autoplay-container">
         <button id="autoplay-button">Play all highlights</button>
         <button id="quit-button" title="Quit autoplay">X</button>
-        <div id="autoplay-warning"> Clicking outside of this extension will stop the autoplay</div>
       </div>
       <div id="subscribe-container" style="display: none;">
         <div id="subscribe-warning"> 

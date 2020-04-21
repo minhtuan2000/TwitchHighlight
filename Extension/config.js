@@ -1,6 +1,7 @@
 'use strict';
 
-function loadConfig(tab){
+function loadConfig(tabs){
+    if (tabs.length == 0) return;
     //Initialize DOM elements
     const reportButton = document.getElementById("report-icon");
     const sendReportButton = document.getElementById("send-button");
@@ -14,6 +15,7 @@ function loadConfig(tab){
     // const textboxFrom = document.getElementsByName("from")[0];
     // const textboxTo = document.getElementsByName("to")[0];
     const textboxN2 = document.getElementsByName("n2")[0];
+    const textboxCategory = document.getElementsByName("title")[0];
 
     //Set value for textboxes
     textboxN.value = n;
@@ -23,6 +25,7 @@ function loadConfig(tab){
     // textboxFrom.value = from;
     // textboxTo.value = to;
     textboxN2.value = n;
+    textboxCategory.value = category;
 
     //Check subscription
 
@@ -58,13 +61,19 @@ function loadConfig(tab){
     //Setting basic or advance
     settingBasicButton.addEventListener("click", function(){
         settingBasicButtonClicked();
-        process(tab);
+        process(tabs);
     });
+
+    settingBasicButton.addEventListener("mouseover", settingBasicButtonHovered);
+    settingBasicButton.addEventListener("mouseout", settingBasicButtonOut);
 
     settingAdvanceButton.addEventListener("click", function(){
         settingAdvanceButtonClicked();
-        process(tab);
+        process(tabs);
     });
+    
+    settingAdvanceButton.addEventListener("mouseover", settingAdvanceButtonHovered);
+    settingAdvanceButton.addEventListener("mouseout", settingAdvanceButtonOut);
 
     //console.log(settingButton);
     settingButton.addEventListener("click", function(){
@@ -75,9 +84,6 @@ function loadConfig(tab){
         if (settingPage.style.display == "none"){
             // setting page
             settingPage.style.display = "block";
-            textboxN.value = n;
-            textboxL.value = l;
-            // tickboxAutomode.checked = (automode == 1);
 
             // footer
             footer.style.display = "block";
@@ -109,14 +115,14 @@ function loadConfig(tab){
         textboxN2.value = n;
         window.localStorage.setItem("n", n.toString());
         console.log(`n is changed to ${n}`);
-        process(tab);
+        process(tabs);
     });
 
     textboxL.addEventListener("change", function(){
         l = textboxL.value;
         window.localStorage.setItem("l", l);
         console.log(`l is changed to ${l}`);
-        process(tab);
+        process(tabs);
     });
 
     // tickboxAutomode.addEventListener("click", function(){
@@ -124,21 +130,21 @@ function loadConfig(tab){
     //     window.localStorage.setItem("automode", automode.toString());
     //     if (automode == 1) textboxL.disabled = true; else textboxL.disabled = false;
     //     console.log(`automode is changed to ${automode}`);
-    //     process(tab);
+    //     process(tabs);
     // });
 
     // textboxFrom.addEventListener("change", function(){
     //     from = textboxFrom.value;
     //     window.localStorage.setItem("from", from.toString());        
     //     console.log(`from is changed to ${from}`);
-    //     process(tab);
+    //     process(tabs);
     // });
 
     // textboxTo.addEventListener("change", function(){
     //     to = textboxTo.value;
     //     window.localStorage.setItem("to", to.toString());        
     //     console.log(`to is changed to ${to}`);
-    //     process(tab);
+    //     process(tabs);
     // });
 
     textboxN2.addEventListener("change", function(){
@@ -146,7 +152,14 @@ function loadConfig(tab){
         textboxN.value = n;
         window.localStorage.setItem("n", n.toString());
         console.log(`n is changed to ${n}`);
-        process(tab);
+        process(tabs);
+    });
+
+    textboxCategory.addEventListener("change", function(){
+        category = textboxCategory.value;
+        window.localStorage.setItem("category", category);
+        console.log(`category is changed to ${category}`);
+        process(tabs);
     });
 
     //Check if advance algorithm is being used
@@ -165,14 +178,16 @@ function resetConfig(){
     window.localStorage.setItem("to", const_to.toString());
     window.localStorage.setItem("isBasic", const_isBasic.toString());
     // window.localStorage.setItem("automode", const_automode.toString());
+    window.localStorage.setItem("category", const_category.toString());
     
     n = parseInt(window.localStorage.getItem("n"));
-    l = parseInt(window.localStorage.getItem("l"));
+    l = window.localStorage.getItem("l");
     offset = parseInt(window.localStorage.getItem("offset"));
     from = parseInt(window.localStorage.getItem("from"));
     to = parseInt(window.localStorage.getItem("to"));
     isBasic = parseInt(window.localStorage.getItem("isBasic"));
     // automode = parseInt(window.localStorage.getItem("automode"));
+    category = window.localStorage.getItem("category");
     
     const textboxN = document.getElementsByName("n")[0];
     const textboxL = document.getElementsByName("l")[0];
@@ -180,6 +195,7 @@ function resetConfig(){
     // const textboxFrom = document.getElementsByName("from")[0];
     // const textboxTo = document.getElementsByName("to")[0];
     const textboxN2 = document.getElementsByName("n2")[0];
+    const textboxCategory = document.getElementsByName("title")[0];
 
     textboxN.value = n;
     textboxL.value = l;
@@ -188,32 +204,89 @@ function resetConfig(){
     // textboxFrom.value = from;
     // textboxTo.value = to;
     textboxN2.value = n;
+    textboxCategory.value = category;
 
     settingBasicButtonClicked();
 }
 
 function settingAdvanceButtonClicked(){
     const settingBasicPage = document.getElementById("setting-basic");
+    const choiceBasic = document.getElementById("choice-basic");
     const settingAdvancePage = document.getElementById("setting-advance");
+    const choiceAdvance = document.getElementById("choice-advance");
     const subscribe = document.getElementById("subscribe-container");
     settingBasicPage.style.display = "none";
+    choiceBasic.style.backgroundColor = "#d8d8d8";
+    choiceBasic.style.color = "rgb(185, 185, 185)";
+    choiceBasic.style.height = "37.5%";
+    choiceBasic.style.borderBottomRightRadius = "8px";
     settingAdvancePage.style.display = "inline-block";
+    choiceAdvance.style.backgroundColor = "#00000000";
+    choiceAdvance.style.color = "rgb(46, 46, 46)";
+    choiceAdvance.style.height = "47.5%";
+    choiceAdvance.style.borderTopRightRadius = "0px";
     subscribe.style.display = "block";
     isBasic = 0;
     window.localStorage.setItem("isBasic", "0");
     console.log("Changed to advance algorithm");
 }
 
+function settingAdvanceButtonHovered(){
+    const choiceBasic = document.getElementById("choice-basic");
+    const choiceAdvance = document.getElementById("choice-advance");
+    choiceBasic.style.height = "37.5%";
+    choiceAdvance.style.color = "rgb(46, 46, 46)";
+    choiceAdvance.style.height = "47.5%";
+}
+
+function settingAdvanceButtonOut(){
+    if (isBasic == 1){
+        const choiceBasic = document.getElementById("choice-basic");
+        const choiceAdvance = document.getElementById("choice-advance");
+        choiceBasic.style.height = "47.5%";
+        choiceAdvance.style.color = "rgb(185, 185, 185)";
+        choiceAdvance.style.height = "37.5%";
+    }
+}
+
 function settingBasicButtonClicked(){
     const settingBasicPage = document.getElementById("setting-basic");
+    const choiceBasic = document.getElementById("choice-basic");
     const settingAdvancePage = document.getElementById("setting-advance");
+    const choiceAdvance = document.getElementById("choice-advance");
     const subscribe = document.getElementById("subscribe-container");
     settingBasicPage.style.display = "inline-block";
+    choiceBasic.style.backgroundColor = "#00000000";
+    choiceBasic.style.color = "rgb(46, 46, 46)";
+    choiceBasic.style.height = "47.5%";
+    choiceBasic.style.borderBottomRightRadius = "0px";
     settingAdvancePage.style.display = "none";
+    choiceAdvance.style.backgroundColor = "#d8d8d8";
+    choiceAdvance.style.color = "rgb(185, 185, 185)";
+    choiceAdvance.style.height = "37.5%";
+    choiceAdvance.style.borderTopRightRadius = "8px";
     subscribe.style.display = "none";
     isBasic = 1;
     window.localStorage.setItem("isBasic", "1");
     console.log("Changed to basic algorithm");
+}
+
+function settingBasicButtonHovered(){
+    const choiceBasic = document.getElementById("choice-basic");
+    const choiceAdvance = document.getElementById("choice-advance");
+    choiceBasic.style.color = "rgb(46, 46, 46)";
+    choiceBasic.style.height = "47.5%";
+    choiceAdvance.style.height = "37.5%";
+}
+
+function settingBasicButtonOut(){
+    if (isBasic == 0){
+        const choiceBasic = document.getElementById("choice-basic");
+        const choiceAdvance = document.getElementById("choice-advance");
+        choiceBasic.style.color = "rgb(185, 185, 185)";
+        choiceBasic.style.height = "37.5%";
+        choiceAdvance.style.height = "47.5%"; 
+    }
 }
 
 function reportButtonClicked(){
@@ -228,12 +301,12 @@ function reportButtonClicked(){
     }
 }
 
-function config(tab){
+function config(tabs){
     if(document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded',loadConfig);
+        document.addEventListener('DOMContentLoaded', () => loadConfig(tabs));
     } else {
-        loadConfig(tab);
+        loadConfig(tabs);
     }
 }
 
-chrome.tabs.getSelected(null, config);
+chrome.tabs.query({active: true}, config);
