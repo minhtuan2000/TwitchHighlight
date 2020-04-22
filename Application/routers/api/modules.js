@@ -12,11 +12,11 @@ const twitch_client_secret = "5i8u17i00lmm85rl7bgjjvmao2mf31";
 let OAthAccessToken = "";
 
 const getOAthAccessToken = async () => {
-    try{
+    try {
         let response = await axios.post(
-            `https://id.twitch.tv/oauth2/token?` + 
-            `client_id=${twitch_client_id}&` + 
-            `client_secret=${twitch_client_secret}&` + 
+            `https://id.twitch.tv/oauth2/token?` +
+            `client_id=${twitch_client_id}&` +
+            `client_secret=${twitch_client_secret}&` +
             `grant_type=client_credentials`);
         fs.writeFileSync("assets/OAth.token", response.data.access_token);
         return response.data.access_token;
@@ -30,44 +30,44 @@ const getOAthAccessToken = async () => {
 
 const getChat = async (id) => {
     // Get OAth access token
-    if (OAthAccessToken === ""){
+    if (OAthAccessToken === "") {
         try {
             // Read from file
             OAthAccessToken = fs.readFileSync("assets/OAth.token");
-        } catch(err) {
+        } catch (err) {
             try {
                 // Get new access token
                 OAthAccessToken = await getOAthAccessToken();
-            } catch(err) {
+            } catch (err) {
                 console.log("While running getChat(): Can't get OAth access token");
                 writeLog("While running getChat(): Can't get OAth access token");
                 return;
             }
         }
     }
-    
+
     //console.log("Using OAth access token: " + OAthAccessToken);
     // Get chat    
-    fs.writeFileSync(`assets/data/${id}.done`,'False');
+    fs.writeFileSync(`assets/data/${id}.done`, 'False');
     let _next = "";
     let tolerant = 5;
-    try{
-        while (_next !== undefined){
+    try {
+        while (_next !== undefined) {
             let headers = {
                 "Accept": "application/vnd.twitchtv.v5+json",
                 "Authorization": OAthAccessToken,
                 "Client-ID": twitch_client_id
             };
-            
-            try{
+
+            try {
                 let response = await axios.get(
-                    `https://api.twitch.tv/v5/videos/${id}/comments?` + 
-                    (_next === "" ? "content_offset_seconds=0": `cursor=${_next}`), 
-                    { headers: headers}
+                    `https://api.twitch.tv/v5/videos/${id}/comments?` +
+                    (_next === "" ? "content_offset_seconds=0" : `cursor=${_next}`),
+                    { headers: headers }
                 );
                 _next = response.data._next;
                 let output = "";
-                for (let i = 0; i < response.data.comments.length; i++){
+                for (let i = 0; i < response.data.comments.length; i++) {
                     let hour = Math.floor(response.data.comments[i].content_offset_seconds / 3600).toString();
                     while (hour.length < 2) hour = "0" + hour;
                     let minute = (Math.floor(response.data.comments[i].content_offset_seconds / 60) % 60).toString();
@@ -76,23 +76,23 @@ const getChat = async (id) => {
                     while (second.length < 2) second = "0" + second;
                     output += `[${hour}:${minute}:${second}] ${response.data.comments[i].message.body}\n`;
                 }
-                if (fs.existsSync(`assets/data/${id}.txt`)){
+                if (fs.existsSync(`assets/data/${id}.txt`)) {
                     fs.appendFileSync(`assets/data/${id}.txt`, output);
                 } else {
                     fs.writeFileSync(`assets/data/${id}.txt`, output);
                 }
-            } catch (err){
+            } catch (err) {
                 console.log("While running getChat(): " + err.response.status.toString() + " " + err.response.data.error + " " + err.response.data.message);
                 writeLog("While running getChat(): " + err.response.status.toString() + " " + err.response.data.error + " " + err.response.data.message);
-                
+
                 tolerant--;
                 if (tolerant <= 0) break;
-                
+
                 // Try to get new access token if receive 401 error
-                if (err.response.status === 401){
+                if (err.response.status === 401) {
                     try {
                         OAthAccessToken = await getOAthAccessToken();
-                    } catch(err) {
+                    } catch (err) {
                         console.log("While running getChat(): Can't get OAth access token");
                         writeLog("While running getChat(): Can't get OAth access token");
                         break;
@@ -106,7 +106,7 @@ const getChat = async (id) => {
         writeLog("While running getChat(): " + err.toString());
     }
 
-    fs.writeFileSync(`assets/data/${id}.done`,'True');
+    fs.writeFileSync(`assets/data/${id}.done`, 'True');
     updateRequest(id);
 }
 
@@ -133,7 +133,7 @@ const getChat = async (id) => {
 //     );
 
 //     const monitorID = setInterval(memoryMonitor, 10000, tcdID);
-    
+
 //     tcdID.stderr.on('data', (err) => {
 //         // On error
 //         console.log("While running getChat(): ");
@@ -157,25 +157,25 @@ const getChat = async (id) => {
 
 //Run basicFinder algorithm
 const basicFinder = (id, number, length, offset) => {
-    return new Promise((resolve,reject)=>{
-        try{
-            exec(`python3.7 basic.py ${id}.txt ${id}basicresults.txt ${id}basicdurations.txt ${number} ${length} ${offset}`, 
-            {
-                cwd: __dirname + '/../../assets/data'
-            },
-            async function(err, stdout, stderr) {
-                if (err) {
-                    console.log("While running basicFinder(): ");
-                    console.error(err); 
-                    writeLog("While running basicFinder(): " + err.toString());
-                }
-                let highlights = await fs.readFileSync(`assets/data/${id}basicresults.txt`);
-                highlights = highlights.toString().replace(/(\r)/gm, "").split('\n').slice(0,-1);
-                let durations = await fs.readFileSync(`assets/data/${id}basicdurations.txt`);
-                durations = durations.toString().replace(/(\r)/gm, "").split('\n').slice(0,-1);
-                resolve([highlights, durations]);
-            });
-        }catch(err){
+    return new Promise((resolve, reject) => {
+        try {
+            exec(`python3.7 basic.py ${id}.txt ${id}basicresults.txt ${id}basicdurations.txt ${number} ${length} ${offset}`,
+                {
+                    cwd: __dirname + '/../../assets/data'
+                },
+                async function (err, stdout, stderr) {
+                    if (err) {
+                        console.log("While running basicFinder(): ");
+                        console.error(err);
+                        writeLog("While running basicFinder(): " + err.toString());
+                    }
+                    let highlights = await fs.readFileSync(`assets/data/${id}basicresults.txt`);
+                    highlights = highlights.toString().replace(/(\r)/gm, "").split('\n').slice(0, -1);
+                    let durations = await fs.readFileSync(`assets/data/${id}basicdurations.txt`);
+                    durations = durations.toString().replace(/(\r)/gm, "").split('\n').slice(0, -1);
+                    resolve([highlights, durations]);
+                });
+        } catch (err) {
             console.log("While running basicFinder(): ");
             console.error(err);
             writeLog("While running basicFinder(): " + err.toString());
@@ -185,25 +185,25 @@ const basicFinder = (id, number, length, offset) => {
 
 //Run advancedFinder algorithm
 const advancedFinder = (id, number, length, offset) => {
-    return new Promise((resolve,reject) => {
-        try{
-            exec(`python3.7 advanced_league_of_legends.py ${id}.txt ${id}advancedresults.txt ${id}advanceddurations.txt ${number} ${length} ${offset}`, 
-            {
-                cwd: __dirname + '/../../assets/data'
-            },
-            async function(err, stdout, stderr) {
-                if (err) {
-                    console.log("While running advancedFinder(): ");
-                    console.error(err); 
-                    writeLog("While running advancedFinder(): " + err.toString());
-                }
-                let highlights = await fs.readFileSync(`assets/data/${id}advancedresults.txt`);
-                highlights = highlights.toString().replace(/(\r)/gm, "").split('\n').slice(0,-1);
-                let durations = await fs.readFileSync(`assets/data/${id}advanceddurations.txt`);
-                durations = durations.toString().replace(/(\r)/gm, "").split('\n').slice(0,-1);
-                resolve([highlights, durations]);
-            });
-        }catch(err){
+    return new Promise((resolve, reject) => {
+        try {
+            exec(`python3.7 advanced_league_of_legends.py ${id}.txt ${id}advancedresults.txt ${id}advanceddurations.txt ${number} ${length} ${offset}`,
+                {
+                    cwd: __dirname + '/../../assets/data'
+                },
+                async function (err, stdout, stderr) {
+                    if (err) {
+                        console.log("While running advancedFinder(): ");
+                        console.error(err);
+                        writeLog("While running advancedFinder(): " + err.toString());
+                    }
+                    let highlights = await fs.readFileSync(`assets/data/${id}advancedresults.txt`);
+                    highlights = highlights.toString().replace(/(\r)/gm, "").split('\n').slice(0, -1);
+                    let durations = await fs.readFileSync(`assets/data/${id}advanceddurations.txt`);
+                    durations = durations.toString().replace(/(\r)/gm, "").split('\n').slice(0, -1);
+                    resolve([highlights, durations]);
+                });
+        } catch (err) {
             console.log("While running advancedFinder(): ");
             console.error(err);
             writeLog("While running advancedFinder(): " + err.toString());
@@ -216,15 +216,15 @@ const cleanFiles = async () => {
     writeLog("Initiating files cleanup...")
     // Remove files older than 1 week old
     // Remove *.txt files
-    exec(`find . -name '*.txt' -type f -mtime +7 -exec rm -f {} \\;`,  
+    exec(`find . -name '*.txt' -type f -mtime +7 -exec rm -f {} \\;`,
         {
             maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/../../assets/data'
         },
-        async function(err, stdout, stderr) {
+        async function (err, stdout, stderr) {
             if (err) {
                 console.log("While removing old *.txt files: ");
-                console.error(err); 
+                console.error(err);
                 writeLog("While removing old *.txt files: " + err.toString());
             } else {
                 console.log("Successfully removed old *.txt files!");
@@ -232,15 +232,15 @@ const cleanFiles = async () => {
             }
         });
     // Remove *.done files
-    exec(`find . -name '*.done' -type f -mtime +7 -exec rm -f {} \\;`,  
+    exec(`find . -name '*.done' -type f -mtime +7 -exec rm -f {} \\;`,
         {
             maxBuffer: 1024 * 1024 * 64,
             cwd: __dirname + '/../../assets/data'
         },
-        async function(err, stdout, stderr) {
+        async function (err, stdout, stderr) {
             if (err) {
                 console.log("While removing old *.done files: ");
-                console.error(err); 
+                console.error(err);
                 writeLog("While removing old *.done files: " + err.toString());
             } else {
                 console.log("Successfully removed old *.done files!");
@@ -251,33 +251,33 @@ const cleanFiles = async () => {
     // Loop through all files in the folder
     const dir = await fs.promises.opendir('assets/data');
     for await (const dirent of dir) {
-        if (dirent.name.endsWith(".done")){
+        if (dirent.name.endsWith(".done")) {
             fs.readFile('assets/data/' + dirent.name,
-                async function(err, data){
+                async function (err, data) {
                     if (err) {
                         console.log("While reading file " + dirent.name + ": ");
                         console.log(err);
                         writeLog("While reading file " + dirent.name + ": " + err.toString());
                     } else {
                         // If not done
-                        if (data.includes("False")){
+                        if (data.includes("False")) {
                             // Remove all files
                             let id = dirent.name.split(".")[0];
-                            let fileList = [`assets/data/${id}.done`, 
-                                            `assets/data/${id}.txt`, 
-                                            `assets/data/${id}basicresults.txt`, 
-                                            `assets/data/${id}basicdurations.txt`,
-                                            `assets/data/${id}advancedresults.txt`,
-                                            `assets/data/${id}advanceddurations.txt`
-                                        ];
+                            let fileList = [`assets/data/${id}.done`,
+                            `assets/data/${id}.txt`,
+                            `assets/data/${id}basicresults.txt`,
+                            `assets/data/${id}basicdurations.txt`,
+                            `assets/data/${id}advancedresults.txt`,
+                            `assets/data/${id}advanceddurations.txt`
+                            ];
                             updateRequest(id);
                             console.log("Cleaning up " + id);
                             writeLog("Cleaning up " + id);
-                            for (let file of fileList){
-                                fs.exists(file, 
-                                    function (exists){
+                            for (let file of fileList) {
+                                fs.exists(file,
+                                    function (exists) {
                                         if (exists) fs.unlink(file,
-                                            function (err){
+                                            function (err) {
                                                 if (err) {
                                                     console.log("While removing file " + file + ": ");
                                                     console.log(err);
@@ -297,5 +297,5 @@ const cleanFiles = async () => {
     }
 }
 
-module.exports = {getChat, basicFinder, advancedFinder, cleanFiles};
+module.exports = { getChat, basicFinder, advancedFinder, cleanFiles };
 

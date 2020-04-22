@@ -1,6 +1,6 @@
 'use strict';
 
-function loadConfig(tabs){
+function loadConfig(tabs) {
     if (tabs.length == 0) return;
     //Initialize DOM elements
     const reportButton = document.getElementById("report-icon");
@@ -30,27 +30,27 @@ function loadConfig(tabs){
     //Check subscription
 
     //subscribe button
-    subscribeButton.addEventListener("click", function(){
-        try{
+    subscribeButton.addEventListener("click", function () {
+        try {
             buyProduct("premium");
-        }catch(err){
+        } catch (err) {
             console.log("Can not initialize buy flow:");
             console.log(err);
         }
     });
 
     //console.log(reportButton);
-    reportButton.addEventListener("click", function(){
+    reportButton.addEventListener("click", function () {
         reportButtonClicked();
     });
 
-    sendReportButton.addEventListener("click", function(){
+    sendReportButton.addEventListener("click", function () {
         reportButtonClicked();
 
         changeMessage("Sent!", "green", "white");
 
         setTimeout(() => changeMessage(recentMessage[0], recentMessage[1], recentMessage[2]), 2000);
-        
+
         // Send a post request here
         const email = document.getElementsByName("email")[0].value;
         const url = document.getElementsByName("url")[0].value;
@@ -59,7 +59,7 @@ function loadConfig(tabs){
     });
 
     //Setting basic or advance
-    settingBasicButton.addEventListener("click", function(){
+    settingBasicButton.addEventListener("click", function () {
         settingBasicButtonClicked();
         process(tabs);
     });
@@ -67,21 +67,21 @@ function loadConfig(tabs){
     settingBasicButton.addEventListener("mouseover", settingBasicButtonHovered);
     settingBasicButton.addEventListener("mouseout", settingBasicButtonOut);
 
-    settingAdvanceButton.addEventListener("click", function(){
+    settingAdvanceButton.addEventListener("click", function () {
         settingAdvanceButtonClicked();
         process(tabs);
     });
-    
+
     settingAdvanceButton.addEventListener("mouseover", settingAdvanceButtonHovered);
     settingAdvanceButton.addEventListener("mouseout", settingAdvanceButtonOut);
 
     //console.log(settingButton);
-    settingButton.addEventListener("click", function(){
+    settingButton.addEventListener("click", function () {
         const settingPage = document.getElementById("setting");
         const footer = document.getElementById("footer");
         const message = document.getElementById("message");
         const subscribe = document.getElementById("subscribe-container");
-        if (settingPage.style.display == "none"){
+        if (settingPage.style.display == "none") {
             // setting page
             settingPage.style.display = "block";
 
@@ -92,9 +92,9 @@ function loadConfig(tabs){
             message.style.display = "block";
 
             //sub
-            if (isBasic == 0) 
+            if (isBasic == 0)
                 subscribe.style.display = "block";
-            else 
+            else
                 subscribe.style.display = "none";
         } else {
             settingPage.style.display = "none";
@@ -110,7 +110,7 @@ function loadConfig(tabs){
         }
     });
 
-    textboxN.addEventListener("change", function(){
+    textboxN.addEventListener("change", function () {
         n = textboxN.value;
         textboxN2.value = n;
         window.localStorage.setItem("n", n.toString());
@@ -118,7 +118,7 @@ function loadConfig(tabs){
         process(tabs);
     });
 
-    textboxL.addEventListener("change", function(){
+    textboxL.addEventListener("change", function () {
         l = textboxL.value;
         window.localStorage.setItem("l", l);
         console.log(`l is changed to ${l}`);
@@ -147,7 +147,7 @@ function loadConfig(tabs){
     //     process(tabs);
     // });
 
-    textboxN2.addEventListener("change", function(){
+    textboxN2.addEventListener("change", function () {
         n = textboxN2.value;
         textboxN.value = n;
         window.localStorage.setItem("n", n.toString());
@@ -155,7 +155,7 @@ function loadConfig(tabs){
         process(tabs);
     });
 
-    textboxCategory.addEventListener("change", function(){
+    textboxCategory.addEventListener("change", function () {
         category = textboxCategory.value;
         window.localStorage.setItem("category", category);
         console.log(`category is changed to ${category}`);
@@ -163,14 +163,14 @@ function loadConfig(tabs){
     });
 
     //Check if advance algorithm is being used
-    if (isBasic == 0){
+    if (isBasic == 0) {
         settingAdvanceButtonClicked();
     } else {
         settingBasicButtonClicked();
     }
 }
 
-function resetConfig(){
+function resetConfig() {
     window.localStorage.setItem("n", const_n.toString());
     window.localStorage.setItem("l", const_l.toString());
     window.localStorage.setItem("offset", const_offset.toString());
@@ -179,7 +179,7 @@ function resetConfig(){
     window.localStorage.setItem("isBasic", const_isBasic.toString());
     // window.localStorage.setItem("automode", const_automode.toString());
     window.localStorage.setItem("category", const_category.toString());
-    
+
     n = parseInt(window.localStorage.getItem("n"));
     l = window.localStorage.getItem("l");
     offset = parseInt(window.localStorage.getItem("offset"));
@@ -188,7 +188,7 @@ function resetConfig(){
     isBasic = parseInt(window.localStorage.getItem("isBasic"));
     // automode = parseInt(window.localStorage.getItem("automode"));
     category = window.localStorage.getItem("category");
-    
+
     const textboxN = document.getElementsByName("n")[0];
     const textboxL = document.getElementsByName("l")[0];
     // const tickboxAutomode = document.getElementsByName("automode")[0];
@@ -209,7 +209,7 @@ function resetConfig(){
     settingBasicButtonClicked();
 }
 
-function settingAdvanceButtonClicked(){
+function settingAdvanceButtonClicked() {
     const settingBasicPage = document.getElementById("setting-basic");
     const choiceBasic = document.getElementById("choice-basic");
     const settingAdvancePage = document.getElementById("setting-advance");
@@ -231,7 +231,7 @@ function settingAdvanceButtonClicked(){
     console.log("Changed to advance algorithm");
 }
 
-function settingAdvanceButtonHovered(){
+function settingAdvanceButtonHovered() {
     const choiceBasic = document.getElementById("choice-basic");
     const choiceAdvance = document.getElementById("choice-advance");
     choiceBasic.style.height = "37.5%";
@@ -239,8 +239,8 @@ function settingAdvanceButtonHovered(){
     choiceAdvance.style.height = "47.5%";
 }
 
-function settingAdvanceButtonOut(){
-    if (isBasic == 1){
+function settingAdvanceButtonOut() {
+    if (isBasic == 1) {
         const choiceBasic = document.getElementById("choice-basic");
         const choiceAdvance = document.getElementById("choice-advance");
         choiceBasic.style.height = "47.5%";
@@ -249,7 +249,7 @@ function settingAdvanceButtonOut(){
     }
 }
 
-function settingBasicButtonClicked(){
+function settingBasicButtonClicked() {
     const settingBasicPage = document.getElementById("setting-basic");
     const choiceBasic = document.getElementById("choice-basic");
     const settingAdvancePage = document.getElementById("setting-advance");
@@ -271,7 +271,7 @@ function settingBasicButtonClicked(){
     console.log("Changed to basic algorithm");
 }
 
-function settingBasicButtonHovered(){
+function settingBasicButtonHovered() {
     const choiceBasic = document.getElementById("choice-basic");
     const choiceAdvance = document.getElementById("choice-advance");
     choiceBasic.style.color = "rgb(46, 46, 46)";
@@ -279,20 +279,20 @@ function settingBasicButtonHovered(){
     choiceAdvance.style.height = "37.5%";
 }
 
-function settingBasicButtonOut(){
-    if (isBasic == 0){
+function settingBasicButtonOut() {
+    if (isBasic == 0) {
         const choiceBasic = document.getElementById("choice-basic");
         const choiceAdvance = document.getElementById("choice-advance");
         choiceBasic.style.color = "rgb(185, 185, 185)";
         choiceBasic.style.height = "37.5%";
-        choiceAdvance.style.height = "47.5%"; 
+        choiceAdvance.style.height = "47.5%";
     }
 }
 
-function reportButtonClicked(){
+function reportButtonClicked() {
     const main = document.getElementById("main");
     const report = document.getElementById("report");
-    if (main.style.display == "none"){
+    if (main.style.display == "none") {
         main.style.display = "block";
         report.style.display = "none";
     } else {
@@ -301,12 +301,12 @@ function reportButtonClicked(){
     }
 }
 
-function config(tabs){
-    if(document.readyState === 'loading') {
+function config(tabs) {
+    if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => loadConfig(tabs));
     } else {
         loadConfig(tabs);
     }
 }
 
-chrome.tabs.query({active: true}, config);
+chrome.tabs.query({ active: true }, config);
