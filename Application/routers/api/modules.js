@@ -110,51 +110,6 @@ const getChat = async (id) => {
     updateRequest(id);
 }
 
-// //Control Memory Usage
-// const memoryMonitor = (tcdID) => {
-//     // If not enough memory, kill process
-//     // console.log(freemem() / (1024 * 1024));
-//     if (freemem() < 50 * 1024 * 1024){
-//         console.log("While running getChat(): Out of memory, kill child process");
-//         writeLog("While running getChat(): Out of memory, kill child process");
-//         tcdID.kill();
-//     }
-// }
-
-// //Run TwitchChatDownloader
-// const getChat = (id) => {
-//     fs.writeFileSync(`assets/data/${id}.done`,'False');
-//     //console.log(__dirname);
-//     const tcdID = spawn('tcd',
-//         ['-v', id.toString(), '--format', 'timeonly', '--client-id', 'j3vtenqy8mg878bzbkg7txbrj61p52', '-q'],  
-//         {
-//             cwd: __dirname + '/../../assets/data'
-//         }
-//     );
-
-//     const monitorID = setInterval(memoryMonitor, 10000, tcdID);
-
-//     tcdID.stderr.on('data', (err) => {
-//         // On error
-//         console.log("While running getChat(): ");
-//         console.log(err);
-//         writeLog("While running getChat(): " + err.toString());
-//     });
-
-//     tcdID.on('close', (code) => {
-//         // On exit
-//         console.log(`getChat() exited with code ${code}`);
-//         clearInterval(monitorID);
-//         if (code === 0 || code === null){
-//             // If not error or out of memory
-//             fs.writeFileSync(`assets/data/${id}.done`,'True');
-//             updateRequest(id);
-//         }
-//     });
-
-//     return; // non blocking
-// }
-
 //Run basicFinder algorithm
 const basicFinder = (id, number, length, offset) => {
     return new Promise((resolve, reject) => {
@@ -184,7 +139,7 @@ const basicFinder = (id, number, length, offset) => {
 }
 
 //Run advancedFinder algorithm
-const advancedFinder = (id, number, length, offset) => {
+const advancedFinder = (id, number, length, offset, category) => {
     return new Promise((resolve, reject) => {
         try {
             exec(`python3.7 advanced_league_of_legends.py ${id}.txt ${id}advancedresults.txt ${id}advanceddurations.txt ${number} ${length} ${offset}`,
@@ -201,7 +156,7 @@ const advancedFinder = (id, number, length, offset) => {
                     highlights = highlights.toString().replace(/(\r)/gm, "").split('\n').slice(0, -1);
                     let durations = await fs.readFileSync(`assets/data/${id}advanceddurations.txt`);
                     durations = durations.toString().replace(/(\r)/gm, "").split('\n').slice(0, -1);
-                    resolve([highlights, durations]);
+                    resolve([highlights, durations, "League of legends"]);
                 });
         } catch (err) {
             console.log("While running advancedFinder(): ");

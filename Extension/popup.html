@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <link rel="stylesheet" href="popup.css">
     <script src="buy.js"></script>
     <script src="ga.js"></script>
@@ -10,114 +11,118 @@
     <script src="popup.js"></script>
     <script src="config.js"></script>
     <script src="autoplay.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="header">
-      <h3 id="header-text">Twitch Highlights</h3>
-      <img id="report-icon"  title="Support / Report a bug" src="images/bug.png">
-      <img id="setting-icon"  title="Minimize / Maximize" src="images/mini.png">
+        <h3 id="header-text">Twitch Highlights</h3>
+        <img id="report-icon" title="Support / Report a bug" src="images/bug.png">
+        <img id="setting-icon" title="Minimize / Maximize" src="images/mini.png">
     </div>
     <div id="report">
-      <h3 style="text-align: center;">Support / Report a bug</h3>
-      <div>Your email address</div>
-      <div>(Optional, if you want to receive reply)</div>
-      <div><input type="text" name="email" style="margin: 10px 0px; width: 275px;" class="textbox"></div>
-      <div>URL of the Twitch Video (if applicable)</div>
-      <div><input type="text" name="url"  style="margin: 10px 0px; width: 275px;" class="textbox"></div>
-      <div>Brief summary of the problem</div>
-      <div><textarea name="message" rows="4" cols="50" maxlength="900" style="margin: 10px 0px; width: 275px;" class="textbox"></textarea></div>
-      <div id="container-send-button">
-        <button id="send-button">Send</button>
-      </div>
+        <h3 style="text-align: center;">Support / Report a bug</h3>
+        <div>Your email address</div>
+        <div>(Optional, if you want to receive reply)</div>
+        <div><input type="text" name="email" style="margin: 10px 0px; width: 275px;" class="textbox"></div>
+        <div>URL of the Twitch Video (if applicable)</div>
+        <div><input type="text" name="url" style="margin: 10px 0px; width: 275px;" class="textbox"></div>
+        <div>Brief summary of the problem</div>
+        <div><textarea name="message" rows="4" cols="50" maxlength="900" style="margin: 10px 0px; width: 275px;"
+                class="textbox"></textarea></div>
+        <div id="container-send-button">
+            <button id="send-button">Send</button>
+        </div>
     </div>
     <div id="main">
-      <div id="setting">
-        <div id="setting-menu">
-          <div id="choice-basic" class="choice" title="Basic algorithm">
-            Basic Algorithm
-          </div>
-          <div id="choice-advance" class="choice" title="Advance algorithm: auto-optimized number and length of highlights">
-            Advanced Algorithm
-          </div>
+        <div id="setting">
+            <div id="setting-menu">
+                <div id="choice-basic" class="choice" title="Basic algorithm">
+                    Basic Algorithm
+                </div>
+                <div id="choice-advance" class="choice"
+                    title="Advance algorithm: auto-optimized number and length of highlights">
+                    Advanced Algorithm
+                </div>
+            </div>
+            <div id="setting-basic">
+                <table class="setting-table">
+                    <tr title="Set the total number of highlights" id="setting-n-basic">
+                        <td>Number of highlights</td>
+                        <td>
+                            <input type="number" id="textbox-n" class="textbox" name="n" min="5" max="50" value="15">
+                        </td>
+                    </tr>
+                    <tr title="Set duration for each highlight">
+                        <td>Expected duration of each highlight</td>
+                        <td>
+                            <select name="l" id="select-l" class="textbox">
+                                <option value="-1" title="Automatically detect highlight duration">Auto</option>
+                                <option value="1">1 min</option>
+                                <option value="2">2 mins</option>
+                                <option value="5">5 mins</option>
+                                <option value="10">10 mins</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="setting-advance">
+                <table class="setting-table">
+                    <tr title="Set the total number of highlights" id="setting-n-basic">
+                        <td>Number of highlights</td>
+                        <td>
+                            <input type="number" id="textbox-n2" class="textbox" name="n2" min="5" max="50" value="15">
+                        </td>
+                    </tr>
+                </table>
+                <table class="setting-table">
+                    <tr title="Choose game category">
+                        <td>Category</td>
+                        <td>
+                            <select title="Choose game title" name="title" id="select-title" class="textbox">
+                                <option value="-1" id="select-title-auto">Automatic</option>
+                                <option value="0">General</option>
+                                <option value="1">League of legends</option>
+                                <option value="2">Dota 2</option>
+                                <option value="3">Fortnite</option>
+                                <option value="4">Counter-Strike: Global Offensive</option>
+                                <option value="5">VALORANT</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="setting-error" style="color: red; text-align: center;"></div>
         </div>
-        <div id="setting-basic">
-          <table class="setting-table">
-            <tr title="Set the total number of highlights" id="setting-n-basic">
-              <td>Number of highlights</td>
-              <td>
-                <input type="number" id="textbox-n" class="textbox" name="n" min="5" max="50" value="15">
-              </td>
-            </tr>
-            <tr title="Set duration for each highlight">
-              <td>Expected duration of each highlight</td>
-              <td>
-                <select name="l" id="select-l" class="textbox">
-                  <option value="-1" title="Automatically detect highlight duration">Auto</option>
-                  <option value="1">1 min</option>
-                  <option value="2">2 mins</option>
-                  <option value="5">5 mins</option>
-                  <option value="10">10 mins</option>
-                </select> 
-              </td>
-            </tr>
-          </table>   
-        </div>
-        <div id="setting-advance">
-          <table class="setting-table">
-            <tr title="Set the total number of highlights" id="setting-n-basic">
-              <td>Number of highlights</td>
-              <td>
-                <input type="number" id="textbox-n2" class="textbox" name="n2" min="5" max="50" value="15">
-              </td>
-            </tr>
-          </table>   
-          <table class="setting-table">
-            <tr title="Choose game category">
-              <td>Category</td>
-              <td>
-                <select title="Choose game title" name="title" id="select-title" class="textbox">
-                  <option value="-1">Automatic</option>
-                  <option value="0">General</option>
-                  <option value="1">League of legends</option>
-                  <option value="2">Dota 2</option>
-                  <option value="3">Fortnite</option>
-                  <option value="4">Counter-Strike: Global Offensive</option>
-                  <option value="5">VALORANT</option>
-                </select> 
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div id="setting-error" style="color: red; text-align: center;"></div>
-      </div>
-    
-      <div id="message">
-        <span id="message-text">Open a Twitch video to analyze</span>
-      </div>
-      
-      <div id="highlight-container">
-        <div id="highlight-container-error" style="color: red; text-align: center;"></div>
-        <div id="highlight-container-advice" style="color: rgb(46, 46, 46); text-align: center;"></div>
-        <div id="autoplay-warning"> Clicking outside of this extension will stop the autoplay</div>
-      </div>
 
-      <div id="autoplay-container">
-        <button id="autoplay-button">Play all highlights</button>
-        <button id="quit-button" title="Quit autoplay">X</button>
-      </div>
-      <div id="subscribe-container" style="display: none;">
-        <div id="subscribe-warning"> 
-          <div>
-            <span style="font-size: 16px;"><b>Free</b></span> 
-            <span style="font-size: 14px;">for the first 90 days</span>
-          </div>
-          <div style="font-size: 10px;">$2.99/month - <a href="https://pay.google.com/">Cancel</a> anytime</div>
+        <div id="message">
+            <span id="message-text">Open a Twitch video to analyze</span>
         </div>
-        <button id="subscribe-button">Try now!</button>
-      </div>
+
+        <div id="highlight-container">
+            <div id="highlight-container-error" style="color: red; text-align: center;"></div>
+            <div id="highlight-container-advice" style="color: rgb(46, 46, 46); text-align: center;"></div>
+            <div id="autoplay-warning"> Clicking outside of this extension will stop the autoplay</div>
+        </div>
+
+        <div id="autoplay-container">
+            <button id="autoplay-button">Play all highlights</button>
+            <button id="quit-button" title="Quit autoplay">X</button>
+        </div>
+        <div id="subscribe-container" style="display: none;">
+            <div id="subscribe-warning">
+                <div>
+                    <span style="font-size: 16px;"><b>Free</b></span>
+                    <span style="font-size: 14px;">for the first 90 days</span>
+                </div>
+                <div style="font-size: 10px;">$2.99/month - <a href="https://pay.google.com/">Cancel</a> anytime</div>
+            </div>
+            <button id="subscribe-button">Try now!</button>
+        </div>
     </div>
 
     <div id="footer" title="Status: Checking...">
     </div>
-  </body>
+</body>
+
 </html>

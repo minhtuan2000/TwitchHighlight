@@ -1,7 +1,8 @@
 const writeLog = require('./miscellaneous').writeLog;
 const getVideoCode = require('./miscellaneous').getVideoCode;
-const http = require('http');
+const constants = require('./constants');
 
+const http = require('http');
 const MongoClient = require('mongodb').MongoClient;
 let _db;
 
@@ -54,34 +55,6 @@ const activateAccount = async (clientID) => {
         }, {
             $set: { IsActivated: true }
         });
-
-        // // config for database
-        // const pool = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // pool.connect().then(() => {
-        //     // create query string
-        //     let query = "UPDATE Client SET IsActivated=1" +
-        //                 " WHERE ClientID='" + clientID + "'";
-
-        //     // query to the database and get the records
-        //     pool.request().query(query, function (err, recordset) {
-        //         if (err) {
-        //             console.log("While activating account:");
-        //             console.log(err);
-        //             writeLog("While activating account: " + err.toString());
-        //         } else {
-        //             console.log("Activated client " + clientID);
-        //             writeLog("Activated client " + clientID);
-        //         }   
-        //     });
-        // });
     } catch (err) {
         console.log("While activating account:");
         console.error(err);
@@ -98,34 +71,6 @@ const deactivateAccount = async (clientID) => {
         }, {
             $set: { IsActivated: false }
         });
-
-        // // config for database
-        // const pool = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // pool.connect().then(() => {
-        //     // create query string
-        //     let query = "UPDATE Client SET IsActivated=0" +
-        //                 " WHERE ClientID='" + clientID + "'";
-
-        //     // query to the database and get the records
-        //     pool.request().query(query, function (err, recordset) {
-        //         if (err) {
-        //             console.log("While deactivating account:");
-        //             console.log(err);
-        //             writeLog("While deactivating account: " + err.toString());
-        //         } else {
-        //             console.log("Deactivated client " + clientID);
-        //             writeLog("Deactivated client " + clientID);
-        //         }      
-        //     });
-        // });
     } catch (err) {
         console.log("While deactivating account:");
         console.error(err);
@@ -142,35 +87,6 @@ const upgradeAccount = async (clientID, expireDate) => {
         }, {
             $set: { IsPremium: true, PremiumExpireDate: expireDate }
         });
-
-        // // config for database
-        // const pool = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // pool.connect().then(() => {
-        //     // create query string
-        //     let query = "UPDATE Client SET IsPremium=1, PremiumExpireDate='" +
-        //                 expireDate.toISOString().slice(0, 19).replace('T', ' ') + "'" +
-        //                 " WHERE ClientID='" + clientID + "'";
-
-        //     // query to the database and get the records
-        //     pool.request().query(query, function (err, recordset) {
-        //         if (err) {
-        //             console.log("While upgrading account:");
-        //             console.log(err);
-        //             writeLog("While upgrading account: " + err.toString());
-        //         } else {
-        //             console.log("Upgraded client " + clientID + ", expire on " + expireDate.toString());
-        //             writeLog("Upgraded client " + clientID + ", expire on " + expireDate.toString());
-        //         }   
-        //     });
-        // });
     } catch (err) {
         console.log("While upgrading account:");
         console.error(err);
@@ -187,34 +103,6 @@ const downgradeAccount = async (clientID) => {
         }, {
             $set: { IsPremium: false }
         });
-
-        // // config for database
-        // const pool = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // pool.connect().then(() => {
-        //     // create query string
-        //     let query = "UPDATE Client SET IsPremium=0, PremiumExpireDate=NULL" +
-        //                 " WHERE ClientID='" + clientID + "'";
-
-        //     // query to the database and get the records
-        //     pool.request().query(query, function (err, recordset) {
-        //         if (err) {
-        //             console.log("While downgrading account:");
-        //             console.log(err);
-        //             writeLog("While downgrading account: " + err.toString());
-        //         } else {
-        //             console.log("Downgraded client " + clientID);
-        //             writeLog("Downgraded client " + clientID);
-        //         }            
-        //     });
-        // });
     } catch (err) {
         console.log("While downgrading account:");
         console.error(err);
@@ -239,31 +127,6 @@ const isPremium = async (clientID) => {
         let res = await db.collection("Client").find({
             ClientID: clientID
         }).toArray();
-        // console.log("Result isPremium:");
-        // console.log(res[0].IsPremium);
-
-        // // config for database
-        // const pool = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // await pool.connect();
-
-        // // create query string
-        // let query = "SELECT CLientID, IsPremium, IsActivated, PremiumExpireDate FROM Client WHERE ClientID = '" + clientID + "'";
-
-        // // query to the database and get the records
-        // result = await pool.request().query(query);
-
-        // if (result.recordset[0].IsPremium){
-        //     let expireDate = result.recordset[0].PremiumExpireDate;
-        //     checkExpiredAccount(clientID, expireDate);
-        // }
 
         return [res[0].IsPremium, res[0].IsActivated];
 
@@ -326,33 +189,6 @@ const getPendingCount = async (clientID, url) => {
             ]).toArray();
         }
 
-        // // config for database
-        // const pool = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // await pool.connect();
-
-        // // create query string
-        // let query = "SELECT ClientID, VideoURL, MAX(RequestedDate) AS 'MaxDate'" + 
-        //             " FROM RequestLog" + 
-        //             " WHERE RequestedDate >= DATEADD(hour, -1, GETDATE()) AND ClientID = '" + 
-        //             clientID + "' AND Status = 'Processing'" + 
-        //             (url != null ? " AND VideoURL<>'" + url + "'" : "") + 
-        //             " GROUP BY VideoURL, ClientID";
-
-        // // query to the database and get the records
-        // result = await pool.request().query(query);
-
-        // console.log("GetPendingCount results: ");
-        // console.log(res.length);
-        // console.log(result.recordset.length);
-
         return res.length;
     } catch (err) {
         console.log("While getting pending count: ");
@@ -378,34 +214,6 @@ const appendClient = async (clientID) => {
             RequestCount: 0,
             ReportCount: 0
         });
-
-        // // config for database
-        // const pool = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // pool.connect().then(() => {
-        //     // create query string
-        //     let query = "INSERT INTO CLient (CLientID, CreatedDate, IsPremium, RequestCount, ReportCount, IsActivated)"+
-        //                 " VALUES ('" + 
-        //                 clientID + "','" + 
-        //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "'," +
-        //                 "0,0,0,0)";
-
-        //     // query to the database and get the records
-        //     pool.request().query(query, function (err, recordset) {
-        //         if (err) {
-        //             console.log("While making query to the database:");
-        //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
-        //         }       
-        //     });
-        // });
     } catch (err) {
         console.log("While appending client: " + clientID);
         console.error(err);
@@ -413,9 +221,17 @@ const appendClient = async (clientID) => {
     }
 }
 
-const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => {
+const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to, category) => {
     try {
         url = 'https://www.twitch.tv/videos/' + getVideoCode(url);
+
+        if (isBasic === undefined) isBasic = constants.const_isBasic;
+        if (n === undefined) n = constants.const_n;
+        if (l === undefined) l = constants.const_l;
+        if (offset === undefined) offset = constants.const_offset;
+        if (from === undefined) from = constants.const_from;
+        if (to === undefined) to = constants.const_to;
+        if (category === undefined) category = constants.const_category;
 
         // Writing to MongoDB
         let db = await getMongoDB();
@@ -429,7 +245,8 @@ const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => 
             Offset: offset,
             IsBasic: isBasic,
             From: from,
-            To: to
+            To: to,
+            Category: category
         });
         db.collection("Client").updateOne({
             ClientID: clientID
@@ -437,70 +254,6 @@ const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => 
             $inc: { RequestCount: 1 },
             $currentDate: { LastRequestDate: true }
         });
-
-        // // config for database
-        // const pool = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // // Insert to RequestLog
-        // pool.connect().then(() => {
-        //     // create query string
-        //     let query = "INSERT INTO RequestLog (CLientID, VideoURL, RequestedDate, Status, Count, Length, Offset, IsBasic, [From], [To])"+
-        //                 " VALUES ('" + 
-        //                 clientID + "','" + 
-        //                 url + "','" +
-        //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "','" + 
-        //                 "Processing'," + 
-        //                 n.toString() + "," + 
-        //                 l.toString() + "," + 
-        //                 offset.toString() + "," +
-        //                 isBasic.toString() + "," + 
-        //                 from.toString() + "," + 
-        //                 to.toString() + ")";
-
-        //     // query to the database and get the records
-        //     pool.request().query(query, function (err, recordset) {
-        //         if (err) {
-        //             console.log("While making query to the database:");
-        //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
-        //         }       
-        //     });
-        // });
-
-        // // config for database
-        // const pool2 = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // // Update client
-        // pool2.connect().then(() => {
-        //     // create query string
-        //     let query = "UPDATE Client SET LastRequestDate='" +
-        //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "', " +
-        //                 "RequestCount = RequestCount + 1 " +
-        //                 "WHERE ClientID='" + clientID + "'";
-
-        //     // query to the database and get the records
-        //     pool2.request().query(query, function (err, recordset) {
-        //         if (err) {
-        //             console.log("While making query to the database:");
-        //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
-        //         }       
-        //     });
-        // });
     } catch (err) {
         console.log("While appending request: ");
         console.error(err);
@@ -520,32 +273,6 @@ const updateRequest = async (id) => {
         }, {
             $set: { Status: "Done" }
         });
-
-        // // config for database
-        // const pool = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // pool.connect().then(() => {
-        //     // create query string
-        //     let query = "UPDATE RequestLog SET Status='Done'" +
-        //                 " WHERE VideoURL='" + url + 
-        //                 "' AND Status='Processing'";
-
-        //     // query to the database and get the records
-        //     pool.request().query(query, function (err, recordset) {
-        //         if (err) {
-        //             console.log("While making query to the database:");
-        //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
-        //         }       
-        //     });
-        // });
     } catch (err) {
         console.log("While updating request: ");
         console.error(err);
@@ -572,65 +299,6 @@ const appendReport = async (clientID, videoURL, email, message) => {
             $inc: { ReportCount: 1 },
             $currentDate: { LastReportDate: true }
         });
-
-        // // config for database
-        // const pool = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // // Insert to RequestLog
-        // pool.connect().then(() => {
-        //     // create query string
-        //     let query = "INSERT INTO ReportLog (CLientID, VideoURL, Email, Message, ReportDate)"+
-        //                 " VALUES ('" + 
-        //                 clientID + "','" + 
-        //                 url + "','" +
-        //                 email + "','" +
-        //                 message + "','" + 
-        //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "')";
-
-        //     // query to the database and get the records
-        //     pool.request().query(query, function (err, recordset) {
-        //         if (err) {
-        //             console.log("While making query to the database:");
-        //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
-        //         }
-        //     });
-        // });
-
-        // // config for database
-        // const pool2 = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // // Update client
-        // pool2.connect().then(() => {
-        //     // create query string
-        //     let query = "UPDATE Client SET LastReportDate='" +
-        //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "', " +
-        //                 "ReportCount = ReportCount + 1 " +
-        //                 "WHERE ClientID='" + clientID + "'";
-
-        //     // query to the database and get the records
-        //     pool2.request().query(query, function (err, recordset) {
-        //         if (err) {
-        //             console.log("While making query to the database:");
-        //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
-        //         }       
-        //     });
-        // });
     } catch (err) {
         console.log("While appending report: ");
         console.error(err);
@@ -658,39 +326,6 @@ const updateStatus = async (clientID, license) => {
             CheckDate: new Date()
         });
 
-        // // config for database
-        // const pool = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // // Insert to RequestLog
-        // pool.connect().then(() => {
-        //     // create query string
-        //     let query = "INSERT INTO StatusLog (CLientID, Kind, SKU, ItemID, Type, State, CheckDate)"+
-        //                 " VALUES ('" + 
-        //                 clientID + "','" + 
-        //                 license.kind + "','" +
-        //                 license.sku + "','" +
-        //                 license.itemId + "','" + 
-        //                 license.type + "','" +
-        //                 license.state + "','" +
-        //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "')";
-
-        //     // query to the database and get the records
-        //     pool.request().query(query, function (err, recordset) {
-        //         if (err) {
-        //             console.log("While making query to the database:");
-        //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
-        //         }
-        //     });
-        // });
-
         upgradeAccount(clientID, tomorrow);
     } catch (err) {
         console.log("While updating status: ");
@@ -710,37 +345,6 @@ const appendPurchase = async (clientID, jwt, cartID, orderID) => {
             OrderID: orderID,
             PurchaseDate: new Date()
         });
-
-        // // config for database
-        // const pool = new sql.ConnectionPool({
-        //     database: 'TwitchHighlightsDatabase',
-        //     server: 'SERVER-FOR-HIGH/SQLEXPRESS',
-        //     driver: 'msnodesqlv8',
-        //     options: {
-        //         trustedConnection: true
-        //     }
-        // });
-
-        // // Insert to RequestLog
-        // pool.connect().then(() => {
-        //     // create query string
-        //     let query = "INSERT INTO PurchaseLog (CLientID, JWT, CartID, OrderID, PurchaseDate)"+
-        //                 " VALUES ('" + 
-        //                 clientID + "','" + 
-        //                 jwt + "','" +
-        //                 cartID + "','" +
-        //                 orderID + "','" + 
-        //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "')";
-
-        //     // query to the database and get the records
-        //     pool.request().query(query, function (err, recordset) {
-        //         if (err) {
-        //             console.log("While making query to the database:");
-        //             console.log(err);
-        //             writeLog("While making query to the database: " + err.toString());
-        //         }
-        //     });
-        // });
     } catch (err) {
         console.log("While appending purchase: ");
         console.error(err);

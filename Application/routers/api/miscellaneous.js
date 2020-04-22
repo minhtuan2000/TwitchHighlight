@@ -1,4 +1,5 @@
 const fs = require('fs');
+const const_tips = require('./constants').const_tips;
 
 const logStream = fs.createWriteStream("assets/log/" + new Date().toISOString().replace(/[T:.]/g, '-') + ".log", { flags: 'a' });
 
@@ -19,8 +20,12 @@ const getVideoCode = (url) => {
         while (i < res.length && '0123456789'.indexOf(res[i]) !== -1) i += 1;
         return res.substring(0, i);
     } catch (err) {
-        return url;
+        return "";
     }
 }
 
-module.exports = { writeLog, getVideoCode };
+const getTips = () => {
+    return const_tips[Math.floor(Math.random() * const_tips.length)];
+}
+
+module.exports = { writeLog, getVideoCode, getTips };

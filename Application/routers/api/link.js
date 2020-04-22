@@ -9,6 +9,7 @@ const advancedFinder = require('./modules').advancedFinder;
 
 const writeLog = require('./miscellaneous').writeLog;
 const getVideoCode = require('./miscellaneous').getVideoCode;
+const getTips = require('./miscellaneous').getTips;
 
 const isPremium = require('./database').isPremium;
 const updateRequest = require('./database').updateRequest;
@@ -16,9 +17,20 @@ const getPendingCount = require('./database').getPendingCount;
 const appendClient = require('./database').appendClient;
 const appendRequest = require('./database').appendRequest;
 
+const constants = require('./constants');
+
 let finished = false;
 
-async function getHighlights(url, isBasic, n, l, offset, from, to) {
+async function getHighlights(url, isBasic, n, l, offset, from, to, category) {
+    // Default   
+    if (isBasic === undefined) isBasic = constants.const_isBasic;
+    if (n === undefined) n = constants.const_n;
+    if (l === undefined) l = constants.const_l;
+    if (offset === undefined) offset = constants.const_offset;
+    if (from === undefined) from = constants.const_from;
+    if (to === undefined) to = constants.const_to;
+    if (category === undefined) category = constants.const_category;
+    
     let code = getVideoCode(url);
     //Log
     console.log("Received request for analysing video: " + code);
@@ -54,7 +66,7 @@ async function getHighlights(url, isBasic, n, l, offset, from, to) {
                 writeLog("Running advance algorithm for video " + code);
                 // to be continue
 
-                let highlights = await advancedFinder(code, n, l, offset);
+                let highlights = await advancedFinder(code, n, l, offset, category);
                 return highlights;
             }
 
@@ -80,7 +92,7 @@ async function getHighlights(url, isBasic, n, l, offset, from, to) {
 
 router.post('/', async (req, res) => {
     let clientID = req.body.clientID;
-    if (clientID == null) {
+    if (clientID === null) {
         // Create new clientID
         clientID = uuidv4();
 
@@ -90,13 +102,17 @@ router.post('/', async (req, res) => {
     console.log("Client " + clientID + " made a request");
     writeLog("Client " + clientID + " made a request");
 
-    // Check if client is authorized or not
+    // Check if url is valid
+    let videoCode = getVideoCode(req.body.url);
+    if (videoCode === "") res.status(400).send("Invalid URL");
+
+    // Check if client is authorized
     let temp = await isPremium(clientID);
     let premium = temp[0], activated = temp[1];
 
     let pendingRequests = await getPendingCount(clientID, req.body.url);
 
-    // Log:
+    // Log
     console.log("Client account is " + (activated ? "" : "not ") + "activated, " + (premium ? "" : "not ") + "premium, has " + pendingRequests.toString() + " pending requests");
     writeLog("Client account is " + (activated ? "" : "not ") + "activated, " + (premium ? "" : "not ") + "premium, has " + pendingRequests.toString() + " pending requests");
 
@@ -112,7 +128,9 @@ router.post('/', async (req, res) => {
             req.body.l,
             req.body.offset,
             req.body.from,
-            req.body.to);
+            req.body.to,
+            req.body.category
+        );
 
         let highlights = await getHighlights(
             req.body.url,
@@ -121,7 +139,10 @@ router.post('/', async (req, res) => {
             req.body.l,
             req.body.offset,
             req.body.from,
-            req.body.to);
+            req.body.to,
+            req.body.category
+        );
+
         message = "OK";
 
         if (finished) updateRequest(getVideoCode(req.body.url));
@@ -133,21 +154,22 @@ router.post('/', async (req, res) => {
             results: highlights,
             done: finished,
             message: message,
+            advice: finished ? "" : getTips(),
             premium: premium,
             activated: activated,
             isBasic: req.body.isBasic
         }));
     } else {
         if (!activated) {
-            message = "Sorry, we don't recognize your request, please try again";
+            message = "Sorry, Twitch Highlights doesn't recognize your request, please try again";
             console.log("Request Error: Not activated");
             writeLog("Request Error: Not activated");
         } else if ((!premium && pendingRequests >= 2) || (pendingRequests >= 5)) {
-            message = "We are still processing your recent requests, please wait a moment";
+            message = "Twitch Highlights is still processing your recent requests, please wait a moment";
             console.log("Request Error: Too many requests");
             writeLog("Request Error: Too many requests");
         } else {
-            message = "Reserved for premium users only, please subscribe first";
+            message = "Reserved for Premium users only, you have to subscribe";
             console.log("Request Error: Not premium");
             writeLog("Request Error: Not premium");
         }
@@ -157,6 +179,7 @@ router.post('/', async (req, res) => {
             results: null,
             done: finished,
             message: message,
+            advice: "",
             premium: premium,
             activated: activated,
             isBasic: req.body.isBasic
