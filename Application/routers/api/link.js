@@ -127,7 +127,15 @@ router.post('/', async (req, res) => {
         
         //console.log(highlights);
         res.status(200);
-        res.send(JSON.stringify({clientID: clientID, results: highlights, done: finished, message: message, premium: premium, activated: activated, isBasic: req.body.isBasic}));
+        res.send(JSON.stringify({
+            clientID: clientID, 
+            results: highlights, 
+            done: finished, 
+            message: message, 
+            premium: premium, 
+            activated: activated, 
+            isBasic: req.body.isBasic
+        }));
     } else {
         if (!activated){
             message = "Sorry, we don't recognize your request, please try again";
@@ -143,7 +151,15 @@ router.post('/', async (req, res) => {
             writeLog("Request Error: Not premium");
         }
         res.status(200);
-        res.send(JSON.stringify({clientID: clientID, results: null, done: finished, message: message, premium: premium, activated: activated, isBasic: req.body.isBasic}));
+        res.send(JSON.stringify({
+            clientID: clientID, 
+            results: null, 
+            done: finished, 
+            message: message, 
+            premium: premium, 
+            activated: activated, 
+            isBasic: req.body.isBasic
+        }));
     }
 });
 
