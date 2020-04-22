@@ -6,7 +6,7 @@ const MongoClient = require('mongodb').MongoClient;
 let _db;
 
 const connectMongoDB = async () => {
-    if (_db){
+    if (_db) {
         console.log("Warning: Reconnecting to database");
         writeLog("Warning: Reconnecting to database");
         try {
@@ -38,7 +38,7 @@ const connectMongoDB = async () => {
 }
 
 const getMongoDB = async () => {
-    if (_db) return _db; 
+    if (_db) return _db;
     else {
         await connectMongoDB();
         return _db;
@@ -46,13 +46,13 @@ const getMongoDB = async () => {
 }
 
 const activateAccount = async (clientID) => {
-    try{
+    try {
         // Writing to MongoDB
         let db = await getMongoDB();
         db.collection("Client").updateOne({
             ClientID: clientID
         }, {
-            $set: {IsActivated: true}
+            $set: { IsActivated: true }
         });
 
         // // config for database
@@ -69,7 +69,7 @@ const activateAccount = async (clientID) => {
         //     // create query string
         //     let query = "UPDATE Client SET IsActivated=1" +
         //                 " WHERE ClientID='" + clientID + "'";
-            
+
         //     // query to the database and get the records
         //     pool.request().query(query, function (err, recordset) {
         //         if (err) {
@@ -82,7 +82,7 @@ const activateAccount = async (clientID) => {
         //         }   
         //     });
         // });
-    }catch(err){
+    } catch (err) {
         console.log("While activating account:");
         console.error(err);
         writeLog("While activating account: " + err.toString());
@@ -90,13 +90,13 @@ const activateAccount = async (clientID) => {
 }
 
 const deactivateAccount = async (clientID) => {
-    try{
+    try {
         // Writing to MongoDB
         let db = await getMongoDB();
         db.collection("Client").updateOne({
             ClientID: clientID
         }, {
-            $set: {IsActivated: false}
+            $set: { IsActivated: false }
         });
 
         // // config for database
@@ -113,7 +113,7 @@ const deactivateAccount = async (clientID) => {
         //     // create query string
         //     let query = "UPDATE Client SET IsActivated=0" +
         //                 " WHERE ClientID='" + clientID + "'";
-            
+
         //     // query to the database and get the records
         //     pool.request().query(query, function (err, recordset) {
         //         if (err) {
@@ -126,7 +126,7 @@ const deactivateAccount = async (clientID) => {
         //         }      
         //     });
         // });
-    }catch(err){
+    } catch (err) {
         console.log("While deactivating account:");
         console.error(err);
         writeLog("While deactivating account: " + err.toString());
@@ -134,13 +134,13 @@ const deactivateAccount = async (clientID) => {
 }
 
 const upgradeAccount = async (clientID, expireDate) => {
-    try{
+    try {
         // Writing to MongoDB
         let db = await getMongoDB();
         db.collection("Client").updateOne({
             ClientID: clientID
         }, {
-            $set: {IsPremium: true, PremiumExpireDate: expireDate}
+            $set: { IsPremium: true, PremiumExpireDate: expireDate }
         });
 
         // // config for database
@@ -158,7 +158,7 @@ const upgradeAccount = async (clientID, expireDate) => {
         //     let query = "UPDATE Client SET IsPremium=1, PremiumExpireDate='" +
         //                 expireDate.toISOString().slice(0, 19).replace('T', ' ') + "'" +
         //                 " WHERE ClientID='" + clientID + "'";
-            
+
         //     // query to the database and get the records
         //     pool.request().query(query, function (err, recordset) {
         //         if (err) {
@@ -171,7 +171,7 @@ const upgradeAccount = async (clientID, expireDate) => {
         //         }   
         //     });
         // });
-    }catch(err){
+    } catch (err) {
         console.log("While upgrading account:");
         console.error(err);
         writeLog("While upgrading account: " + err.toString());
@@ -179,13 +179,13 @@ const upgradeAccount = async (clientID, expireDate) => {
 }
 
 const downgradeAccount = async (clientID) => {
-    try{
+    try {
         // Writing to MongoDB
         let db = await getMongoDB();
         db.collection("Client").updateOne({
             ClientID: clientID
         }, {
-            $set: {IsPremium: false}
+            $set: { IsPremium: false }
         });
 
         // // config for database
@@ -202,7 +202,7 @@ const downgradeAccount = async (clientID) => {
         //     // create query string
         //     let query = "UPDATE Client SET IsPremium=0, PremiumExpireDate=NULL" +
         //                 " WHERE ClientID='" + clientID + "'";
-            
+
         //     // query to the database and get the records
         //     pool.request().query(query, function (err, recordset) {
         //         if (err) {
@@ -215,7 +215,7 @@ const downgradeAccount = async (clientID) => {
         //         }            
         //     });
         // });
-    }catch(err){
+    } catch (err) {
         console.log("While downgrading account:");
         console.error(err);
         writeLog("While downgrading account: " + err.toString());
@@ -224,7 +224,7 @@ const downgradeAccount = async (clientID) => {
 
 const checkExpiredAccount = async (clientID, expireDate) => {
     // Check if an account has expired:
-    if (expireDate == null || expireDate.getTime() < new Date().getTime()){
+    if (expireDate == null || expireDate.getTime() < new Date().getTime()) {
         // Expired
         console.log("Client " + clientID + " has expired");
         writeLog("Client " + clientID + " has expired");
@@ -233,7 +233,7 @@ const checkExpiredAccount = async (clientID, expireDate) => {
 }
 
 const isPremium = async (clientID) => {
-    try{
+    try {
         //Read from MongoDB
         let db = await getMongoDB();
         let res = await db.collection("Client").find({
@@ -256,7 +256,7 @@ const isPremium = async (clientID) => {
 
         // // create query string
         // let query = "SELECT CLientID, IsPremium, IsActivated, PremiumExpireDate FROM Client WHERE ClientID = '" + clientID + "'";
-        
+
         // // query to the database and get the records
         // result = await pool.request().query(query);
 
@@ -264,10 +264,10 @@ const isPremium = async (clientID) => {
         //     let expireDate = result.recordset[0].PremiumExpireDate;
         //     checkExpiredAccount(clientID, expireDate);
         // }
-        
+
         return [res[0].IsPremium, res[0].IsActivated];
 
-    }catch(err){
+    } catch (err) {
         console.log("While checking premium: ");
         console.error(err);
         writeLog("While checking premium: " + err.toString());
@@ -277,45 +277,53 @@ const isPremium = async (clientID) => {
 }
 
 const getPendingCount = async (clientID, url) => {
-    try{
+    try {
         if (url != null) url = 'https://www.twitch.tv/videos/' + getVideoCode(url);
-        
+
         // Reading from MongoDB
         let res = null;
         let lastHour = new Date();
         lastHour.setHours(lastHour.getHours() - 1);
         let db = await getMongoDB();
-        if (url != null){
+        if (url != null) {
             res = await db.collection("RequestLog").aggregate([
-                {$group: {
-                    _id: {VideoURL: "$VideoURL", ClientID: "$ClientID"}, 
-                    ClientID: {$last: "$ClientID"}, 
-                    VideoURL: {$last: "$VideoURL"},
-                    RequestDate: {$last: "$RequestDate"},
-                    Status: {$last: "$Status"}
-                }},
-               {$match: {
-                    RequestDate: { $gte : lastHour},
-                    ClientID: clientID,
-                    Status: "Processing",
-                    VideoURL: {$ne: url}
-               }} 
+                {
+                    $group: {
+                        _id: { VideoURL: "$VideoURL", ClientID: "$ClientID" },
+                        ClientID: { $last: "$ClientID" },
+                        VideoURL: { $last: "$VideoURL" },
+                        RequestDate: { $last: "$RequestDate" },
+                        Status: { $last: "$Status" }
+                    }
+                },
+                {
+                    $match: {
+                        RequestDate: { $gte: lastHour },
+                        ClientID: clientID,
+                        Status: "Processing",
+                        VideoURL: { $ne: url }
+                    }
+                }
             ]).toArray();
         } else {
             res = await db.collection("RequestLog").aggregate([
-                {$group: {
-                    _id: {VideoURL: "$VideoURL", ClientID: "$ClientID"}, 
-                    ClientID: {$last: "$ClientID"}, 
-                    VideoURL: {$last: "$VideoURL"},
-                    RequestDate: {$last: "$RequestDate"},
-                    Status: {$last: "$Status"}
-                }},
-                {$match: {
-                     RequestDate: { $gte : lastHour},
-                     ClientID: clientID,
-                     Status: "Processing"
-                }} 
-             ]).toArray();
+                {
+                    $group: {
+                        _id: { VideoURL: "$VideoURL", ClientID: "$ClientID" },
+                        ClientID: { $last: "$ClientID" },
+                        VideoURL: { $last: "$VideoURL" },
+                        RequestDate: { $last: "$RequestDate" },
+                        Status: { $last: "$Status" }
+                    }
+                },
+                {
+                    $match: {
+                        RequestDate: { $gte: lastHour },
+                        ClientID: clientID,
+                        Status: "Processing"
+                    }
+                }
+            ]).toArray();
         }
 
         // // config for database
@@ -327,7 +335,7 @@ const getPendingCount = async (clientID, url) => {
         //         trustedConnection: true
         //     }
         // });
-        
+
         // await pool.connect();
 
         // // create query string
@@ -337,16 +345,16 @@ const getPendingCount = async (clientID, url) => {
         //             clientID + "' AND Status = 'Processing'" + 
         //             (url != null ? " AND VideoURL<>'" + url + "'" : "") + 
         //             " GROUP BY VideoURL, ClientID";
-        
+
         // // query to the database and get the records
         // result = await pool.request().query(query);
 
         // console.log("GetPendingCount results: ");
         // console.log(res.length);
         // console.log(result.recordset.length);
-        
+
         return res.length;
-    }catch(err){
+    } catch (err) {
         console.log("While getting pending count: ");
         console.error(err);
         writeLog("While getting pending count: " + err.toString());
@@ -356,11 +364,11 @@ const getPendingCount = async (clientID, url) => {
 }
 
 const appendClient = async (clientID) => {
-    try{
+    try {
         // Writing to MongoDB
         let db = await getMongoDB();
         db.collection("Client").insertOne({
-            ClientID: clientID, 
+            ClientID: clientID,
             IsActivated: true,
             IsPremium: false,
             CreatedDate: new Date(),
@@ -380,7 +388,7 @@ const appendClient = async (clientID) => {
         //         trustedConnection: true
         //     }
         // });
-        
+
         // pool.connect().then(() => {
         //     // create query string
         //     let query = "INSERT INTO CLient (CLientID, CreatedDate, IsPremium, RequestCount, ReportCount, IsActivated)"+
@@ -388,7 +396,7 @@ const appendClient = async (clientID) => {
         //                 clientID + "','" + 
         //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "'," +
         //                 "0,0,0,0)";
-            
+
         //     // query to the database and get the records
         //     pool.request().query(query, function (err, recordset) {
         //         if (err) {
@@ -398,7 +406,7 @@ const appendClient = async (clientID) => {
         //         }       
         //     });
         // });
-    }catch(err){
+    } catch (err) {
         console.log("While appending client: " + clientID);
         console.error(err);
         writeLog("While appending client " + clientID + ": " + err.toString());
@@ -406,28 +414,28 @@ const appendClient = async (clientID) => {
 }
 
 const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => {
-    try{
+    try {
         url = 'https://www.twitch.tv/videos/' + getVideoCode(url);
 
         // Writing to MongoDB
         let db = await getMongoDB();
         db.collection("RequestLog").insertOne({
-            ClientID: clientID, 
-            VideoURL: url, 
-            RequestDate: new Date(), 
-            Status: "Processing", 
-            Count: n, 
-            Length: l, 
-            Offset: offset, 
-            IsBasic: isBasic, 
-            From: from, 
+            ClientID: clientID,
+            VideoURL: url,
+            RequestDate: new Date(),
+            Status: "Processing",
+            Count: n,
+            Length: l,
+            Offset: offset,
+            IsBasic: isBasic,
+            From: from,
             To: to
         });
         db.collection("Client").updateOne({
             ClientID: clientID
         }, {
-            $inc: {RequestCount: 1},
-            $currentDate: {LastRequestDate: true}
+            $inc: { RequestCount: 1 },
+            $currentDate: { LastRequestDate: true }
         });
 
         // // config for database
@@ -455,7 +463,7 @@ const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => 
         //                 isBasic.toString() + "," + 
         //                 from.toString() + "," + 
         //                 to.toString() + ")";
-            
+
         //     // query to the database and get the records
         //     pool.request().query(query, function (err, recordset) {
         //         if (err) {
@@ -483,7 +491,7 @@ const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => 
         //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "', " +
         //                 "RequestCount = RequestCount + 1 " +
         //                 "WHERE ClientID='" + clientID + "'";
-            
+
         //     // query to the database and get the records
         //     pool2.request().query(query, function (err, recordset) {
         //         if (err) {
@@ -493,7 +501,7 @@ const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => 
         //         }       
         //     });
         // });
-    }catch(err){
+    } catch (err) {
         console.log("While appending request: ");
         console.error(err);
         writeLog("While appending request: " + err.toString());
@@ -501,7 +509,7 @@ const appendRequest = async (clientID, url, isBasic, n, l, offset, from, to) => 
 }
 
 const updateRequest = async (id) => {
-    try{
+    try {
         let url = 'https://www.twitch.tv/videos/' + id;
 
         // Writing to MongoDB
@@ -510,7 +518,7 @@ const updateRequest = async (id) => {
             VideoURL: url,
             Status: "Processing"
         }, {
-            $set: {Status: "Done"}
+            $set: { Status: "Done" }
         });
 
         // // config for database
@@ -528,7 +536,7 @@ const updateRequest = async (id) => {
         //     let query = "UPDATE RequestLog SET Status='Done'" +
         //                 " WHERE VideoURL='" + url + 
         //                 "' AND Status='Processing'";
-            
+
         //     // query to the database and get the records
         //     pool.request().query(query, function (err, recordset) {
         //         if (err) {
@@ -538,7 +546,7 @@ const updateRequest = async (id) => {
         //         }       
         //     });
         // });
-    }catch(err){
+    } catch (err) {
         console.log("While updating request: ");
         console.error(err);
         writeLog("While updating request: " + err.toString());
@@ -546,23 +554,23 @@ const updateRequest = async (id) => {
 }
 
 const appendReport = async (clientID, videoURL, email, message) => {
-    try{
+    try {
         url = 'https://www.twitch.tv/videos/' + getVideoCode(videoURL);
 
         // Writing to MongoDB
         let db = await getMongoDB();
         db.collection("ReportLog").insertOne({
-            ClientID: clientID, 
-            VideoURL: url, 
-            Email: email, 
-            Message: message, 
+            ClientID: clientID,
+            VideoURL: url,
+            Email: email,
+            Message: message,
             ReportDate: new Date()
         });
         db.collection("Client").updateOne({
             ClientID: clientID
         }, {
-            $inc: {ReportCount: 1},
-            $currentDate: {LastReportDate: true}
+            $inc: { ReportCount: 1 },
+            $currentDate: { LastReportDate: true }
         });
 
         // // config for database
@@ -585,7 +593,7 @@ const appendReport = async (clientID, videoURL, email, message) => {
         //                 email + "','" +
         //                 message + "','" + 
         //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "')";
-            
+
         //     // query to the database and get the records
         //     pool.request().query(query, function (err, recordset) {
         //         if (err) {
@@ -613,7 +621,7 @@ const appendReport = async (clientID, videoURL, email, message) => {
         //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "', " +
         //                 "ReportCount = ReportCount + 1 " +
         //                 "WHERE ClientID='" + clientID + "'";
-            
+
         //     // query to the database and get the records
         //     pool2.request().query(query, function (err, recordset) {
         //         if (err) {
@@ -623,7 +631,7 @@ const appendReport = async (clientID, videoURL, email, message) => {
         //         }       
         //     });
         // });
-    }catch(err){
+    } catch (err) {
         console.log("While appending report: ");
         console.error(err);
         writeLog("While appending report: " + err.toString());
@@ -632,7 +640,7 @@ const appendReport = async (clientID, videoURL, email, message) => {
 
 const updateStatus = async (clientID, license) => {
     //console.log(license);
-    try{
+    try {
         let tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
 
@@ -641,12 +649,12 @@ const updateStatus = async (clientID, license) => {
         // console.log("Datebase: ");
         // console.log(db);
         db.collection("StatusLog").insertOne({
-            ClientID: clientID, 
-            Kind: license.kind, 
-            SKU: license.sku, 
-            ItemID: license.itemId, 
-            Type: license.type, 
-            State: license.state, 
+            ClientID: clientID,
+            Kind: license.kind,
+            SKU: license.sku,
+            ItemID: license.itemId,
+            Type: license.type,
+            State: license.state,
             CheckDate: new Date()
         });
 
@@ -672,7 +680,7 @@ const updateStatus = async (clientID, license) => {
         //                 license.type + "','" +
         //                 license.state + "','" +
         //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "')";
-            
+
         //     // query to the database and get the records
         //     pool.request().query(query, function (err, recordset) {
         //         if (err) {
@@ -684,7 +692,7 @@ const updateStatus = async (clientID, license) => {
         // });
 
         upgradeAccount(clientID, tomorrow);
-    }catch(err){
+    } catch (err) {
         console.log("While updating status: ");
         console.error(err);
         writeLog("While updating status: " + err.toString());
@@ -692,14 +700,14 @@ const updateStatus = async (clientID, license) => {
 }
 
 const appendPurchase = async (clientID, jwt, cartID, orderID) => {
-    try{
+    try {
         // Writing to MongoDB
         let db = await getMongoDB();
         db.collection("PurchaseLog").insertOne({
-            ClientID: clientID, 
-            JWT: jwt, 
-            CartID: cartID, 
-            OrderID: orderID, 
+            ClientID: clientID,
+            JWT: jwt,
+            CartID: cartID,
+            OrderID: orderID,
             PurchaseDate: new Date()
         });
 
@@ -723,7 +731,7 @@ const appendPurchase = async (clientID, jwt, cartID, orderID) => {
         //                 cartID + "','" +
         //                 orderID + "','" + 
         //                 new Date().toISOString().slice(0, 19).replace('T', ' ') + "')";
-            
+
         //     // query to the database and get the records
         //     pool.request().query(query, function (err, recordset) {
         //         if (err) {
@@ -733,7 +741,7 @@ const appendPurchase = async (clientID, jwt, cartID, orderID) => {
         //         }
         //     });
         // });
-    }catch(err){
+    } catch (err) {
         console.log("While appending purchase: ");
         console.error(err);
         writeLog("While appending purchase: " + err.toString());
@@ -741,39 +749,39 @@ const appendPurchase = async (clientID, jwt, cartID, orderID) => {
 }
 
 const updateIPAddress = async () => {
-	let options = {
-	  host: 'ipv4bot.whatismyipaddress.com',
-	  port: 80,
-	  path: '/'
-	};
+    let options = {
+        host: 'ipv4bot.whatismyipaddress.com',
+        port: 80,
+        path: '/'
+    };
 
-	http.get(options, async (res) => {
-	  //console.log("status: " + res.statusCode);
+    http.get(options, async (res) => {
+        //console.log("status: " + res.statusCode);
 
-	  res.on("data", async (chunk) => {
-		console.log("Server is being hosted on: " + chunk);
-		writeLog("Server is being hosted on: " + chunk);
-		
-		try{ 
-			// Writing to MongoDB
-			let db = await getMongoDB();
-			db.collection("IPAddress").updateOne({
-			  key: "Aloha"
-			}, {
-				$set: {ip: chunk.toString()},
-				$currentDate: {lastUpdateDate: true}
-			});
-		}catch(err){
-			console.log("While updating ipaddress: ");
-			console.error(err);
-			writeLog("While updating ipaddress: " + err.toString());
-		}
-	  });
-	}).on('error', async (e) => {
-	  console.log("While getting the ip address, error: " + e.message + ", retrying...");
-	  writeLog("While getting the ip address, error: " + e.message + ", retrying...");
-	  setTimeout(updateIPAddress, 1 * 60 * 1000);
-	});
+        res.on("data", async (chunk) => {
+            console.log("Server is being hosted on: " + chunk);
+            writeLog("Server is being hosted on: " + chunk);
+
+            try {
+                // Writing to MongoDB
+                let db = await getMongoDB();
+                db.collection("IPAddress").updateOne({
+                    key: "Aloha"
+                }, {
+                    $set: { ip: chunk.toString() },
+                    $currentDate: { lastUpdateDate: true }
+                });
+            } catch (err) {
+                console.log("While updating ipaddress: ");
+                console.error(err);
+                writeLog("While updating ipaddress: " + err.toString());
+            }
+        });
+    }).on('error', async (e) => {
+        console.log("While getting the ip address, error: " + e.message + ", retrying...");
+        writeLog("While getting the ip address, error: " + e.message + ", retrying...");
+        setTimeout(updateIPAddress, 1 * 60 * 1000);
+    });
 }
 
 const transferClientsMssqlMongoDB = async () => {
@@ -795,16 +803,16 @@ const transferClientsMssqlMongoDB = async () => {
     // query to the database and get the records
     result = await pool.request().query(query);
 
-    if (result.recordset[0].IsPremium){
+    if (result.recordset[0].IsPremium) {
         let expireDate = result.recordset[0].PremiumExpireDate;
         checkExpiredAccount(clientID, expireDate);
     }
     // connect to mongoDB
     let db = await getMongoDB();
 
-    for (let i = 0; i < result.recordset.length; i++){
+    for (let i = 0; i < result.recordset.length; i++) {
         db.collection("Client").insertOne({
-            ClientID: result.recordset[i].ClientID, 
+            ClientID: result.recordset[i].ClientID,
             IsActivated: result.recordset[i].IsActivated,
             IsPremium: result.recordset[i].IsPremium,
             CreatedDate: result.recordset[i].CreatedDate,
@@ -819,6 +827,8 @@ const transferClientsMssqlMongoDB = async () => {
 
 //transferClientsMssqlMongoDB();
 
-module.exports = {activateAccount, deactivateAccount, upgradeAccount, downgradeAccount, checkExpiredAccount,
-                 isPremium, getPendingCount, appendClient, appendRequest, updateRequest, appendReport,
-                 updateStatus, appendPurchase, updateIPAddress}
+module.exports = {
+    activateAccount, deactivateAccount, upgradeAccount, downgradeAccount, checkExpiredAccount,
+    isPremium, getPendingCount, appendClient, appendRequest, updateRequest, appendReport,
+    updateStatus, appendPurchase, updateIPAddress
+}
