@@ -23,29 +23,32 @@ function sendRequest(tabId, tabUrl) {
         //console.log(xhr.status);
         if (xhr.readyState == 4 && xhr.status == 200) {
             //console.log(xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+             
             //update clientID
-            clientID = JSON.parse(xhr.responseText)["clientID"];
+            clientID = response["clientID"];
             window.localStorage.setItem("watermelon", clientID);
             //console.log("Your clientID is " + clientID);
 
             // Check response message
-            let responseMessage = JSON.parse(xhr.responseText)["message"];
-            let responsePremium = JSON.parse(xhr.responseText)["premium"];
-            let responseIsBasic = JSON.parse(xhr.responseText)["isBasic"];
-            let responseDone = JSON.parse(xhr.responseText)["done"];
+            let responseMessage = response["message"];
+            let responsePremium = response["premium"];
+            let responseActivated = response["activated"];
+            let responseIsBasic = response["isBasic"];
+            let responseDone = response["done"];
             if (responseMessage == "OK") {
                 // Remove error message
                 const highlightContainerError = document.getElementById("highlight-container-error");
                 highlightContainerError.textContent = "";
 
-                let advice = JSON.parse(xhr.responseText)["advice"];
+                let advice = response["advice"];
                 if (advice !== null && advice !== undefined && advice !== ""){
                     // Set advice
                     const highlightContainerAdvice = document.getElementById("highlight-container-advice");
-                    highlightContainerAdvice.textContent = JSON.parse(xhr.responseText)["advice"];
+                    highlightContainerAdvice.textContent = response["advice"];
                 }
 
-                let results = JSON.parse(xhr.responseText)["results"];
+                let results = response["results"];
                 // Parse highlights
                 let highlights = results[0];
                 // Parse durations
@@ -73,19 +76,19 @@ function sendRequest(tabId, tabUrl) {
                 setAutoplayButton(tabId, tabUrl, highlights, durations);
 
                 if (responseIsBasic) {
-                    //Send a request to get update every 7 seconds
+                    //Send a request to get update every 30 seconds
                     //alert("I am still running!");
                     if (!responseDone) {
-                        setTimeout(() => sendRequest(tabId, tabUrl), 7000);
+                        setTimeout(() => sendRequest(tabId, tabUrl), 30000);
                     } else {
                         changeMessage("Done!", "white", "forestgreen");
                         recentMessage = ["Done!", "white", "forestgreen"];
                     }
                 } else {
-                    //Send a request to get update every 7 seconds
+                    //Send a request to get update every 30 seconds
                     //alert("I am still running!");
                     if (!responseDone) {
-                        setTimeout(() => sendRequest(tabId, tabUrl), 7000);
+                        setTimeout(() => sendRequest(tabId, tabUrl), 30000);
                     } else {
                         changeMessage("Done!", "white", "forestgreen");
                         recentMessage = ["Done!", "white", "forestgreen"];
@@ -96,7 +99,7 @@ function sendRequest(tabId, tabUrl) {
                 // Check if client is authorized to use advance setting or request multiple times
                 const highlightContainerError = document.getElementById("highlight-container-error");
                 highlightContainerError.textContent = responseMessage;
-                if (!responsePremium) {
+                if (!responsePremium && responseActivated) {
                     const subscribe = document.getElementById("subscribe-container");
                     subscribe.style.display = "block";
                 }

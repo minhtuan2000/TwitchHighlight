@@ -7,22 +7,24 @@ const const_isBasic = 1;
 const const_category = -1;
 
 const const_tips = [
-    "Tip: Twitch Highlights can detect highlight's duration automatically",
-    "Tip: Set 'Expected duration of each highlight' to 'auto' unless you know what you are doing", 
-    "Tip: Twitch Highlights can find highlights with customized duration",
-    "Tip: Twitch Highlights can find highlights with customized duration",
-    "Tip: Twitch Highlights can find highlights with customized duration",
-    "Tip: If you like Twitch Highlights, please rate it on Extension Store",
-    "Tip: If you like Twitch Highlights, please rate it on Extension Store",
-    "Tip: If you like Twitch Highlights, please rate it on Extension Store",
-    "Tip: If you like Twitch Highlights, please rate it on Extension Store",
-    "Tip: If you like Twitch Highlights, please rate it on Extension Store",
-    "Tip: Number of highlights varies from VOD to VOD, but 4 highlights per hour is a good choice",
-    "Tip: Number of highlights varies from VOD to VOD, but 4 highlights per hour is a good choice",
-    "Tip: Number of highlights varies from VOD to VOD, but 4 highlights per hour is a good choice",
-    "Tip: Advanced algorithms are trained to find highlights in specific game category, try it",
-    "Tip: Advanced algorithms are trained to find highlights in specific game category, try it",
-    "Tip: Highlights for FPS games are usually shorter than MOBA games'"
+    "Twitch Highlights can detect highlight's duration automatically",
+    "Set 'Expected duration of each highlight' to 'auto' unless you know what you are doing", 
+    "Twitch Highlights can find highlights with customized duration",
+    "Twitch Highlights can find highlights with customized duration",
+    "Twitch Highlights can find highlights with customized duration",
+    "If you like Twitch Highlights, please rate it on Extension Store",
+    "If you like Twitch Highlights, please rate it on Extension Store",
+    "If you like Twitch Highlights, please rate it on Extension Store",
+    "If you like Twitch Highlights, please rate it on Extension Store",
+    "If you like Twitch Highlights, please rate it on Extension Store",
+    "Number of highlights varies from VOD to VOD, but 4 highlights per hour is a good choice",
+    "Number of highlights varies from VOD to VOD, but 4 highlights per hour is a good choice",
+    "Number of highlights varies from VOD to VOD, but 4 highlights per hour is a good choice",
+    "Advanced algorithms are trained to find highlights in specific game category, try it",
+    "Advanced algorithms are trained to find highlights in specific game category, try it",
+    "Highlights for FPS games are usually shorter than MOBA games'",
+    "Highlights for FPS games are usually shorter than MOBA games'",
+    "Highlights for FPS games are usually shorter than MOBA games'"
 ];
 
 module.exports = { const_n, const_l, const_offset, const_from, const_to, const_isBasic, const_category, const_tips };
