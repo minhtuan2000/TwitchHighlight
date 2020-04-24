@@ -204,7 +204,7 @@ const advancedFinder = (id, number, length, offset, category) => {
     let categoryName = "";
     category = ParseInt(category);
     if (category === -1){
-        categoryName = await getGame(id);
+        categoryName = getGame(id);
         switch (categoryName) {
             case "League of Legends":
                 category = 1;
