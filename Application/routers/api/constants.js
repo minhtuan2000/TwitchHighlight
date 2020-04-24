@@ -27,4 +27,13 @@ const const_tips = [
     "Highlights for FPS games are usually shorter than MOBA games'"
 ];
 
-module.exports = { const_n, const_l, const_offset, const_from, const_to, const_isBasic, const_category, const_tips };
+const const_category_algorithms = [
+    "basic.py",
+    "advanced_league_of_legends.py",
+    "advanced_dota_2.py"
+];
+
+module.exports = { 
+    const_n, const_l, const_offset, const_from, const_to, const_isBasic, const_category, 
+    const_tips, const_category_algorithms 
+};

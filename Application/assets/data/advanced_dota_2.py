@@ -4,7 +4,7 @@ import sys
 
 filename = sys.argv[1]
 
-start_game_length = 35
+start_game_length = 45
 start_game_offset = -50
 start_game_keywords = ["pog", "pogu", "ayaya", "trihard"]
 start_game_antikeywords = ["peped", "pepelaugh"]

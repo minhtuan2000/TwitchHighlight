@@ -6,6 +6,7 @@ const axios = require('axios');
 
 const writeLog = require('./miscellaneous').writeLog;
 const updateRequest = require('./database').updateRequest;
+const constants = require('./constants');
 
 const twitch_client_id = "j3vtenqy8mg878bzbkg7txbrj61p52";
 const twitch_client_secret = "5i8u17i00lmm85rl7bgjjvmao2mf31";
@@ -25,6 +26,67 @@ const getOAthAccessToken = async () => {
         console.log(err);
         writeLog("While running getOAthAccessToken(): " + err.toString());
         return "";
+    }
+}
+
+const getGame = async (id) => {
+    // Get OAth access token
+    if (OAthAccessToken === "") {
+        try {
+            // Read from file
+            OAthAccessToken = fs.readFileSync("assets/OAth.token");
+        } catch (err) {
+            try {
+                // Get new access token
+                OAthAccessToken = await getOAthAccessToken();
+            } catch (err) {
+                console.log("While running getGame(): Can't get OAth access token");
+                writeLog("While running getGame(): Can't get OAth access token");
+                return;
+            }
+        }
+    }
+
+    //get game category name
+
+    let tolerant = 5;
+    try {    
+        while (tolerant > 0){
+            let headers = {
+                "Accept": "application/vnd.twitchtv.v5+json",
+                "Authorization": OAthAccessToken,
+                "Client-ID": twitch_client_id
+            };
+    
+            try {
+                let response = await axios.get(
+                    `https://api.twitch.tv/v5/videos/${id}`,
+                    { headers: headers }
+                );
+
+                return response.data.game;
+            } catch (err) {
+                console.log("While running getGame(): " + err.response.status.toString() + " " + err.response.data.error + " " + err.response.data.message);
+                writeLog("While running getGame(): " + err.response.status.toString() + " " + err.response.data.error + " " + err.response.data.message);
+    
+                tolerant--;
+    
+                // Try to get new access token if receive 401 error
+                if (err.response.status === 401) {
+                    try {
+                        OAthAccessToken = await getOAthAccessToken();
+                    } catch (err) {
+                        console.log("While running getGame(): Can't get OAth access token");
+                        writeLog("While running getGame(): Can't get OAth access token");
+                        break;
+                    }
+                }
+            }  
+        }
+    } catch (err) {
+        console.log("While running getGame(): ");
+        console.log(err);
+        writeLog("While running getGame(): " + err.toString());
     }
 }
 
@@ -52,7 +114,7 @@ const getChat = async (id) => {
     let _next = "";
     let tolerant = 5;
     try {
-        while (_next !== undefined) {
+        while (_next !== undefined && tolerant > 0) {
             let headers = {
                 "Accept": "application/vnd.twitchtv.v5+json",
                 "Authorization": OAthAccessToken,
@@ -86,7 +148,6 @@ const getChat = async (id) => {
                 writeLog("While running getChat(): " + err.response.status.toString() + " " + err.response.data.error + " " + err.response.data.message);
 
                 tolerant--;
-                if (tolerant <= 0) break;
 
                 // Try to get new access token if receive 401 error
                 if (err.response.status === 401) {
@@ -140,9 +201,39 @@ const basicFinder = (id, number, length, offset) => {
 
 //Run advancedFinder algorithm
 const advancedFinder = (id, number, length, offset, category) => {
+    let categoryName;
+    category = ParseInt(category);
+    switch (category) {
+        case -1:
+            categoryName = await getGame(id);
+            switch (categoryName) {
+                case "League of Legends":
+                    category = 1;
+                    break;
+                case "Dota 2":
+                    category = 2;
+                    break;
+                default:
+                    category = 0;
+            }
+            break;
+        case 1:
+            categoryName = "League of Legends";
+            break;
+        case 2:
+            categoryName = "Dota 2";
+            break;
+        default:
+            categoryName = "General";
+    }
+
+    console.log(category);
+    console.log(categoryName);
+    console.log(constants.const_category_algorithms[category]);
+
     return new Promise((resolve, reject) => {
         try {
-            exec(`python3.7 advanced_league_of_legends.py ${id}.txt ${id}advancedresults.txt ${id}advanceddurations.txt ${number} ${length} ${offset}`,
+            exec(`python3.7 ${constants.const_category_algorithms[category]} ${id}.txt ${id}advancedresults.txt ${id}advanceddurations.txt ${number} ${length} ${offset}`,
                 {
                     cwd: __dirname + '/../../assets/data'
                 },
@@ -156,7 +247,7 @@ const advancedFinder = (id, number, length, offset, category) => {
                     highlights = highlights.toString().replace(/(\r)/gm, "").split('\n').slice(0, -1);
                     let durations = await fs.readFileSync(`assets/data/${id}advanceddurations.txt`);
                     durations = durations.toString().replace(/(\r)/gm, "").split('\n').slice(0, -1);
-                    resolve([highlights, durations, "League of legends"]);
+                    resolve([highlights, durations, categoryName]);
                 });
         } catch (err) {
             console.log("While running advancedFinder(): ");

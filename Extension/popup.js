@@ -45,6 +45,7 @@ let clientID = window.localStorage.getItem("watermelon");
 let online = false;
 
 let recentMessage = ["Open a Twitch video to analyze", "darkgray", "white"];
+let hideMessageId;
 
 function changeMessage(message, color, backgroundColor) {
     let backgroundElement = document.getElementById("message");
@@ -53,12 +54,13 @@ function changeMessage(message, color, backgroundColor) {
     backgroundElement.style.color = color;
     textElement.textContent = message;
     if (message === "Done!")
-        setTimeout(() => {
+        hideMessageId = setTimeout(() => {
             backgroundElement.style.transitionDuration = "1s";
             backgroundElement.style.padding = "0px";
             backgroundElement.style.height = "0px";
         }, 5000);
     else {
+        if (hideMessageId !== undefined && hideMessageId !== null) clearTimeout(hideMessageId);
         backgroundElement.style.transitionDuration = "0s";
         backgroundElement.style.padding = "2px 0px";
         backgroundElement.style.height = "25px";

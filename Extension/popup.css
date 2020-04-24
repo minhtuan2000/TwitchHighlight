@@ -74,12 +74,16 @@ body{
     background-color: #6441a417;
 }
 
+#container-send-button{
+    text-align: center;
+}
+
 #send-button{
     border-radius: 5px;
     background-color: blueviolet;
     color: white;
     margin: 5px;
-    padding: 5px;
+    padding: 7px 12px;
 }
 
 #send-button:hover{
@@ -262,8 +266,4 @@ img:hover{
 
 #subscribe-warning a{
     color: white;
-}
-
-#container-send-button{
-    text-align: center;
 }
