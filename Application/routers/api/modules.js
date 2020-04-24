@@ -202,7 +202,7 @@ const basicFinder = (id, number, length, offset) => {
 //Run advancedFinder algorithm
 const advancedFinder = (id, number, length, offset, category) => {
     let categoryName = "";
-    category = ParseInt(category);
+    category = parseInt(category);
     if (category === -1){
         categoryName = getGame(id);
         switch (categoryName) {
