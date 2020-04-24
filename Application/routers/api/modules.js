@@ -201,30 +201,20 @@ const basicFinder = (id, number, length, offset) => {
 
 //Run advancedFinder algorithm
 const advancedFinder = (id, number, length, offset, category) => {
-    let categoryName;
+    let categoryName = "";
     category = ParseInt(category);
-    switch (category) {
-        case -1:
-            categoryName = await getGame(id);
-            switch (categoryName) {
-                case "League of Legends":
-                    category = 1;
-                    break;
-                case "Dota 2":
-                    category = 2;
-                    break;
-                default:
-                    category = 0;
-            }
-            break;
-        case 1:
-            categoryName = "League of Legends";
-            break;
-        case 2:
-            categoryName = "Dota 2";
-            break;
-        default:
-            categoryName = "General";
+    if (category === -1){
+        categoryName = await getGame(id);
+        switch (categoryName) {
+            case "League of Legends":
+                category = 1;
+                break;
+            case "Dota 2":
+                category = 2;
+                break;
+            default:
+                category = 0;
+        }
     }
 
     console.log(category);
