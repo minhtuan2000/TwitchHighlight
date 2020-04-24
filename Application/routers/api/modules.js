@@ -172,7 +172,7 @@ const getChat = async (id) => {
 }
 
 //Run basicFinder algorithm
-const basicFinder = (id, number, length, offset) => {
+const basicFinder = async (id, number, length, offset) => {
     return new Promise((resolve, reject) => {
         try {
             exec(`python3.7 basic.py ${id}.txt ${id}basicresults.txt ${id}basicdurations.txt ${number} ${length} ${offset}`,
@@ -200,11 +200,11 @@ const basicFinder = (id, number, length, offset) => {
 }
 
 //Run advancedFinder algorithm
-const advancedFinder = (id, number, length, offset, category) => {
+const advancedFinder = async (id, number, length, offset, category) => {
     let categoryName = "";
     category = parseInt(category);
     if (category === -1){
-        categoryName = getGame(id);
+        categoryName = await getGame(id);
         switch (categoryName) {
             case "League of Legends":
                 category = 1;
