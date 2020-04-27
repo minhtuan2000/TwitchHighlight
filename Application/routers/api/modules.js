@@ -212,6 +212,9 @@ const advancedFinder = async (id, number, length, offset, category) => {
             case "Dota 2":
                 category = 2;
                 break;
+            case "Counter-Strike: Global Offensive":
+                category = 3;
+                break;
             default:
                 category = 0;
         }
