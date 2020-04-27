@@ -215,14 +215,26 @@ const advancedFinder = async (id, number, length, offset, category) => {
             case "Counter-Strike: Global Offensive":
                 category = 3;
                 break;
+            case "Tom Clancy's Rainbow Six: Siege":
+                category = 4;
+                break;
+            case "Fortnite":
+                category = 5;
+                break;
+            case "PLAYERUNKNOWN'S BATTLEGROUNDS":
+                category = 6;
+                break;
+            case "VALORANT":
+                category = 7;
+                break;
             default:
                 category = 0;
         }
     }
 
-    // console.log(category);
-    // console.log(categoryName);
-    // console.log(constants.const_category_algorithms[category]);
+    console.log(category);
+    console.log(categoryName);
+    console.log(constants.const_category_algorithms[category]);
 
     return new Promise((resolve, reject) => {
         try {

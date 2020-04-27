@@ -25,7 +25,11 @@ const const_category_algorithms = [
     "basic.py",
     "advanced_league_of_legends.py",
     "advanced_dota_2.py",
-    "advanced_csgo.py"
+    "advanced_csgo.py",
+    "advanced_rainbow_six_siege.py",
+    "advanced_fortnite.py",
+    "advanced_pubg.py",
+    "advanced_valorant.py"
 ];
 
 module.exports = { 
