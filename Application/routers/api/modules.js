@@ -215,6 +215,7 @@ const advancedFinder = async (id, number, length, offset, category) => {
             case "Counter-Strike: Global Offensive":
                 category = 3;
                 break;
+            case "Tom Clancy's Rainbow Six® Siege":
             case "Tom Clancy's Rainbow Six: Siege":
                 category = 4;
                 break;
