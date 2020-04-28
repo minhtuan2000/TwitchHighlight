@@ -41,6 +41,7 @@ let category = window.localStorage.getItem("category");
 
 //Get client ID
 let clientID = window.localStorage.getItem("watermelon");
+let isPremium = 0;
 
 let online = false;
 

@@ -214,6 +214,7 @@ function settingAdvanceButtonClicked() {
     const choiceBasic = document.getElementById("choice-basic");
     const settingAdvancePage = document.getElementById("setting-advance");
     const choiceAdvance = document.getElementById("choice-advance");
+    const content = document.getElementById("content");
     const subscribe = document.getElementById("subscribe-container");
     settingBasicPage.style.display = "none";
     choiceBasic.style.backgroundColor = "#d8d8d8";
@@ -225,7 +226,10 @@ function settingAdvanceButtonClicked() {
     choiceAdvance.style.color = "rgb(46, 46, 46)";
     choiceAdvance.style.height = "47.5%";
     choiceAdvance.style.borderTopRightRadius = "0px";
-    subscribe.style.display = "block";
+    if (isPremium === 0){
+        content.style.display = "none";
+        subscribe.style.display = "block";
+    }
     isBasic = 0;
     window.localStorage.setItem("isBasic", "0");
     console.log("Changed to advance algorithm");
@@ -254,6 +258,7 @@ function settingBasicButtonClicked() {
     const choiceBasic = document.getElementById("choice-basic");
     const settingAdvancePage = document.getElementById("setting-advance");
     const choiceAdvance = document.getElementById("choice-advance");
+    const content = document.getElementById("content");
     const subscribe = document.getElementById("subscribe-container");
     settingBasicPage.style.display = "inline-block";
     choiceBasic.style.backgroundColor = "#00000000";
@@ -265,6 +270,7 @@ function settingBasicButtonClicked() {
     choiceAdvance.style.color = "rgb(185, 185, 185)";
     choiceAdvance.style.height = "37.5%";
     choiceAdvance.style.borderTopRightRadius = "8px";
+    content.style.display = "block";
     subscribe.style.display = "none";
     isBasic = 1;
     window.localStorage.setItem("isBasic", "1");

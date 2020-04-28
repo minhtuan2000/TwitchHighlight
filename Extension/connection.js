@@ -60,7 +60,7 @@ function onLicenseUpdate(response) {
     for (var i = 0; i < count; i++) {
         let license = licenses[i];
         if (license.state == "ACTIVE") {
-            setTimeout(() => { document.getElementById("subscribe-container").style.display = "none"; }, 100);
+            upgradeAccount();
             sendUpdatedStatus(license);
         }
     }
@@ -69,6 +69,17 @@ function onLicenseUpdate(response) {
 function onLicenseUpdateFailed(response) {
     console.log("onLicenseUpdateFailed", response);
     console.log("Error retreiving list of purchased products.");
+}
+
+function upgradeAccount(){
+    console.log("Upgrading account...");
+    isPremium = 1;
+    const content = document.getElementById("content");
+    content.style.display = "block";
+    const unsubscribe = document.getElementById("unsubscribe-container");
+    unsubscribe.style.display = "block";
+    const subscribe = document.getElementById("subscribe-container");
+    subscribe.style.display = "none";
 }
 
 
@@ -106,4 +117,8 @@ function onPurchaseFailed(purchase) {
     ga('send', 'event', "Purchase", "Fail", reason);
 }
 
-getLicenses();
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', getLicenses);
+} else {
+    getLicenses();
+}

@@ -15,7 +15,7 @@
 
 <body>
     <div id="header">
-        <h3 id="header-text">Twitch Highlights</h3>
+        <h3 id="header-text">Twitch Highlights </h3>
         <img id="report-icon" title="Support / Report a bug" src="images/bug.png">
         <img id="setting-icon" title="Minimize / Maximize" src="images/mini.png">
     </div>
@@ -97,29 +97,50 @@
             <div id="setting-error" style="color: red; text-align: center;"></div>
         </div>
 
-        <div id="message">
-            <span id="message-text">Open a Twitch video to analyze</span>
-        </div>
-
-        <div id="highlight-container">
-            <div id="highlight-container-error" style="color: red; text-align: center;"></div>
-            <div id="highlight-container-advice" style="color: rgb(46, 46, 46); text-align: center;"></div>
-            <div id="autoplay-warning"> Clicking outside of this extension will stop the autoplay</div>
-        </div>
-
-        <div id="autoplay-container">
-            <button id="autoplay-button">Play all highlights</button>
-            <button id="quit-button" title="Quit autoplay">X</button>
-        </div>
-        <div id="subscribe-container" style="display: none;">
-            <div id="subscribe-warning">
-                <div>
-                    <span style="font-size: 16px;"><b>Free</b></span>
-                    <span style="font-size: 14px;">for the first 90 days</span>
-                </div>
-                <div style="font-size: 10px;">$2.99/month - <a href="https://pay.google.com/" target="_blank">Cancel</a> anytime</div>
+        <div id="content">
+            <div id="message">
+                <span id="message-text">Open a Twitch video to analyze</span>
             </div>
-            <button id="subscribe-button">Try now!</button>
+    
+            <div id="highlight-container">
+                <div id="highlight-container-error" style="color: red; text-align: center;"></div>
+                <div id="highlight-container-advice" style="color: rgb(46, 46, 46); text-align: center;"></div>
+                <div id="autoplay-warning"> Clicking outside of this extension will stop the autoplay</div>
+            </div>
+    
+            <div id="autoplay-container">
+                <button id="autoplay-button">Play all highlights</button>
+                <button id="quit-button" title="Quit autoplay">X</button>
+            </div>
+        </div>
+
+        <div id="subscribe-container" style="display: none;">
+            <div id="subscribe-advantage">
+                <div id="subscribe-price">
+                    <span style="font-size: 24px;"><b>$2.99</b></span>
+                    / month
+                </div>
+                <ul>
+                    <li><b>Free</b> for the first <b>30</b> days</li>
+                    <li><b>Dedicated servers</b> for Premium users</li>
+                    <li>Request <b>multiple videos</b> at the same time</li>
+                    <li><b>Advanced algorithms</b> specifically trained for different games</li>
+                  </ul> 
+            </div>
+            <div id="subscribe-button-container">
+                <div id="subscribe-warning">
+                    <div style="font-size: 14px;"><b>30-day Free-Trial</b></div>
+                    <a href="https://pay.google.com/" target="_blank">Cancel</a> anytime
+                </div>
+                <button id="subscribe-button">Try now!</button>
+            </div>
+        </div>
+        
+        <div id="unsubscribe-container">
+            <div id="unsubscribe-warning">
+                <b style="font-size: 14px;">Premium Access</b> - 
+                <a href="https://pay.google.com/" target="_blank">Cancel</a>
+            </div>
         </div>
     </div>
 

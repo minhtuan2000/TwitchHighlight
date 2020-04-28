@@ -37,6 +37,9 @@ function sendRequest(tabId, tabUrl) {
             let responseIsBasic = response["isBasic"];
             let responseDone = response["done"];
             if (responseMessage == "OK") {
+                // Update client's status
+                if (responsePremium && isPremium === 0) upgradeAccount();
+
                 // Remove error message
                 const highlightContainerError = document.getElementById("highlight-container-error");
                 highlightContainerError.textContent = "";
