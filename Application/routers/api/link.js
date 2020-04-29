@@ -118,7 +118,7 @@ router.post('/', async (req, res) => {
 
     let message = "";
 
-    if (activated && pendingRequests < 5 && (premium || (req.body.isBasic == 1 && pendingRequests < 2))) {
+    if (activated && pendingRequests < 5 && (premium || (req.body.isBasic == 1 && pendingRequests < 1))) {
         //append request to database if it does not alrealdy exist
         appendRequest(
             clientID,
@@ -164,7 +164,7 @@ router.post('/', async (req, res) => {
             message = "Sorry, Twitch Highlights doesn't recognize your request, please try again";
             console.log("Request Error: Not activated");
             writeLog("Request Error: Not activated");
-        } else if ((!premium && pendingRequests >= 2) || (pendingRequests >= 5)) {
+        } else if ((!premium && pendingRequests >= 1) || (pendingRequests >= 5)) {
             message = "Twitch Highlights is still processing your recent requests, please wait a moment";
             console.log("Request Error: Too many requests");
             writeLog("Request Error: Too many requests");
