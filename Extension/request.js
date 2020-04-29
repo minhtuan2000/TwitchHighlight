@@ -45,7 +45,7 @@ function sendRequest(tabId, tabUrl) {
                 highlightContainerError.textContent = "";
 
                 let advice = response["advice"];
-                if (advice !== null && advice !== undefined && advice !== ""){
+                if (advice !== null && advice !== undefined){
                     // Set advice
                     const highlightContainerAdvice = document.getElementById("highlight-container-advice");
                     highlightContainerAdvice.textContent = response["advice"];

@@ -16,9 +16,9 @@ const const_tips = [
     "If you like Twitch Highlights, please rate it on the Extension Store",
     "Different videos have different numbers of highlights",
     "Different videos have different numbers of highlights",
-    "Advanced algorithms are trained to find highlights in specific game categories, try it",
+    "Advanced algorithms are trained to find highlights in specific game categories, try them",
     "Highlights in FPS games are usually shorter than MOBA games'",
-    "There are less highlights in MOBA games than in FPS games'"
+    "There are less highlights in a MOBA game than in an FPS game"
 ];
 
 const const_category_algorithms = [
