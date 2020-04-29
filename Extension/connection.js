@@ -13,7 +13,7 @@ function checkServer() {
             console.log("Server is online");
 
             // Run when server is back online
-            if (!online) chrome.tabs.query({ active: true }, process);
+            if (!online) chrome.tabs.query({ active: true, lastFocusedWindow: true }, process);
 
             online = true;
             document.getElementById("footer").style.backgroundColor = "forestgreen";
