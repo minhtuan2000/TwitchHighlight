@@ -17,10 +17,15 @@ body{
 .button{
     width:30px;
     height:30px;
+    border-radius: 5px;
     background-color: blueviolet;
     color: white;
     margin: 5px;
     padding: 1px;
+}
+
+.button:hover{
+    border-color: darkgrey;
 }
 
 #header{
@@ -57,26 +62,37 @@ body{
     vertical-align: middle;
 }
 
+.textbox{
+    border: none;
+    border-radius: 4px;
+    background-color: #00000010;
+}
+
+#report{
+    display: none; 
+    padding: 10px;
+    background-color: #6441a417;
+}
+
+#container-send-button{
+    text-align: center;
+}
+
+#send-button{
+    border-radius: 5px;
+    background-color: blueviolet;
+    color: white;
+    margin: 5px;
+    padding: 7px 12px;
+}
+
+#send-button:hover{
+    border-color: darkgrey;
+}
+
 #setting{
     padding: 0px;
     margin: 0px;
-}
-
-.choice{
-    width: 100%;
-    height: 42.5%;
-    padding-top: 10%;
-    color: white;
-    text-align: center;
-    cursor: pointer;
-}
-
-#choice-basic{
-    background-color: #6441a44f;
-}
-
-#choice-advance{
-    background-color: #6441a4b6;
 }
 
 #setting-menu{
@@ -85,6 +101,29 @@ body{
     margin: 0px;
     display: inline-block;
     vertical-align: middle;
+    background-color: #6441a417;
+}
+
+.choice{
+    width: 100%;
+    padding-top: 10%;
+    text-align: center;
+    cursor: pointer;
+}
+
+#choice-basic{
+    color: rgb(46, 46, 46);
+    border-bottom-right-radius: 8px;
+    height: 47.5%;
+    transition-duration: 0.5s;
+}
+
+#choice-advance{
+    background-color: #d8d8d8;
+    color: rgb(185, 185, 185);
+    border-top-right-radius: 8px;
+    height: 37.5%;
+    transition-duration: 0.5s;
 }
 
 #setting-basic{
@@ -94,7 +133,8 @@ body{
     height: 90px;
     padding: 5px 0px;
     margin-left: -3.5px;
-    background-color: #6441a44f;
+    background-color: #6441a417;
+    color: rgb(46, 46, 46);
 }
 
 #setting-advance{
@@ -104,19 +144,53 @@ body{
     height: 90px;
     padding: 5px 0px;
     margin-left: -3.5px;
-    background-color: #6441a4b6;
+    background-color: #6441a417;
+    color: rgb(46, 46, 46);
 }
 
 .setting-table{
-    padding-left: 30px;
     border-spacing: 15px 5px;
     vertical-align: middle;
-    font-weight: 500;
     font-size: 18s;
+}
+
+td{
+    padding: 4px 0px;
+}
+
+#textbox-n{
+    width: 59px; 
+    height: 22px; 
+    text-align: center;
+}
+
+#textbox-n2{
+    width: 59px; 
+    height: 22px; 
+    text-align: center;
+}
+
+#select-l{
+    width: 59px; 
+    height: 30px;
+}
+
+#select-title{
+    width: 126px; 
+    height: 30px; 
+    text-align: center;
+}
+
+#content{
+    width: auto;
+    height: auto;
+    margin: 0px;
+    padding: 0px;
 }
 
 #highlight-container{
     padding: 5px 30px;
+    text-align: center;
 }
 
 #autoplay-container{
@@ -131,16 +205,24 @@ body{
     padding: 5px 15px;
 }
 
+#autoplay-button:hover{
+    border-color: darkgrey;
+}
+
 #quit-button{
     display: none;
     margin: 0px;
-    background-color: rgba(255, 0, 0, 0.767);
+    background-color: blueviolet;
     color: white;
     padding: 5px 7px;
 }
 
+#quit-button:hover{
+    border-color: darkgrey;
+}
+
 #autoplay-warning{
-    color: darkorange;
+    color: rgb(46, 46, 46);
     display: none;
 }
 
@@ -158,25 +240,89 @@ img:hover{
     opacity: 100%;
 }
 
-#subscribe-container{
+#subscribe-price{
+    text-align: center; 
+    margin: 5px 70px;
+    padding: 10px;
+}
+
+#subscribe-advantage{
+    color: blueviolet;
+    font-weight: 400;
+    font-size: 13px;
+    padding-bottom: 10px;
+}
+
+#subscribe-advantage ul li{
+    margin: 12px 2px;
+}
+
+#subscribe-button-container{
+    margin: 0px;
+    padding: 0px;
     background-color: #6441a4;
 }
 
 #subscribe-button{
     display: inline-block;
-    margin: 5px;
-    background-color: gold;
-    color: lightyellow;
+    margin: 8px 15px;
+    padding: 8px 18px;
+    border-radius: 5px;
+    border-color: darkgray;
+    background-color: whitesmoke;
+    color: rgba(137, 43, 226, 0.9);
     font-weight: bold;
-    font-size: 14px;
-    padding: 7px 15px;
-    margin-left: 10px;
+    font-size: 16px;
     vertical-align: middle;
+    transition-duration: 500ms;
+}
+
+#subscribe-button:hover{
+    color: blueviolet;
+    border-color: blueviolet;
 }
 
 #subscribe-warning{
     display: inline-block;
-    width: 190px;
-    color: white;
+    width: 120px;
+    height: 40px;
+    margin-left: 30px;
+    color: whitesmoke;
     vertical-align: middle;
+    text-align: center;
+}
+
+#subscribe-warning a{
+    color: whitesmoke;
+}
+
+#unsubscribe-container{
+    background-color: #6441a4;
+    display: none;
+    vertical-align: middle;
+    text-align: center;
+}
+
+#unsubscribe-button{
+    display: inline-block;
+    margin: 8px 15px;
+    padding: 8px 12px;
+    border-radius: 2px;
+    border-color: rgba(0, 100, 0, 0.7);
+    background-color: whitesmoke;
+    color: rgba(0, 100, 0, 0.7);
+    font-weight: bold;
+    font-size: 14px;
+    vertical-align: middle;
+    transition-duration: 500ms;
+}
+
+#unsubscribe-warning{
+    padding: 5px;
+    display: inline-block;
+    color: whitesmoke;
+}
+
+#unsubscribe-warning a{
+    color: whitesmoke;
 }

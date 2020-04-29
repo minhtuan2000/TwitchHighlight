@@ -2,6 +2,7 @@
 *.done
 *.json
 *.txt
+*.token
 *.zip
 *.tar.xz
 node_modules

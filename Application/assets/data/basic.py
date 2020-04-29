@@ -1,6 +1,4 @@
 import numpy as np
-from sklearn import cluster
-from sklearn import metrics
 import sys
 
 def readfile(filename):
