@@ -128,8 +128,7 @@ const isPremium = async (clientID) => {
             ClientID: clientID
         }).toArray();
 
-        console.log(typeof res[0].PremiumExpireDate);
-        //checkExpiredAccount(clientID, res[0].PremiumExpireDate);
+        checkExpiredAccount(clientID, res[0].PremiumExpireDate);
 
         return [res[0].IsPremium, res[0].IsActivated];
 
