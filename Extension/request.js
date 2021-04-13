@@ -3,7 +3,7 @@ function sendRequest(tabId, tabUrl) {
     ga('send', 'event', "Request", "Send", isBasic.toString());
     //Send a POST request to the server to analyse the video
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://highlights.now.sh/api", true);
+    xhr.open("POST", "https://highlights.vercel.app/api", true);
     xhr.setRequestHeader('Content-type', 'application/json');
     //console.log(JSON.stringify({url: tabUrl}));
     xhr.send(JSON.stringify({
@@ -125,7 +125,7 @@ function sendReport(email, url, message) {
     ga('send', 'event', "Report", "Send");
     //Send a POST request with the report message
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://highlights.now.sh/api", true);
+    xhr.open("POST", "https://highlights.vercel.app/api", true);
     xhr.setRequestHeader('Content-type', 'application/json');
 
     xhr.send(JSON.stringify({
@@ -141,7 +141,7 @@ function sendPurchaseID(jwt, cartId, orderId) {
     ga('send', 'event', "Purchase", "Send");
     //Send a POST request with the purchaseID
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://highlights.now.sh/api", true);
+    xhr.open("POST", "https://highlights.vercel.app/api", true);
     xhr.setRequestHeader('Content-type', 'application/json');
 
     xhr.send(JSON.stringify({
@@ -157,7 +157,7 @@ function sendUpdatedStatus(license) {
     ga('send', 'event', "Status", "Send");
     //Send a POST request with the client status
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://highlights.now.sh/api", true);
+    xhr.open("POST", "https://highlights.vercel.app/api", true);
     xhr.setRequestHeader('Content-type', 'application/json');
 
     xhr.send(JSON.stringify({

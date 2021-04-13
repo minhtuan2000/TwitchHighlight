@@ -1,10 +1,10 @@
 {
     "name": "Twitch Highlights",
-    "version": "0.3.0.0",
+    "version": "0.3.0.1",
     "description": "Automatically finds highlights from Twitch VODs!",
     "permissions": [
         "tabs",
-        "https://highlights.now.sh/api"
+        "https://highlights.vercel.app/api"
     ],
     "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
     "browser_action": {

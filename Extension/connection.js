@@ -3,7 +3,7 @@
 function checkServer() {
     //Send a POST request to the server to check the connection
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://highlights.now.sh/api", true);
+    xhr.open("POST", "https://highlights.vercel.app/api", true);
     xhr.setRequestHeader('Content-type', 'application/json');
     xhr.send(JSON.stringify({ type: "CheckConnection" }));
     xhr.onreadystatechange = function () {
