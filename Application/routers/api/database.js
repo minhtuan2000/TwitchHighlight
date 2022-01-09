@@ -117,7 +117,9 @@ const checkExpiredAccount = async (clientID, expireDate) => {
         console.log("Client " + clientID + " has expired");
         writeLog("Client " + clientID + " has expired");
         downgradeAccount(clientID);
+        return true;
     }
+    return false;
 }
 
 const isPremium = async (clientID) => {
@@ -128,7 +130,9 @@ const isPremium = async (clientID) => {
             ClientID: clientID
         }).toArray();
 
-        return [res[0].IsPremium, res[0].IsActivated];
+        let expired = await checkExpiredAccount(clientID, res[0].PremiumExpireDate);
+
+        return [res[0].IsPremium && (!expired), res[0].IsActivated];
 
     } catch (err) {
         console.log("While checking premium: ");

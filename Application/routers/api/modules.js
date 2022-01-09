@@ -233,9 +233,9 @@ const advancedFinder = async (id, number, length, offset, category) => {
         }
     }
 
-    console.log(category);
-    console.log(categoryName);
-    console.log(constants.const_category_algorithms[category]);
+    // console.log(category);
+    // console.log(categoryName);
+    // console.log(constants.const_category_algorithms[category]);
 
     return new Promise((resolve, reject) => {
         try {

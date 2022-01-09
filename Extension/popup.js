@@ -134,4 +134,4 @@ function process(tabs) {
     }
 }
 
-chrome.tabs.query({ active: true }, process);
+chrome.tabs.query({ active: true, lastFocusedWindow: true }, process);

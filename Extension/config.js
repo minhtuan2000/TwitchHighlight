@@ -315,4 +315,4 @@ function config(tabs) {
     }
 }
 
-chrome.tabs.query({ active: true }, config);
+chrome.tabs.query({ active: true, lastFocusedWindow: true }, config);
