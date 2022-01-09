@@ -357,13 +357,7 @@ const appendPurchase = async (clientID, jwt, cartID, orderID) => {
 }
 
 const updateIPAddress = async () => {
-    let options = {
-        host: 'ipv4bot.whatismyipaddress.com',
-        port: 80,
-        path: '/'
-    };
-
-    http.get(options, async (res) => {
+    http.get('https://api.ipify.org?format=json', async (res) => {
         //console.log("status: " + res.statusCode);
 
         res.on("data", async (chunk) => {
